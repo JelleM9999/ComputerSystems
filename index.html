@@ -7,127 +7,187 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#F2F4EF;
-  --ink:#1B2430;
-  --ink-soft:#4A5568;
-  --term-bg:#14201C;
-  --term-line:#22332D;
-  --term-text:#CFE8D8;
-  --green:#2F6B4F;
-  --green-bright:#5FBF8F;
-  --amber:#C77D2E;
-  --amber-soft:#F4E3CC;
-  --green-soft:#DCE9DF;
+  --paper:#F3F5EF;
+  --paper-deep:#E9EDE4;
+  --ink:#1C2822;
+  --ink-soft:#5B6B62;
+  --term-bg:#152420;
+  --term-bg2:#1B2E28;
+  --term-line:#28403736;
+  --term-line-solid:#2A423A;
+  --term-text:#D6EBDE;
+  --term-dim:#8FB4A1;
+  --green:#2E7355;
+  --green-deep:#1F5540;
+  --green-bright:#63C695;
+  --amber:#C98A3B;
+  --amber-soft:#F7EAD6;
+  --green-soft:#DFEBE1;
   --card:#FFFFFF;
-  --border:#D5DAD2;
+  --border:#DCE2D8;
+  --shadow:0 6px 24px -8px rgba(21,36,32,.14);
+  --shadow-sm:0 2px 10px -2px rgba(21,36,32,.10);
+  --r:16px;
   --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
   --sans:'Public Sans',system-ui,-apple-system,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{-webkit-text-size-adjust:100%}
-body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;padding-bottom:80px}
-.wrap{max-width:880px;margin:0 auto;padding:0 16px}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{background:linear-gradient(180deg,var(--paper) 0%,var(--paper-deep) 100%);background-attachment:fixed;color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;padding-bottom:90px;min-height:100vh}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px}
+::selection{background:var(--green-bright);color:var(--term-bg)}
 
-/* ── header as shell prompt ───────────────────────── */
-header{background:var(--term-bg);color:var(--term-text);padding:22px 0 18px;border-bottom:4px solid var(--green)}
-header .wrap{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px;justify-content:space-between}
-.prompt{font-family:var(--mono);font-size:15px;color:#7FA893}
+/* ── header ───────────────────────────────────────── */
+header{background:linear-gradient(135deg,var(--term-bg) 0%,var(--term-bg2) 55%,#1E3A2E 100%);color:var(--term-text);padding:30px 0 26px;position:relative;overflow:hidden}
+header::after{content:"";position:absolute;inset:auto 0 0 0;height:4px;background:linear-gradient(90deg,var(--green) 0%,var(--green-bright) 50%,var(--green) 100%)}
+header::before{content:"01001100 01100101 01100101 01110010";position:absolute;top:10px;right:-8px;font-family:var(--mono);font-size:11px;letter-spacing:3px;color:rgba(99,198,149,.10);white-space:nowrap;pointer-events:none}
+header .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px;justify-content:space-between;position:relative}
+.prompt{font-family:var(--mono);font-size:14px;color:var(--term-dim);opacity:.9}
 .prompt b{color:var(--green-bright);font-weight:600}
 .prompt .cmd{color:var(--term-text)}
-h1{font-family:var(--mono);font-size:22px;font-weight:700;color:#fff;letter-spacing:.5px;width:100%}
-h1 small{font-weight:400;font-size:13px;color:#7FA893;display:block;letter-spacing:0}
+.prompt .cmd::after{content:"▌";color:var(--green-bright);animation:blink 1.2s steps(1) infinite;margin-left:2px}
+@keyframes blink{50%{opacity:0}}
+h1{font-family:var(--mono);font-size:24px;font-weight:700;color:#fff;letter-spacing:1px;width:100%;margin-bottom:2px}
+h1 small{font-weight:400;font-size:13px;color:var(--term-dim);display:block;letter-spacing:.3px;margin-top:6px;text-transform:none}
 
-/* streak register — score als 8-bit binair getal */
-.register{display:flex;align-items:center;gap:10px;font-family:var(--mono)}
-.register .lbl{font-size:11px;color:#7FA893;text-transform:uppercase;letter-spacing:1px}
-.bits{display:flex;gap:4px}
-.bit{width:18px;height:26px;border-radius:3px;background:#0D1512;border:1px solid var(--term-line);display:flex;align-items:center;justify-content:center;font-size:12px;color:#3D554B;transition:all .25s}
-.bit.on{background:var(--green);color:#EAF6EE;border-color:var(--green-bright);box-shadow:0 0 8px rgba(95,191,143,.5)}
-.register .dec{font-size:14px;color:var(--green-bright);min-width:60px}
+/* streak register */
+.register{display:flex;align-items:center;gap:12px;font-family:var(--mono);background:rgba(0,0,0,.28);border:1px solid var(--term-line-solid);border-radius:14px;padding:10px 16px;backdrop-filter:blur(4px)}
+.register .lbl{font-size:10px;color:var(--term-dim);text-transform:uppercase;letter-spacing:2px}
+.bits{display:flex;gap:5px}
+.bit{width:19px;height:28px;border-radius:6px;background:#0C1613;border:1px solid var(--term-line-solid);display:flex;align-items:center;justify-content:center;font-size:12px;color:#3E5A4E;transition:all .3s cubic-bezier(.2,.9,.3,1.4)}
+.bit.on{background:linear-gradient(180deg,var(--green-bright),var(--green));color:#F0FBF4;border-color:var(--green-bright);box-shadow:0 0 12px rgba(99,198,149,.55);transform:translateY(-2px)}
+.register .dec{font-size:14px;color:var(--green-bright);min-width:56px;font-weight:600}
 
 /* ── tabs ─────────────────────────────────────────── */
-nav{position:sticky;top:0;z-index:10;background:var(--paper);border-bottom:1px solid var(--border);padding:10px 0}
-nav .wrap{display:flex;gap:6px;flex-wrap:wrap}
-.tab{font-family:var(--mono);font-size:13px;font-weight:500;padding:7px 12px;border:1px solid var(--border);border-radius:6px;background:var(--card);color:var(--ink-soft);cursor:pointer;transition:all .15s}
-.tab:hover{border-color:var(--green)}
-.tab.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+nav{position:sticky;top:0;z-index:10;background:rgba(243,245,239,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:12px 0}
+nav .wrap{display:flex;gap:8px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+nav .wrap::-webkit-scrollbar{display:none}
+.tab{font-family:var(--mono);font-size:13px;font-weight:500;padding:9px 15px;border:1px solid var(--border);border-radius:999px;background:var(--card);color:var(--ink-soft);cursor:pointer;transition:all .18s;white-space:nowrap;flex-shrink:0;box-shadow:0 1px 3px rgba(21,36,32,.05)}
+.tab:hover{border-color:var(--green);color:var(--green-deep);transform:translateY(-1px)}
+.tab.active{background:linear-gradient(135deg,var(--green-deep),var(--green));color:#fff;border-color:var(--green-deep);box-shadow:0 3px 10px -2px rgba(31,85,64,.45)}
 .tab:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--green);outline-offset:2px}
 
-main{padding-top:22px}
+main{padding-top:28px}
 section{display:none}
-section.active{display:block;animation:fade .25s}
-@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){section.active{animation:none}.bit{transition:none}}
+section.active{display:block;animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto}
+}
 
-.intro{font-size:14px;color:var(--ink-soft);margin-bottom:14px;max-width:640px}
+.intro{font-size:14.5px;color:var(--ink-soft);margin-bottom:18px;max-width:660px}
 
 /* ── exercise card: dark terminal panel ───────────── */
-.exercise{background:var(--term-bg);border-radius:10px;overflow:hidden;box-shadow:0 3px 14px rgba(20,32,28,.18);margin-bottom:18px}
-.exercise .bar{display:flex;align-items:center;gap:8px;padding:9px 14px;background:var(--term-line);font-family:var(--mono);font-size:12px;color:#9DBBAB}
-.dot{width:10px;height:10px;border-radius:50%}
-.dot.r{background:#B95C50}.dot.y{background:#C7A24E}.dot.g{background:#5A9C78}
-.exercise .body{padding:18px 20px 20px;color:var(--term-text);font-family:var(--mono);font-size:15px}
-.q{margin-bottom:14px;line-height:1.7}
+.exercise{background:linear-gradient(180deg,var(--term-bg2),var(--term-bg) 90px);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);margin-bottom:22px;border:1px solid var(--term-line-solid)}
+.exercise .bar{display:flex;align-items:center;gap:8px;padding:11px 18px;background:rgba(0,0,0,.30);font-family:var(--mono);font-size:12px;color:var(--term-dim);letter-spacing:.5px;border-bottom:1px solid var(--term-line-solid)}
+.dot{width:11px;height:11px;border-radius:50%;box-shadow:inset 0 -1px 2px rgba(0,0,0,.3)}
+.dot.r{background:#C9645A}.dot.y{background:#D3AC57}.dot.g{background:#63A87F}
+.exercise .body{padding:22px 24px 24px;color:var(--term-text);font-family:var(--mono);font-size:15px}
+.q{margin-bottom:16px;line-height:1.75}
 .q .hl{color:var(--green-bright);font-weight:600}
-.q .dim{color:#7FA893;font-size:13px}
-.hexrow{display:inline-flex;gap:8px;background:#0D1512;padding:6px 12px;border-radius:6px;border:1px solid var(--term-line);font-size:17px;letter-spacing:1px;color:#E8D48B;margin:4px 0}
+.q .dim{color:var(--term-dim);font-size:13px}
+.hexrow{display:inline-flex;gap:10px;background:#0C1613;padding:9px 16px;border-radius:10px;border:1px solid var(--term-line-solid);font-size:18px;letter-spacing:1px;color:#EBD98F;margin:6px 0;box-shadow:inset 0 2px 6px rgba(0,0,0,.35)}
 
-table.sched{border-collapse:collapse;margin:8px 0 14px;font-size:14px;width:100%}
-table.sched th,table.sched td{border:1px solid var(--term-line);padding:6px 10px;text-align:center}
-table.sched th{background:#0D1512;color:#9DBBAB;font-weight:600}
+table.sched{border-collapse:separate;border-spacing:0;margin:10px 0 16px;font-size:14px;width:100%;border:1px solid var(--term-line-solid);border-radius:10px;overflow:hidden}
+table.sched th,table.sched td{border-bottom:1px solid var(--term-line-solid);border-right:1px solid var(--term-line-solid);padding:8px 10px;text-align:center}
+table.sched th:last-child,table.sched td:last-child{border-right:none}
+table.sched tr:last-child td{border-bottom:none}
+table.sched th{background:rgba(0,0,0,.30);color:var(--term-dim);font-weight:600;font-size:12.5px;letter-spacing:.5px}
+table.sched tr:nth-child(even) td{background:rgba(255,255,255,.02)}
 table.sched input{width:64px}
 
-.answers{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:6px}
-.answers label{font-size:13px;color:#9DBBAB}
-input[type=text],select{font-family:var(--mono);font-size:15px;padding:8px 10px;background:#0D1512;border:1px solid #3D554B;border-radius:6px;color:var(--term-text);width:150px}
-input[type=text]::placeholder{color:#4A6357}
+.answers{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:8px}
+.answers label{font-size:13px;color:var(--term-dim)}
+input[type=text],select{font-family:var(--mono);font-size:15px;padding:10px 12px;background:#0C1613;border:1px solid #3E5A4E;border-radius:10px;color:var(--term-text);width:160px;transition:border-color .15s,box-shadow .15s}
+input[type=text]:focus{border-color:var(--green-bright);box-shadow:0 0 0 3px rgba(99,198,149,.18)}
+input[type=text]::placeholder{color:#4C6759}
 select{width:auto}
 
-.btnrow{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
-button{font-family:var(--mono);font-size:14px;font-weight:600;padding:9px 16px;border-radius:6px;border:none;cursor:pointer;transition:transform .1s}
+.btnrow{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+button{font-family:var(--mono);font-size:14px;font-weight:600;padding:10px 18px;border-radius:10px;border:none;cursor:pointer;transition:transform .12s,box-shadow .15s,background .15s}
 button:active{transform:scale(.97)}
-.btn-check{background:var(--green);color:#fff}
-.btn-check:hover{background:#37805E}
-.btn-new{background:transparent;color:#9DBBAB;border:1px solid #3D554B}
-.btn-new:hover{color:var(--term-text);border-color:#9DBBAB}
-.btn-show{background:transparent;color:#C7A24E;border:1px solid #6B5A2E}
-.btn-show:hover{color:#E8D48B}
+.btn-check{background:linear-gradient(135deg,var(--green-bright) -40%,var(--green) 60%);color:#fff;box-shadow:0 3px 10px -2px rgba(46,115,85,.5)}
+.btn-check:hover{transform:translateY(-1px);box-shadow:0 5px 14px -2px rgba(46,115,85,.6)}
+.btn-new{background:transparent;color:var(--term-dim);border:1px solid #3E5A4E}
+.btn-new:hover{color:var(--term-text);border-color:var(--term-dim);transform:translateY(-1px)}
+.btn-show{background:transparent;color:#D3AC57;border:1px solid #6E5A30}
+.btn-show:hover{color:#EBD98F;transform:translateY(-1px)}
 
-.feedback{margin-top:14px;padding:12px 14px;border-radius:6px;font-size:14px;display:none;line-height:1.6}
-.feedback.ok{display:block;background:rgba(95,191,143,.12);border:1px solid var(--green);color:#B8E4C9}
-.feedback.nok{display:block;background:rgba(199,125,46,.12);border:1px solid var(--amber);color:#EFD3A8}
-.feedback code{color:#E8D48B}
+.feedback{margin-top:16px;padding:14px 16px;border-radius:10px;font-size:14px;display:none;line-height:1.65}
+.feedback.ok{display:block;background:rgba(99,198,149,.12);border:1px solid var(--green);border-left:4px solid var(--green-bright);color:#BEE8CE;animation:fade .25s}
+.feedback.nok{display:block;background:rgba(201,138,59,.10);border:1px solid var(--amber);border-left:4px solid var(--amber);color:#F1D8AC;animation:fade .25s}
+.feedback code{color:#EBD98F;background:rgba(0,0,0,.25);padding:1px 6px;border-radius:5px}
 
 /* ── light option row ─────────────────────────────── */
-.opts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
-.opts button{background:var(--card);border:1px solid var(--border);color:var(--ink-soft);font-weight:500;font-size:13px;padding:6px 12px}
-.opts button.sel{background:var(--green);border-color:var(--green);color:#fff}
+.opts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.opts button{background:var(--card);border:1px solid var(--border);color:var(--ink-soft);font-weight:500;font-size:13px;padding:8px 14px;border-radius:999px;box-shadow:0 1px 3px rgba(21,36,32,.05)}
+.opts button:hover{border-color:var(--green);color:var(--green-deep);transform:translateY(-1px)}
+.opts button.sel{background:linear-gradient(135deg,var(--green-deep),var(--green));border-color:var(--green-deep);color:#fff;box-shadow:0 3px 10px -2px rgba(31,85,64,.4)}
 
 /* ── flashcards ───────────────────────────────────── */
-.fc-meta{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:13px;color:var(--ink-soft);margin-bottom:10px;flex-wrap:wrap;gap:8px}
-.fc-card{background:var(--card);border:1px solid var(--border);border-left:6px solid var(--green);border-radius:10px;padding:26px 26px 22px;min-height:190px;box-shadow:0 2px 10px rgba(20,32,28,.08)}
-.fc-cat{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--green);margin-bottom:10px}
-.fc-q{font-size:19px;font-weight:600;line-height:1.45}
-.fc-a{margin-top:16px;padding-top:16px;border-top:1px dashed var(--border);color:var(--ink-soft);display:none;font-size:15px}
+.fc-meta{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:13px;color:var(--ink-soft);margin-bottom:12px;flex-wrap:wrap;gap:8px}
+.fc-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:30px 30px 26px;min-height:200px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.fc-card::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,var(--green-deep),var(--green-bright))}
+.fc-cat{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--green);margin-bottom:12px;display:inline-block;background:var(--green-soft);padding:4px 12px;border-radius:999px}
+.fc-q{font-size:20px;font-weight:600;line-height:1.45;letter-spacing:-.2px}
+.fc-a{margin-top:18px;padding-top:18px;border-top:1px dashed var(--border);color:#3D4A43;display:none;font-size:15px;line-height:1.7;animation:fade .25s}
 .fc-a.show{display:block}
-.fc-a b{color:var(--ink)}
-.fc-btns{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
-.fc-btns .btn-flip{background:var(--ink);color:#fff}
-.fc-btns .btn-good{background:var(--green);color:#fff;display:none}
-.fc-btns .btn-again{background:var(--amber);color:#fff;display:none}
-.fc-done{background:var(--green-soft);border:1px solid var(--green);border-radius:10px;padding:24px;text-align:center;font-weight:600;display:none}
+.fc-a b{color:var(--green-deep)}
+.fc-btns{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+.fc-btns .btn-flip{background:var(--ink);color:#fff;box-shadow:var(--shadow-sm)}
+.fc-btns .btn-flip:hover{transform:translateY(-1px)}
+.fc-btns .btn-good{background:linear-gradient(135deg,var(--green-bright) -40%,var(--green) 60%);color:#fff;display:none;box-shadow:0 3px 10px -2px rgba(46,115,85,.5)}
+.fc-btns .btn-again{background:linear-gradient(135deg,#D9A45C -40%,var(--amber) 60%);color:#fff;display:none;box-shadow:0 3px 10px -2px rgba(201,138,59,.5)}
+.fc-btns .btn-good:hover,.fc-btns .btn-again:hover{transform:translateY(-1px)}
+.fc-done{background:var(--green-soft);border:1px solid var(--green);border-radius:var(--r);padding:28px;text-align:center;font-weight:600;display:none;color:var(--green-deep);box-shadow:var(--shadow-sm)}
 
-.mc{display:grid;gap:8px;margin:10px 0 4px}
-.mc button{text-align:left;background:#0D1512;border:1px solid #3D554B;color:var(--term-text);font-weight:400;padding:10px 14px}
-.mc button:hover{border-color:var(--green-bright)}
-.mc button.right{background:rgba(95,191,143,.15);border-color:var(--green-bright);color:#B8E4C9}
-.mc button.wrong{background:rgba(199,125,46,.15);border-color:var(--amber);color:#EFD3A8}
+.mc{display:grid;gap:9px;margin:12px 0 4px}
+.mc button{text-align:left;background:#0C1613;border:1px solid #3E5A4E;color:var(--term-text);font-weight:400;padding:12px 16px;border-radius:10px;line-height:1.5;transition:all .15s}
+.mc button:hover{border-color:var(--green-bright);background:#10201A;transform:translateX(3px)}
+.mc button.right{background:rgba(99,198,149,.15);border-color:var(--green-bright);color:#BEE8CE;box-shadow:0 0 0 1px var(--green-bright)}
+.mc button.wrong{background:rgba(201,138,59,.13);border-color:var(--amber);color:#F1D8AC}
 
-footer{margin-top:40px;text-align:center;font-family:var(--mono);font-size:12px;color:var(--ink-soft)}
-@media(max-width:560px){
-  .exercise .body{padding:14px}
-  input[type=text]{width:120px}
-  h1{font-size:18px}
+/* ── theorie ──────────────────────────────────────── */
+.theory{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:30px 34px 32px;box-shadow:var(--shadow);display:none}
+.theory.active{display:block;animation:fade .3s ease}
+.theory h3{font-family:var(--mono);font-size:20px;color:var(--green-deep);margin:0 0 6px;letter-spacing:.5px}
+.theory .lo{font-size:13.5px;color:var(--ink-soft);font-style:italic;margin-bottom:18px;padding:10px 14px;background:var(--paper);border-radius:10px;border-left:3px solid var(--green)}
+.theory h4{font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:1.5px;color:var(--green);margin:26px 0 10px;padding-top:18px;border-top:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.theory h4::before{content:"§";color:var(--green-bright);font-size:15px}
+.theory h4:first-of-type{border-top:none;padding-top:0;margin-top:16px}
+.theory p{margin:0 0 12px;font-size:15px;line-height:1.7;max-width:72ch}
+.theory ul{margin:0 0 14px 22px;font-size:15px;line-height:1.7}
+.theory li{margin-bottom:6px;max-width:70ch}
+.theory code{font-family:var(--mono);font-size:13.5px;background:var(--paper);border:1px solid var(--border);border-radius:6px;padding:2px 7px;color:var(--green-deep);white-space:nowrap}
+.theory table{border-collapse:separate;border-spacing:0;margin:12px 0 16px;font-size:14px;width:100%;border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:var(--shadow-sm)}
+.theory th,.theory td{border-bottom:1px solid var(--border);border-right:1px solid var(--border);padding:8px 12px;text-align:left;vertical-align:top}
+.theory th:last-child,.theory td:last-child{border-right:none}
+.theory tr:last-child td{border-bottom:none}
+.theory th{background:linear-gradient(180deg,var(--green-soft),#D3E3D6);font-family:var(--mono);font-size:12px;letter-spacing:.5px;color:var(--green-deep)}
+.theory tr:nth-child(even) td{background:#F8FAF6}
+.theory td.c,.theory th.c{text-align:center}
+.callout{border-left:4px solid var(--amber);background:var(--amber-soft);border-radius:0 12px 12px 0;padding:14px 18px;font-size:14px;margin:14px 0;line-height:1.65;box-shadow:var(--shadow-sm)}
+.callout.g{border-left-color:var(--green);background:var(--green-soft)}
+.callout b:first-child{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:1.5px}
+.callout.g b:first-child{color:var(--green-deep)}
+.callout:not(.g) b:first-child{color:#96601F}
+.oefenlink{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-family:var(--mono);font-size:13px;font-weight:600;color:var(--green-deep);cursor:pointer;text-decoration:none;background:var(--green-soft);border:1px solid var(--green);padding:9px 16px;border-radius:999px;transition:all .15s}
+.oefenlink:hover{background:var(--green);color:#fff;transform:translateY(-1px);box-shadow:0 3px 10px -2px rgba(46,115,85,.45)}
+.check{display:flex;gap:12px;align-items:flex-start;padding:11px 14px;border:1px solid var(--border);border-radius:12px;margin-bottom:9px;cursor:pointer;background:#FDFDFB;transition:all .18s;font-size:14.5px}
+.check:hover{border-color:var(--green);transform:translateX(3px)}
+.check input{margin-top:3px;accent-color:var(--green);width:17px;height:17px;flex-shrink:0;cursor:pointer}
+.check.done{background:var(--green-soft);border-color:var(--green)}
+.check.done span{text-decoration:line-through;color:var(--ink-soft)}
+
+footer{margin-top:48px;text-align:center;font-family:var(--mono);font-size:12px;color:var(--ink-soft);opacity:.8}
+@media(max-width:600px){
+  .exercise .body{padding:16px}
+  .theory{padding:22px 18px 24px}
+  input[type=text]{width:130px}
+  h1{font-size:19px}
+  .fc-q{font-size:17px}
+  .register{padding:8px 12px}
+  header::before{display:none}
 }
 </style>
 </head>
@@ -148,6 +208,253 @@ footer{margin-top:40px;text-align:center;font-family:var(--mono);font-size:12px;
 <nav><div class="wrap" id="tabs"></div></nav>
 
 <main class="wrap">
+
+<!-- ═══════════ THEORIE ═══════════ -->
+<section id="sec-theorie">
+  <p class="intro">De volledige leerstof, per hoofdstuk samengevat volgens de leerdoelstellingen. Lees een hoofdstuk en spring daarna meteen naar de bijhorende oefen-tab.</p>
+  <div class="opts" id="thOpts"></div>
+
+  <!-- ── 0. Examen & plan ── -->
+  <div class="theory" id="th-plan">
+    <h3>Examen &amp; studieplan</h3>
+    <div class="lo">Ken je examen — dat bepaalt hoe je studeert.</div>
+    <h4>Hoe word je beoordeeld?</h4>
+    <ul>
+      <li><b>Schriftelijk + mondeling: 18/20.</b> Open boek (cursusmateriaal + eigen notities), op je eigen computer, open én gesloten vragen. <b>Geen voorbereidingstijd</b> bij het mondeling.</li>
+      <li><b>Ontwerp/product: 2/20.</b> Je labo-video (Dual Boot). <b>Uploaden uiterlijk de dag vóór het schriftelijk examen.</b></li>
+      <li>Geen GenAI tijdens de evaluatiemomenten.</li>
+    </ul>
+    <div class="callout g"><b>Strategie</b><br>Open boek = niets memoriseren, wél: (1) rekenvaardigheden automatiseren, (2) alles praktisch zelf gedaan hebben in je VM, (3) hardop kunnen uitleggen. Maak één persoonlijke samenvatting van 5–10 pagina's — het máken ervan is je studeren.</div>
+    <h4>Fase 1 — Doen (±40% van je tijd)</h4>
+    <ul>
+      <li>VM-omgeving op orde; <b>labo 1 + video-opnames vóór labo 2</b> (labo 2 vereist dat je snapshots verwijdert!). Dan labo 2, video afwerken en uploaden — 2 gegarandeerde punten.</li>
+      <li>Alle Linux-oefeningen (F, P, S, C) zelf in je VM; noteer je oplossingen.</li>
+      <li>GPT-oefening met <code>dd</code> en <code>hexyl</code> uitvoeren; <code>/proc</code> en <code>strace</code> verkennen; een proces killen.</li>
+    </ul>
+    <h4>Fase 2 — Rekenen (±35%)</h4>
+    <p>Dagelijkse drill van 15–20 min met de oefen-tabs hierboven: 4 conversies, 1 scheduling-opgave, 1 elektriciteitsvraagstuk, 2 chmod-conversies, 1 little-endian- en 1 RAID/XOR-oefening. Afwisselen werkt beter dan blokken per onderwerp.</p>
+    <h4>Fase 3 — Uitleggen (±25%)</h4>
+    <p>Flashcards-tab, <b>hardop</b>, 1–2 minuten per vraag. Neem jezelf op en luister terug. Verbind topics: octaal ↔ chmod, binair ↔ GPT ↔ little endian, interrupts ↔ context switch ↔ RR, partities ↔ dual boot ↔ GRUB.</p>
+    <h4>Checklist vóór het examen</h4>
+    <div id="checklist"></div>
+    <div class="callout"><b>Nog te verzamelen</b><br>De syllabus over opslag/RAID/filesystems, systemd services en encryptie zit niet bij je bestanden — haal die van Toledo en controleer het opslag-hoofdstuk hier tegen wat je docent precies verwacht.</div>
+  </div>
+
+  <!-- ── 1. Hardware ── -->
+  <div class="theory" id="th-hw">
+    <h3>1 · Hardware</h3>
+    <div class="lo">De componenten benoemen, installeren en vervangen; de technische werking kennen; repairability en energieverbruik inschatten.</div>
+    <h4>Moederbord</h4>
+    <p>Het centrale circuitbord dat alles verbindt. Ken de aansluitingen: <b>CPU-socket</b>, <b>RAM-slots</b>, <b>SATA-poorten</b> (opslag), <b>PCI Express-uitbreidingsslots</b> (grafische kaart, extra netwerk-/USB-/SATA-kaarten) en aansluitingen voor externe apparatuur. Bij laptops is veel vast gesoldeerd → slechtere repairability dan een desktop met losse componenten.</p>
+    <h4>Processor (CPU)</h4>
+    <p>Het "brein": voert instructies uit (rekenen, logica, besturing, I/O) via <b>miljarden transistoren</b> van enkele nanometers. Vrijwel alle verbruikte energie wordt <b>warmte</b> → heatspreader bovenop; elke CPU heeft een maximum operating temperature. Het driehoekje op de hoek geeft de oriëntatie in de socket aan.</p>
+    <p><b>Cores vs. logical processors:</b> meerdere kernen rekenen tegelijk. Door <b>SMT</b> (simultaneous multithreading, Intel: hyper-threading) ziet het OS méér logische processoren dan er fysieke cores zijn — bv. 1 socket, 14 cores, 20 logical processors in Task Manager.</p>
+    <h4>Geheugen (RAM)</h4>
+    <p>Tijdelijk werkgeheugen voor wat de CPU snel nodig heeft. <b>Vluchtig:</b> leeg bij uitschakelen. "Random access" = alle data even snel bereikbaar, waar de plaats op een draaiende schijf wél uitmaakt.</p>
+    <h4>Opslag</h4>
+    <table><tr><th></th><th>HDD</th><th>SSD</th></tr>
+    <tr><td><b>Techniek</b></td><td>magnetische schijven</td><td>flashgeheugen</td></tr>
+    <tr><td><b>Sterkte</b></td><td>goedkoper per TB → grote capaciteiten</td><td>sneller, minder kwetsbaar → standaardkeuze</td></tr></table>
+    <h4>GPU, PSU en koeling</h4>
+    <ul>
+      <li><b>GPU:</b> verwerkt grafische data, ontlast de CPU. <b>Geïntegreerd</b> = in de CPU, deelt systeemgeheugen (kantoorwerk); <b>dedicated</b> = eigen kaart met eigen geheugen (gamen, video, 3D).</li>
+      <li><b>PSU (voeding):</b> zet AC om in DC en geeft elk onderdeel de juiste spanning — zelfde principe als een laptopadapter (zie hoofdstuk Elektriciteit).</li>
+      <li><b>Koeling:</b> verbruikte stroom wordt warmte; zonder afvoer raken componenten beschadigd.</li>
+      <li><b>Overige:</b> invoer- (toetsenbord, muis, scanner) en uitvoerapparaten (monitor, printer), netwerkkaart (meestal ingebouwd op het moederbord).</li>
+    </ul>
+    <button class="oefenlink" onclick="goTab('sec-hw')">→ oefen dit in de Hardware-quiz</button>
+  </div>
+
+  <!-- ── 2. Elektriciteit ── -->
+  <div class="theory" id="th-elek">
+    <h3>2 · Elektriciteit</h3>
+    <div class="lo">De essentie van elektriciteit begrijpen; basisberekeningen maken; zekering, differentieel en aarding kunnen uitleggen; energieverbruik inschatten.</div>
+    <h4>Drie grootheden + wateranalogie</h4>
+    <table><tr><th>Grootheid</th><th>Symbool</th><th>Eenheid</th><th>Wateranalogie</th></tr>
+    <tr><td>Spanning</td><td class="c">U</td><td class="c">volt (V)</td><td>niveauverschil tussen twee vaten (druk)</td></tr>
+    <tr><td>Stroomsterkte</td><td class="c">I</td><td class="c">ampère (A)</td><td>hoeveel water er door de buis stroomt</td></tr>
+    <tr><td>Weerstand</td><td class="c">R</td><td class="c">ohm (Ω)</td><td>hoe smal de buis is</td></tr></table>
+    <p>Stroom stellen we voor van + naar − van de batterij (de elektronen zelf bewegen omgekeerd, want negatief geladen).</p>
+    <h4>Formules</h4>
+    <ul>
+      <li><b>Wet van Ohm:</b> <code>U = I × R</code>, dus <code>I = U/R</code> en <code>R = U/I</code></li>
+      <li><b>Vermogen:</b> <code>P = U × I</code> (watt) — bv. adapter: 18,5 V × 3,5 A ≈ 65 W. Spanning is een constante, stroomsterkte/vermogen een <i>maximum</i>.</li>
+      <li><b>Verbruik:</b> <code>energie = P × t</code>, in kWh (kW × uren). LED-lamp van 6 W, 1 uur = 0,006 kWh.</li>
+    </ul>
+    <div class="callout g"><b>Klassieker</b><br>Current limiting resistor: batterij 3 V, LED neemt 2 V → rest (1 V) valt over de weerstand. Max 20 mA gewenst → R = 1 V / 0,02 A = 50 Ω.</div>
+    <h4>AC / DC</h4>
+    <p>Het Europese net levert <b>230 V wisselstroom (AC), 50 Hz</b>: de spanning tussen fasedraad en nuldraad wisselt 50× per seconde van teken. Elektronica werkt op <b>gelijkstroom (DC)</b>. De voeding/adapter doet twee dingen: de <b>transformator</b> verlaagt de spanning, en elektronische componenten <b>richten de wisselstroom gelijk</b>.</p>
+    <h4>Veiligheid (AREI)</h4>
+    <p>Het AREI reglementeert elektrische installaties in België: kabeltypes, aantal stopcontacten/lichtpunten per kring, zekeringen, differentieel, aarding. Draadkleuren: <b>bruin</b> = fase, <b>blauw</b> = nul, <b>groen-geel</b> = aarding.</p>
+    <table><tr><th>Beveiliging</th><th>Beschermt tegen</th><th>Hoe</th><th>Waarden</th></tr>
+    <tr><td><b>Zekering / automaat</b></td><td>overbelasting, kortsluiting → brand</td><td>onderbreekt bij te hoge stroomsterkte</td><td>16 A verlichting · 20 A stopcontacten · 32 A kookplaat</td></tr>
+    <tr><td><b>Differentieel</b></td><td>elektrocutie</td><td>vergelijkt in- en uitgaande stroom; onderbreekt bij lekstroom</td><td>30 mA vochtige · 300 mA gewone ruimtes</td></tr>
+    <tr><td><b>Aarding</b></td><td>elektrocutie (samen met differentieel)</td><td>leidt lekstroom bij isolatiefout naar de grond, zodat de differentieel die detecteert</td><td>weerstand &lt; 30 Ω</td></tr></table>
+    <div class="callout"><b>Vraagstuk-type</b><br>Zekeringskringen: n servers × W watt → totaal vermogen → I = P / 230 V → delen door 20 A per kring, <b>naar boven afronden</b>.</div>
+    <button class="oefenlink" onclick="goTab('sec-elek')">→ oefen de vraagstukken</button>
+  </div>
+
+  <!-- ── 3. Bits & Bytes ── -->
+  <div class="theory" id="th-bits">
+    <h3>3 · Bits en Bytes</h3>
+    <div class="lo">Binair rekenen en conversies naar andere talstelsels; weten hoe getallen, karakters en strings binair/hexadecimaal worden voorgesteld.</div>
+    <h4>Waarom binair?</h4>
+    <p>Twee toestanden (0 = uit, 1 = aan) zijn in elektronica eenvoudig en betrouwbaar voor te stellen; tien niveaus niet. Een <b>byte</b> = 8 bits (256 waarden: 0 t.e.m. 255), een <b>nibble</b> = 4 bits.</p>
+    <h4>Conversiemethodes</h4>
+    <ul>
+      <li><b>N-tallig → decimaal:</b> elk cijfer × bijhorende macht van N, optellen. 1101₂ = 8+4+0+1 = 13.</li>
+      <li><b>Decimaal → N-tallig:</b> herhaald delen door N, resten van onder naar boven lezen. <b>Ga door tot je 0 overhoudt</b> — stoppen bij 1 is dé klassieke fout.</li>
+      <li><b>Binair ↔ hex:</b> groepjes van <b>4 bits</b> (vooraan nullen aanvullen). 0101 1100 → 5C.</li>
+      <li><b>Binair ↔ octaal:</b> groepjes van <b>3 bits</b> — kom je tegen bij Linux-rechten (chmod 755).</li>
+      <li><b>Arbitrair talstelsel</b> (bv. ternair): zelfde methodes met machten van/delen door N. <i>Typische examenvraag!</i></li>
+    </ul>
+    <h4>Hex-tabel (maak je in 30 sec zelf: tel gewoon door)</h4>
+    <table><tr><th class="c">dec</th><th class="c">hex</th><th class="c">bin</th><th class="c">dec</th><th class="c">hex</th><th class="c">bin</th></tr>
+    <tr><td class="c">0</td><td class="c">0</td><td class="c">0000</td><td class="c">8</td><td class="c">8</td><td class="c">1000</td></tr>
+    <tr><td class="c">1</td><td class="c">1</td><td class="c">0001</td><td class="c">9</td><td class="c">9</td><td class="c">1001</td></tr>
+    <tr><td class="c">2</td><td class="c">2</td><td class="c">0010</td><td class="c">10</td><td class="c">A</td><td class="c">1010</td></tr>
+    <tr><td class="c">3</td><td class="c">3</td><td class="c">0011</td><td class="c">11</td><td class="c">B</td><td class="c">1011</td></tr>
+    <tr><td class="c">4</td><td class="c">4</td><td class="c">0100</td><td class="c">12</td><td class="c">C</td><td class="c">1100</td></tr>
+    <tr><td class="c">5</td><td class="c">5</td><td class="c">0101</td><td class="c">13</td><td class="c">D</td><td class="c">1101</td></tr>
+    <tr><td class="c">6</td><td class="c">6</td><td class="c">0110</td><td class="c">14</td><td class="c">E</td><td class="c">1110</td></tr>
+    <tr><td class="c">7</td><td class="c">7</td><td class="c">0111</td><td class="c">15</td><td class="c">F</td><td class="c">1111</td></tr></table>
+    <h4>Datagroottes</h4>
+    <p>Groottes gebruiken veelvouden van <b>1024</b> (= 2¹⁰, het "ronde" getal in het binair), niet 1000: KiB (2¹⁰) · MiB (2²⁰) · GiB (2³⁰) · TiB (2⁴⁰) · PiB (2⁵⁰). Strikt genomen is "gigabyte" 10⁹ bytes en "gibibyte" 2³⁰ — in de praktijk worden ze door elkaar gebruikt.</p>
+    <h4>Tekst</h4>
+    <ul>
+      <li><b>ASCII:</b> 7 bits per karakter → past in 1 byte. Opzoeken in de tabel via rij + kolom: 5A = 'Z'.</li>
+      <li><b>Unicode:</b> kent elk karakter (ook emoji) een uniek nummer toe (bv. U+263A). <b>UTF-8</b> codeert dat variabel: simpele Latijnse tekens 1 byte, complexe tot 4 bytes.</li>
+    </ul>
+    <button class="oefenlink" onclick="goTab('sec-tal')">→ drill de conversies</button>
+  </div>
+
+  <!-- ── 4. Virtualisatie ── -->
+  <div class="theory" id="th-virt">
+    <h3>4 · Virtualisatie</h3>
+    <div class="lo">Concepten van virtualisatie kennen; virtuele machines beheren en importeren.</div>
+    <h4>Wat &amp; hoe</h4>
+    <p>Met een <b>hypervisor</b> (bv. VMware Workstation/Fusion), geïnstalleerd bovenop het host-OS, maak je <b>virtuele hardware</b> aan (virtuele schijf, CPU, RAM, netwerkkaart) waarop je een gast-OS installeert. Voor de host is die hele VM gewoon <b>een bestand op schijf</b>.</p>
+    <h4>Waarom? (drie redenen — mondeling favoriet)</h4>
+    <ul>
+      <li><b>Flexibele sandbox:</b> veilig testen en experimenteren; iets kapot? Nieuwe VM of snapshot terugzetten.</li>
+      <li><b>Omgevingen delen:</b> een VM is een bestand — doorgeven en overal met dezelfde hypervisor opstarten.</li>
+      <li><b>Productieomgevingen:</b> bij een failure van een fysieke server migreren de VM's naar een andere server en starten daar op.</li>
+    </ul>
+    <h4>Beheer: snapshots &amp; clones</h4>
+    <table><tr><th>Techniek</th><th>Wat</th><th>Let op</th></tr>
+    <tr><td><b>Snapshot</b></td><td>herstelpunt van dezelfde VM</td><td>met snapshots kan VMware de virtuele schijf <b>niet</b> vergroten</td></tr>
+    <tr><td><b>Linked clone</b></td><td>nieuwe VM die de basisschijf deelt</td><td>klein, maar afhankelijk van het origineel</td></tr>
+    <tr><td><b>Full clone</b></td><td>volledige onafhankelijke kopie</td><td>groter, maar zelfstandig</td></tr></table>
+    <h4>Dual boot (labo 2)</h4>
+    <ul>
+      <li>Twee OS'en op één machine; bij opstart kies je via <b>GRUB</b>, de <b>boot loader</b> die het gekozen OS inlaadt.</li>
+      <li>Een <b>live-systeem</b> draait rechtstreeks van de installatie-CD/ISO, nog niet van de schijf.</li>
+      <li>Kleine opstartpartitie: <b>EFI System</b> (FAT) bij UEFI of <b>BIOS Boot</b> bij BIOS.</li>
+      <li>Fedora vs. Ubuntu: zelfde Linux-kernel en desktopomgeving (GNOME), andere tools — package manager <code>dnf</code> i.p.v. <code>apt</code>.</li>
+      <li>Nuttige commando's: <code>lsblk</code> (schijven/partities, <code>--fs</code> voor filesystems), <code>df</code> (vrije ruimte, <code>-i</code> voor inodes), mounten via Disks of de terminal.</li>
+    </ul>
+    <button class="oefenlink" onclick="goTab('sec-fc')">→ oefen de uitleg met flashcards</button>
+  </div>
+
+  <!-- ── 5. Linux CLI ── -->
+  <div class="theory" id="th-linux">
+    <h3>5 · Linux Command Line</h3>
+    <div class="lo">Alle commando's uit de oefeningen kunnen gebruiken; je weg vinden in de file system hierarchy; rechten inspecteren en aanpassen; pipes, redirection, for-lussen en command substitution.</div>
+    <h4>Efficiënt werken</h4>
+    <p><b>TAB</b>-completion, <b>↑/↓</b> voor history, <b>CTRL+C</b> om te onderbreken, <b>CTRL+D</b> voor end-of-input. Structuur van een commando: <code>commando -opties argumenten</code>.</p>
+    <h4>Documentatie (je open-boek-supermacht)</h4>
+    <ul>
+      <li><code>man commando</code> — handleiding; secties bestaan: <code>man 2 write</code> = de system call.</li>
+      <li><code>apropos trefwoord</code> — zoek een commando als je het niet kent.</li>
+      <li><code>commando --help</code> — kort overzicht; <code>help</code> voor shell built-ins.</li>
+    </ul>
+    <h4>Commando-overzicht</h4>
+    <table><tr><th>Groep</th><th>Commando's</th></tr>
+    <tr><td>Navigatie</td><td><code>pwd</code> <code>cd</code> <code>ls</code> (-l, -a)</td></tr>
+    <tr><td>I/O</td><td><code>touch</code> <code>cat</code> <code>echo</code></td></tr>
+    <tr><td>Bestandsbeheer</td><td><code>mkdir</code> (-p!) <code>cp</code> (-r) <code>mv</code> <code>rm</code> (-r) <code>rmdir</code></td></tr>
+    <tr><td>Zoeken</td><td><code>grep</code> <code>find</code></td></tr>
+    <tr><td>Transformaties</td><td><code>cut</code> <code>tr</code> <code>sort</code> <code>wc</code></td></tr>
+    <tr><td>Software</td><td><code>apt</code> (Ubuntu) · <code>dnf</code> (Fedora): update, install, remove</td></tr>
+    <tr><td>Systeem</td><td><code>lsblk</code> <code>df</code> <code>du</code> <code>date</code></td></tr></table>
+    <h4>File System Hierarchy</h4>
+    <table><tr><th>Pad</th><th>Inhoud</th></tr>
+    <tr><td><code>/etc</code></td><td>configuratiebestanden</td></tr>
+    <tr><td><code>/home</code></td><td>home directories van gebruikers</td></tr>
+    <tr><td><code>/var</code></td><td>variabele data, o.a. <code>/var/log</code></td></tr>
+    <tr><td><code>/dev</code></td><td>device-bestanden (bv. <code>/dev/sda</code> = hele schijf)</td></tr>
+    <tr><td><code>/proc</code></td><td>virtueel filesystem met procesinfo van de kernel</td></tr>
+    <tr><td><code>/tmp</code>, <code>/opt</code>, <code>/usr/bin</code></td><td>tijdelijke bestanden · extra software · programma's</td></tr></table>
+    <h4>Rechten</h4>
+    <p><code>ls -l</code> toont per bestand: type (<code>-</code> bestand, <code>d</code> map) + drie drietallen <b>rwx</b> voor <b>owner / group / others</b>. Octaal: r=4, w=2, x=1, optellen per drietal → <code>rwxr-xr-x</code> = 755. Aanpassen met <code>chmod 755 file</code> of symbolisch (<code>chmod +x</code>, <code>chmod u+rw,go-w</code>). Execute op een <b>map</b> = erin mogen navigeren. De <b>root</b>-gebruiker mag (bijna) alles, gewone gebruikers gebruiken <code>sudo</code> voor beheerstaken.</p>
+    <h4>Combineren</h4>
+    <ul>
+      <li><b>Pipe</b> <code>|</code>: output van het ene commando wordt input van het volgende — <code>ls -l /etc | grep conf | wc -l</code>.</li>
+      <li><b>Redirection:</b> <code>&gt;</code> overschrijft een bestand, <code>&gt;&gt;</code> voegt toe.</li>
+      <li><b>Ketens:</b> <code>;</code> = altijd verder; <code>&amp;&amp;</code> = enkel als het vorige slaagde.</li>
+      <li><b>Command substitution:</b> <code>$(...)</code> wordt vervangen door de output — <code>touch $(date +%Y.%m.%d).nota.txt</code>.</li>
+      <li><b>For-lus:</b> <code>for i in $(seq 1 9); do touch "file$i"; done</code>.</li>
+      <li><b>Variabelen:</b> <code>$HOME</code>, <code>$BASHPID</code>; waarde invoegen met <code>$</code>.</li>
+    </ul>
+    <button class="oefenlink" onclick="goTab('sec-chmod')">→ drill de chmod-conversies</button>
+  </div>
+
+  <!-- ── 6. Processen ── -->
+  <div class="theory" id="th-proc">
+    <h3>6 · Processen</h3>
+    <div class="lo">Scheduling-algoritmes vergelijken en uitvoeren (start, omlooptijd…); system calls en interrupts uitleggen; processen inspecteren en onderbreken; een systemd service maken.</div>
+    <h4>Wat is een proces?</h4>
+    <p>Een <b>programma in uitvoering</b>. Het OS houdt bij: program counter, open bestanden, gebruikt geheugen, status. Op Linux zichtbaar via <code>/proc</code>: elke genummerde map = één proces (nummer = PID). Bv. <code>/proc/$BASHPID/exe</code> (link naar het programma), <code>fd</code> (open bestanden), <code>limits</code>.</p>
+    <h4>Scheduling</h4>
+    <p>De <b>process scheduler</b> beslist welk proces wanneer op een processorkern mag draaien. <b>Preëmptief</b> = de scheduler kan een draaiend proces onderbreken; <b>niet-preëmptief</b> = het proces beslist zelf wanneer het pauzeert. Kernbegrippen per proces: <b>aankomsttijd</b>, <b>uitvoertijd</b>, <b>start</b>, <b>omlooptijd</b> (= eindtijd − aankomsttijd), <b>wachttijd</b> (= omlooptijd − uitvoertijd), <b>relatieve omlooptijd</b> (= omlooptijd / uitvoertijd).</p>
+    <table><tr><th></th><th>FCFS</th><th>SJF</th><th>Round Robin</th></tr>
+    <tr><td><b>Werking</b></td><td>wachtrij: eerst aangekomen, eerst uitgevoerd (tot einde)</td><td>kortste uitvoertijd eerst (tiebreak: vroegste aankomst)</td><td>FCFS + tijdsquantum Q; na Q onderbroken en achteraan in de rij</td></tr>
+    <tr><td><b>Preëmptief?</b></td><td class="c">nee</td><td class="c">nee</td><td class="c"><b>ja</b></td></tr>
+    <tr><td><b>Voordeel</b></td><td>goed voor lange batch-bursts</td><td>lage gemiddelde omlooptijd</td><td>begrensde wachttijd: max (N−1)×Q → geen starvation</td></tr>
+    <tr><td><b>Nadeel</b></td><td>korte processen wachten lang ("volle winkelkar")</td><td><b>starvation</b> van lange processen → oplossing: <b>aging</b> (wachttijd meetellen)</td><td>context-switch-overhead; interactieve processen kunnen laggy aanvoelen</td></tr></table>
+    <div class="callout g"><b>RR-conventie</b><br>Wordt een proces onderbroken, dan schuift het achteraan aan <b>ná</b> processen die intussen zijn aangekomen. In de praktijk combineren OS'en deze algoritmes met o.a. prioriteiten.</div>
+    <h4>System calls</h4>
+    <p>Een proces spreekt de hardware nooit rechtstreeks aan — het vraagt het aan het OS via een <b>system call</b> (bv. <code>write</code>): het proces pauzeert, het OS controleert de rechten en stuurt de hardware aan. Waarom: <b>abstractie</b> (programma hoeft niets van de hardware te weten) en <b>controle</b> (OS dwingt bv. bestandsrechten af). Met <code>strace ls</code> zie je de system calls (<code>openat</code>, <code>read</code>, <code>write</code>, <code>close</code>); manpages in sectie 2: <code>man 2 write</code>.</p>
+    <h4>Interrupts</h4>
+    <p>Hardware meldt gebeurtenissen aan het OS (netwerkpakket toegekomen, schijf klaar met lezen) via een <b>interrupt request</b>. Afhandeling in 5 stappen: proces stoppen → toestand (registers, instruction pointer) opslaan → interrupt-code laden → afhandelen → proces hervatten. Dat wisselen heet een <b>context switch</b>. <b>Snelheidswinst:</b> zonder interrupts wacht de CPU nutteloos op de schijf; mét interrupts draait intussen een ander proces.</p>
+    <h4>Praktisch</h4>
+    <p>Processen inspecteren en onderbreken via de CLI: <code>ps</code>, <code>top</code>, <code>kill PID</code>, CTRL+C/CTRL+Z. <b>systemd services</b> staan in de leerdoelstellingen (maken/corrigeren op basis van een voorbeeld) maar niet in je geüploade syllabus — haal dat materiaal van Toledo en oefen één eigen <code>.service</code>-bestand.</p>
+    <button class="oefenlink" onclick="goTab('sec-sched')">→ oefen scheduling-opgaven</button>
+  </div>
+
+  <!-- ── 7. Opslag ── -->
+  <div class="theory" id="th-opslag">
+    <h3>7 · Schijven en filesystems</h3>
+    <div class="lo">GPT inspecteren en dissecteren; partitietabel en partities uitleggen; schijfanatomie; XOR-pariteit; RAID-levels; FAT32 vs ext4; blokberekeningen.</div>
+    <div class="callout"><b>Let op</b><br>Van dit hoofdstuk had je enkel de GPT-oefening geüpload; RAID, schijfanatomie en FAT32/ext4 hieronder zijn algemene leerstof — controleer ze tegen de syllabus op Toledo.</div>
+    <h4>Partities &amp; GPT</h4>
+    <p>De <b>partitietabel</b> (GPT) beschrijft hoe de schijf is opgedeeld in <b>partities</b>; elke partitie bevat een eigen filesystem. De <b>GPT-header staat in LBA 1</b>; vanaf LBA 2 volgen de partition entries (standaard ruimte voor 128 entries van elk 128 bytes → 4 per sector van 512 bytes — dat betekent níét dat er 128 partities zijn).</p>
+    <ul>
+      <li>Sector kopiëren: <code>sudo dd if=/dev/sda of=header bs=512 skip=1 count=1</code> (skip=2 voor LBA 2). <code>sudo</code> nodig: een gewone gebruiker mag de schijf niet rechtstreeks lezen. Je device vind je met <code>lsblk</code> (soms <code>/dev/nvme0n1</code>).</li>
+      <li>Bytes lezen: <code>hexyl header</code> — linkerkolom = offset (hex), dan de bytes, dan de ASCII-weergave (je herkent <code>EFI PART</code>, de signature).</li>
+      <li>Partitietabel tonen: <code>fdisk -l /dev/sda</code>.</li>
+    </ul>
+    <div class="callout g"><b>Little endian</b><br>Waarden staan met de bytes van minst naar meest significant. <code>3E 02 00 00</code> → omkeren → 0x0000023E → 574. <code>80 00 00 00</code> → 0x80 → 128.</div>
+    <h4>Schijfanatomie (HDD)</h4>
+    <p>Begrippen: <b>platter</b> met <b>tracks</b>; tracks boven elkaar vormen een <b>cylinder</b>; per platterkant een lees-/schrijf-<b>head</b>; een track is verdeeld in <b>sectoren</b> (klassiek 512 bytes). <b>Seek</b> = de arm naar de juiste track bewegen; <b>search/rotational delay</b> = wachten tot de sector onder de kop draait. <b>LBA</b> (Logical Block Addressing) nummert alle sectoren lineair (0, 1, 2 …) zodat je niet met cylinder/head/sector hoeft te rekenen. Bruto capaciteit = alles; netto = wat na formattering bruikbaar is.</p>
+    <h4>RAID</h4>
+    <table><tr><th class="c">Level</th><th>Mechanisme</th><th class="c">Min. disks</th><th class="c">Netto capaciteit</th><th class="c">Mag uitvallen</th></tr>
+    <tr><td class="c"><b>0</b></td><td>striping</td><td class="c">2</td><td class="c">N × grootte</td><td class="c">0</td></tr>
+    <tr><td class="c"><b>1</b></td><td>mirroring</td><td class="c">2</td><td class="c">1 × grootte</td><td class="c">N−1</td></tr>
+    <tr><td class="c"><b>5</b></td><td>striping + verdeelde pariteit</td><td class="c">3</td><td class="c">(N−1) × grootte</td><td class="c">1</td></tr>
+    <tr><td class="c"><b>6</b></td><td>striping + dubbele pariteit</td><td class="c">4</td><td class="c">(N−2) × grootte</td><td class="c">2</td></tr>
+    <tr><td class="c"><b>10</b></td><td>stripe van mirrors</td><td class="c">4</td><td class="c">N/2 × grootte</td><td class="c">min. 1 (1 per mirror-paar)</td></tr></table>
+    <p><b>XOR-pariteit:</b> XOR is 1 bij een oneven aantal enen. RAID 5 slaat per stripe een pariteitsblok op; valt één disk uit, dan reconstrueert XOR over de rest de verloren data.</p>
+    <h4>Filesystems</h4>
+    <ul>
+      <li><b>FAT32:</b> ouder en eenvoudig; een File Allocation Table houdt per cluster bij welk het volgende cluster van een bestand is (een ketting). Universeel gelezen → gebruikt voor de EFI System-partitie.</li>
+      <li><b>ext4:</b> standaard Linux-filesystem; werkt met <b>inodes</b> (metadata + verwijzingen naar datablokken per bestand) en journaling. Inodes bekijken: <code>df -i</code>.</li>
+      <li><b>btrfs:</b> nieuwer, gebruikt door Fedora; ondersteunt <b>subvolumes</b> (daarom zie je bij het mounten mappen home en root).</li>
+      <li><b>Blokberekening:</b> aantal blokken = bestandsgrootte / blokgrootte, <b>naar boven afgerond</b> — een bestand van 1 byte bezet toch een heel blok.</li>
+    </ul>
+    <button class="oefenlink" onclick="goTab('sec-le')">→ oefen little endian &amp; RAID</button>
+  </div>
+</section>
 
 <!-- ═══════════ HARDWARE ═══════════ -->
 <section id="sec-hw">
@@ -328,7 +635,7 @@ function onEnter(inputIds,fn){inputIds.forEach(id=>{$(id).addEventListener('keyd
 
 /* ════════════════ tabs ════════════════ */
 const TABS=[
- ['sec-hw','Hardware'],['sec-tal','Talstelsels'],['sec-le','Little endian'],['sec-chmod','chmod'],
+ ['sec-theorie','📖 Theorie'],['sec-hw','Hardware'],['sec-tal','Talstelsels'],['sec-le','Little endian'],['sec-chmod','chmod'],
  ['sec-elek','Elektriciteit'],['sec-sched','Scheduling'],['sec-raid','RAID & XOR'],['sec-fc','Mondeling']
 ];
 TABS.forEach(([id,label],i)=>{
@@ -339,7 +646,37 @@ document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
   document.querySelectorAll('section').forEach(x=>x.classList.remove('active'));
   t.classList.add('active');$(t.dataset.sec).classList.add('active');
 }));
-$('sec-hw').classList.add('active');
+$('sec-theorie').classList.add('active');
+
+/* ════════════════ THEORIE ════════════════ */
+function goTab(sec){
+  document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x.dataset.sec===sec));
+  document.querySelectorAll('section').forEach(x=>x.classList.toggle('active',x.id===sec));
+  window.scrollTo({top:0});
+}
+const TH_CHAPTERS=[
+ ['th-plan','Examen & plan'],['th-hw','1 · Hardware'],['th-elek','2 · Elektriciteit'],['th-bits','3 · Bits & Bytes'],
+ ['th-virt','4 · Virtualisatie'],['th-linux','5 · Linux CLI'],['th-proc','6 · Processen'],['th-opslag','7 · Opslag']
+];
+TH_CHAPTERS.forEach(([id,label],i)=>{$('thOpts').insertAdjacentHTML('beforeend',`<button data-th="${id}" class="${i===0?'sel':''}">${label}</button>`)});
+$('thOpts').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+  $('thOpts').querySelectorAll('button').forEach(x=>x.classList.remove('sel'));
+  document.querySelectorAll('.theory').forEach(x=>x.classList.remove('active'));
+  b.classList.add('sel');$(b.dataset.th).classList.add('active');
+}));
+$('th-plan').classList.add('active');
+const CHECKS=[
+ "Labo-video geüpload (uiterlijk de dag vóór het schriftelijk examen!)",
+ "Ontbrekende syllabi van Toledo gehaald: opslag/RAID/filesystems, systemd, encryptie",
+ "Eigen samenvatting af, doorzoekbaar op mijn examen-computer",
+ "Alle Linux-oefeningen (F, P, S, C) minstens 1× zelf gedaan",
+ "GPT-oefening met dd en hexyl zelf uitgevoerd",
+ "Elke berekening minstens 5× foutloos (streak in deze trainer!)",
+ "Alle flashcards minstens 1× vlot hardop beantwoord",
+ "VM werkend, voor het geval ik iets moet demonstreren"
+];
+CHECKS.forEach((c,i)=>{$('checklist').insertAdjacentHTML('beforeend',
+ `<label class="check" id="ck${i}"><input type="checkbox" onchange="this.parentElement.classList.toggle('done',this.checked)"><span>${c}</span></label>`)});
 
 /* ════════════════ 0. HARDWARE ════════════════ */
 const HW_POOL=[
