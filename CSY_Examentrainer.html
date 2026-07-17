@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSY Examentrainer — Computer Systems MBI07</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F2F4EF;
+  --ink:#1B2430;
+  --ink-soft:#4A5568;
+  --term-bg:#14201C;
+  --term-line:#22332D;
+  --term-text:#CFE8D8;
+  --green:#2F6B4F;
+  --green-bright:#5FBF8F;
+  --amber:#C77D2E;
+  --amber-soft:#F4E3CC;
+  --green-soft:#DCE9DF;
+  --card:#FFFFFF;
+  --border:#D5DAD2;
+  --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --sans:'Public Sans',system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;padding-bottom:80px}
+.wrap{max-width:880px;margin:0 auto;padding:0 16px}
+
+/* ── header as shell prompt ───────────────────────── */
+header{background:var(--term-bg);color:var(--term-text);padding:22px 0 18px;border-bottom:4px solid var(--green)}
+header .wrap{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px;justify-content:space-between}
+.prompt{font-family:var(--mono);font-size:15px;color:#7FA893}
+.prompt b{color:var(--green-bright);font-weight:600}
+.prompt .cmd{color:var(--term-text)}
+h1{font-family:var(--mono);font-size:22px;font-weight:700;color:#fff;letter-spacing:.5px;width:100%}
+h1 small{font-weight:400;font-size:13px;color:#7FA893;display:block;letter-spacing:0}
+
+/* streak register — score als 8-bit binair getal */
+.register{display:flex;align-items:center;gap:10px;font-family:var(--mono)}
+.register .lbl{font-size:11px;color:#7FA893;text-transform:uppercase;letter-spacing:1px}
+.bits{display:flex;gap:4px}
+.bit{width:18px;height:26px;border-radius:3px;background:#0D1512;border:1px solid var(--term-line);display:flex;align-items:center;justify-content:center;font-size:12px;color:#3D554B;transition:all .25s}
+.bit.on{background:var(--green);color:#EAF6EE;border-color:var(--green-bright);box-shadow:0 0 8px rgba(95,191,143,.5)}
+.register .dec{font-size:14px;color:var(--green-bright);min-width:60px}
+
+/* ── tabs ─────────────────────────────────────────── */
+nav{position:sticky;top:0;z-index:10;background:var(--paper);border-bottom:1px solid var(--border);padding:10px 0}
+nav .wrap{display:flex;gap:6px;flex-wrap:wrap}
+.tab{font-family:var(--mono);font-size:13px;font-weight:500;padding:7px 12px;border:1px solid var(--border);border-radius:6px;background:var(--card);color:var(--ink-soft);cursor:pointer;transition:all .15s}
+.tab:hover{border-color:var(--green)}
+.tab.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.tab:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+
+main{padding-top:22px}
+section{display:none}
+section.active{display:block;animation:fade .25s}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){section.active{animation:none}.bit{transition:none}}
+
+.intro{font-size:14px;color:var(--ink-soft);margin-bottom:14px;max-width:640px}
+
+/* ── exercise card: dark terminal panel ───────────── */
+.exercise{background:var(--term-bg);border-radius:10px;overflow:hidden;box-shadow:0 3px 14px rgba(20,32,28,.18);margin-bottom:18px}
+.exercise .bar{display:flex;align-items:center;gap:8px;padding:9px 14px;background:var(--term-line);font-family:var(--mono);font-size:12px;color:#9DBBAB}
+.dot{width:10px;height:10px;border-radius:50%}
+.dot.r{background:#B95C50}.dot.y{background:#C7A24E}.dot.g{background:#5A9C78}
+.exercise .body{padding:18px 20px 20px;color:var(--term-text);font-family:var(--mono);font-size:15px}
+.q{margin-bottom:14px;line-height:1.7}
+.q .hl{color:var(--green-bright);font-weight:600}
+.q .dim{color:#7FA893;font-size:13px}
+.hexrow{display:inline-flex;gap:8px;background:#0D1512;padding:6px 12px;border-radius:6px;border:1px solid var(--term-line);font-size:17px;letter-spacing:1px;color:#E8D48B;margin:4px 0}
+
+table.sched{border-collapse:collapse;margin:8px 0 14px;font-size:14px;width:100%}
+table.sched th,table.sched td{border:1px solid var(--term-line);padding:6px 10px;text-align:center}
+table.sched th{background:#0D1512;color:#9DBBAB;font-weight:600}
+table.sched input{width:64px}
+
+.answers{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:6px}
+.answers label{font-size:13px;color:#9DBBAB}
+input[type=text],select{font-family:var(--mono);font-size:15px;padding:8px 10px;background:#0D1512;border:1px solid #3D554B;border-radius:6px;color:var(--term-text);width:150px}
+input[type=text]::placeholder{color:#4A6357}
+select{width:auto}
+
+.btnrow{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+button{font-family:var(--mono);font-size:14px;font-weight:600;padding:9px 16px;border-radius:6px;border:none;cursor:pointer;transition:transform .1s}
+button:active{transform:scale(.97)}
+.btn-check{background:var(--green);color:#fff}
+.btn-check:hover{background:#37805E}
+.btn-new{background:transparent;color:#9DBBAB;border:1px solid #3D554B}
+.btn-new:hover{color:var(--term-text);border-color:#9DBBAB}
+.btn-show{background:transparent;color:#C7A24E;border:1px solid #6B5A2E}
+.btn-show:hover{color:#E8D48B}
+
+.feedback{margin-top:14px;padding:12px 14px;border-radius:6px;font-size:14px;display:none;line-height:1.6}
+.feedback.ok{display:block;background:rgba(95,191,143,.12);border:1px solid var(--green);color:#B8E4C9}
+.feedback.nok{display:block;background:rgba(199,125,46,.12);border:1px solid var(--amber);color:#EFD3A8}
+.feedback code{color:#E8D48B}
+
+/* ── light option row ─────────────────────────────── */
+.opts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.opts button{background:var(--card);border:1px solid var(--border);color:var(--ink-soft);font-weight:500;font-size:13px;padding:6px 12px}
+.opts button.sel{background:var(--green);border-color:var(--green);color:#fff}
+
+/* ── flashcards ───────────────────────────────────── */
+.fc-meta{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:13px;color:var(--ink-soft);margin-bottom:10px;flex-wrap:wrap;gap:8px}
+.fc-card{background:var(--card);border:1px solid var(--border);border-left:6px solid var(--green);border-radius:10px;padding:26px 26px 22px;min-height:190px;box-shadow:0 2px 10px rgba(20,32,28,.08)}
+.fc-cat{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--green);margin-bottom:10px}
+.fc-q{font-size:19px;font-weight:600;line-height:1.45}
+.fc-a{margin-top:16px;padding-top:16px;border-top:1px dashed var(--border);color:var(--ink-soft);display:none;font-size:15px}
+.fc-a.show{display:block}
+.fc-a b{color:var(--ink)}
+.fc-btns{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.fc-btns .btn-flip{background:var(--ink);color:#fff}
+.fc-btns .btn-good{background:var(--green);color:#fff;display:none}
+.fc-btns .btn-again{background:var(--amber);color:#fff;display:none}
+.fc-done{background:var(--green-soft);border:1px solid var(--green);border-radius:10px;padding:24px;text-align:center;font-weight:600;display:none}
+
+.mc{display:grid;gap:8px;margin:10px 0 4px}
+.mc button{text-align:left;background:#0D1512;border:1px solid #3D554B;color:var(--term-text);font-weight:400;padding:10px 14px}
+.mc button:hover{border-color:var(--green-bright)}
+.mc button.right{background:rgba(95,191,143,.15);border-color:var(--green-bright);color:#B8E4C9}
+.mc button.wrong{background:rgba(199,125,46,.15);border-color:var(--amber);color:#EFD3A8}
+
+footer{margin-top:40px;text-align:center;font-family:var(--mono);font-size:12px;color:var(--ink-soft)}
+@media(max-width:560px){
+  .exercise .body{padding:14px}
+  input[type=text]{width:120px}
+  h1{font-size:18px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>CSY EXAMENTRAINER<small>Computer Systems · MBI07 · genereer, reken, controleer</small></h1>
+    <div class="prompt"><b>student@csy</b>:~$ <span class="cmd">./oefenen --tot-het-lukt</span></div>
+    <div class="register" title="Je huidige reeks juiste antwoorden, binair geteld (max 255)">
+      <span class="lbl">streak</span>
+      <div class="bits" id="bits"></div>
+      <span class="dec" id="streakDec">= 0</span>
+    </div>
+  </div>
+</header>
+
+<nav><div class="wrap" id="tabs"></div></nav>
+
+<main class="wrap">
+
+<!-- ═══════════ HARDWARE ═══════════ -->
+<section id="sec-hw">
+  <p class="intro">Componenten benoemen en hun werking uitleggen (SYL.01): moederbord, CPU, RAM, opslag, GPU, PSU en koeling. Meerkeuzevragen — kies het juiste antwoord.</p>
+  <div class="exercise">
+    <div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span style="margin-left:6px">quiz — hardware</span></div>
+    <div class="body">
+      <div class="q" id="hwQ"></div>
+      <div class="mc" id="hwMc"></div>
+      <div class="btnrow">
+        <button class="btn-new" onclick="hwNew()">Nieuwe vraag ↻</button>
+      </div>
+      <div class="feedback" id="hwFb"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ TALSTELSELS ═══════════ -->
+<section id="sec-tal">
+  <p class="intro">Conversies tussen binair, octaal, decimaal, hexadecimaal en arbitraire talstelsels — dé gegarandeerde examenvraag. Kies een type of laat de trainer willekeurig kiezen.</p>
+  <div class="opts" id="talOpts"></div>
+  <div class="exercise">
+    <div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span style="margin-left:6px">oefening — talstelsels</span></div>
+    <div class="body">
+      <div class="q" id="talQ"></div>
+      <div class="answers"><label for="talIn">antwoord:</label><input type="text" id="talIn" autocomplete="off" placeholder="…"></div>
+      <div class="btnrow">
+        <button class="btn-check" onclick="talCheck()">Controleer</button>
+        <button class="btn-show" onclick="talShow()">Toon oplossing</button>
+        <button class="btn-new" onclick="talNew()">Nieuwe opgave ↻</button>
+      </div>
+      <div class="feedback" id="talFb"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ LITTLE ENDIAN ═══════════ -->
+<section id="sec-le">
+  <p class="intro">Zoals in de GPT-oefening: je leest 4 bytes van de schijf (via <span style="font-family:var(--mono)">hexyl</span>) in little endian. Keer ze om en bepaal de waarde — precies wat je met de partitietabel moet doen.</p>
+  <div class="exercise">
+    <div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span style="margin-left:6px">hexyl — 4 bytes @ willekeurige offset</span></div>
+    <div class="body">
+      <div class="q">Je leest in de GPT-header de volgende 4 bytes (little endian):<br>
+      <span class="hexrow" id="leBytes"></span><br>
+      <span class="dim">Tip: keer de bytevolgorde om → hexadecimaal getal → reken om naar decimaal.</span></div>
+      <div class="answers">
+        <label for="leHex">hexadecimaal (big endian):</label><input type="text" id="leHex" placeholder="bv. A0EF">
+        <label for="leDec">decimaal:</label><input type="text" id="leDec" placeholder="bv. 41199">
+      </div>
+      <div class="btnrow">
+        <button class="btn-check" onclick="leCheck()">Controleer</button>
+        <button class="btn-show" onclick="leShow()">Toon oplossing</button>
+        <button class="btn-new" onclick="leNew()">Nieuwe opgave ↻</button>
+      </div>
+      <div class="feedback" id="leFb"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CHMOD ═══════════ -->
+<section id="sec-chmod">
+  <p class="intro">Rechten lezen in <span style="font-family:var(--mono)">ls -l</span>-notatie en in octale notatie, in beide richtingen. Onthoud: r=4, w=2, x=1.</p>
+  <div class="exercise">
+    <div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span style="margin-left:6px">oefening — permissions</span></div>
+    <div class="body">
+      <div class="q" id="chQ"></div>
+      <div class="answers"><label for="chIn">antwoord:</label><input type="text" id="chIn" autocomplete="off" placeholder="…"></div>
+      <div class="btnrow">
+        <button class="btn-check" onclick="chCheck()">Controleer</button>
+        <button class="btn-show" onclick="chShow()">Toon oplossing</button>
+        <button class="btn-new" onclick="chNew()">Nieuwe opgave ↻</button>
+      </div>
+      <div class="feedback" id="chFb"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ ELEKTRICITEIT ═══════════ -->
+<section id="sec-elek">
+  <p class="intro">Vraagstukken zoals in EXE.02: wet van Ohm, vermogen, verbruik in kWh en zekeringskringen. Antwoorden mogen tot ±1% afwijken; gebruik punt of komma.</p>
+  <div class="exercise">
+    <div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span style="margin-left:6px">vraagstuk — elektriciteit</span></div>
+    <div class="body">
+      <div class="q" id="elQ"></div>
+      <div class="answers"><label for="elIn" id="elLbl">antwoord:</label><input type="text" id="elIn" autocomplete="off" placeholder="…"></div>
+      <div class="btnrow">
+        <button class="btn-check" onclick="elCheck()">Controleer</button>
+        <button class="btn-show" onclick="elShow()">Toon oplossing</button>
+        <button class="btn-new" onclick="elNew()">Nieuwe opgave ↻</button>
+      </div>
+      <div class="feedback" id="elFb"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SCHEDULING ═══════════ -->
+<section id="sec-sched">
+  <p class="intro">Vier processen, één algoritme. Bepaal per proces de <b>starttijd</b> en de <b>omlooptijd</b> (= eindtijd − aankomsttijd). Bij Round Robin: een onderbroken proces schuift achteraan aan, ná processen die intussen zijn aangekomen.</p>
+  <div class="opts" id="schedOpts"></div>
+  <div class="exercise">
+    <div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span style="margin-left:6px" id="schedTitle">scheduler</span></div>
+    <div class="body">
+      <div class="q" id="schedQ"></div>
+      <table class="sched" id="schedTable"></table>
+      <div class="btnrow">
+        <button class="btn-check" onclick="schedCheck()">Controleer</button>
+        <button class="btn-show" onclick="schedShow()">Toon oplossing</button>
+        <button class="btn-new" onclick="schedNew()">Nieuwe opgave ↻</button>
+      </div>
+      <div class="feedback" id="schedFb"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ RAID & XOR ═══════════ -->
+<section id="sec-raid">
+  <p class="intro">RAID-eigenschappen (min. aantal disks, netto capaciteit, fouttolerantie) en pariteitsbits berekenen met XOR.</p>
+  <div class="opts" id="raidOpts"></div>
+  <div class="exercise">
+    <div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span style="margin-left:6px">oefening — opslag</span></div>
+    <div class="body">
+      <div class="q" id="raidQ"></div>
+      <div class="mc" id="raidMc"></div>
+      <div class="answers" id="raidAnsRow" style="display:none"><label for="raidIn">antwoord:</label><input type="text" id="raidIn" autocomplete="off"></div>
+      <div class="btnrow">
+        <button class="btn-check" id="raidCheckBtn" onclick="raidCheck()" style="display:none">Controleer</button>
+        <button class="btn-show" onclick="raidShow()">Toon oplossing</button>
+        <button class="btn-new" onclick="raidNew()">Nieuwe opgave ↻</button>
+      </div>
+      <div class="feedback" id="raidFb"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ MONDELING ═══════════ -->
+<section id="sec-fc">
+  <p class="intro">Flashcards voor je mondelinge verdediging. Beantwoord de vraag <b>hardop</b> (1–2 minuten) vóór je omdraait. Kaarten die je nog niet kent, komen terug.</p>
+  <div class="opts" id="fcOpts"></div>
+  <div class="fc-meta"><span id="fcCount"></span><button class="btn-new" style="border-color:var(--border);color:var(--ink-soft)" onclick="fcRestart()">Opnieuw beginnen ↻</button></div>
+  <div class="fc-card" id="fcCard">
+    <div class="fc-cat" id="fcCat"></div>
+    <div class="fc-q" id="fcQ"></div>
+    <div class="fc-a" id="fcA"></div>
+    <div class="fc-btns">
+      <button class="btn-flip" id="fcFlip" onclick="fcFlip()">Toon modelantwoord</button>
+      <button class="btn-good" id="fcGood" onclick="fcRate(true)">✓ Kende ik</button>
+      <button class="btn-again" id="fcAgain" onclick="fcRate(false)">↻ Opnieuw oefenen</button>
+    </div>
+  </div>
+  <div class="fc-done" id="fcDone">Alle kaarten in deze categorie gekend. Klaar voor de verdediging — of kies een andere categorie.</div>
+</section>
+
+</main>
+<footer>gebaseerd op de leerdoelstellingen van MBI07 · je voortgang wordt niet opgeslagen — dit is een oefensessie, net als het echte werk</footer>
+
+<script>
+/* ════════════════ helpers ════════════════ */
+const $=id=>document.getElementById(id);
+const ri=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;
+const pick=a=>a[ri(0,a.length-1)];
+let streak=0;
+function drawStreak(){
+  const b=$('bits');b.innerHTML='';
+  const v=Math.min(streak,255);
+  for(let i=7;i>=0;i--){
+    const bit=(v>>i)&1;
+    b.insertAdjacentHTML('beforeend',`<div class="bit ${bit?'on':''}">${bit}</div>`);
+  }
+  $('streakDec').textContent='= '+streak;
+}
+function scoreHit(){streak++;drawStreak();}
+function scoreMiss(){streak=0;drawStreak();}
+function normNum(s){if(s==null)return NaN;s=(''+s).trim().replace(',','.').replace(/\s/g,'');return parseFloat(s);}
+function approx(user,target){const u=normNum(user);if(isNaN(u))return false;if(target===0)return Math.abs(u)<1e-9;return Math.abs(u-target)/Math.abs(target)<=0.012;}
+function fb(el,ok,msg){el.className='feedback '+(ok?'ok':'nok');el.innerHTML=msg;}
+function clearFb(el){el.className='feedback';el.innerHTML='';}
+function onEnter(inputIds,fn){inputIds.forEach(id=>{$(id).addEventListener('keydown',e=>{if(e.key==='Enter')fn();});});}
+
+/* ════════════════ tabs ════════════════ */
+const TABS=[
+ ['sec-hw','Hardware'],['sec-tal','Talstelsels'],['sec-le','Little endian'],['sec-chmod','chmod'],
+ ['sec-elek','Elektriciteit'],['sec-sched','Scheduling'],['sec-raid','RAID & XOR'],['sec-fc','Mondeling']
+];
+TABS.forEach(([id,label],i)=>{
+  $('tabs').insertAdjacentHTML('beforeend',`<button class="tab ${i===0?'active':''}" data-sec="${id}">${label}</button>`);
+});
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('section').forEach(x=>x.classList.remove('active'));
+  t.classList.add('active');$(t.dataset.sec).classList.add('active');
+}));
+$('sec-hw').classList.add('active');
+
+/* ════════════════ 0. HARDWARE ════════════════ */
+const HW_POOL=[
+ {q:"Welk onderdeel verbindt alle andere hardwarecomponenten met elkaar?",a:"Het moederbord",o:["De CPU","De PSU","De chipsetkoeler"],e:"Het moederbord is het centrale circuitbord met de CPU-socket, RAM-slots, SATA-poorten en PCIe-uitbreidingsslots."},
+ {q:"Waarvoor dienen de SATA-poorten op het moederbord?",a:"Aansluiting van harde schijven / opslag",o:["Aansluiting van RAM","Aansluiting van de voeding","Aansluiting van de monitor"],e:"SATA verbindt opslagapparaten zoals HDD's en SSD's met het moederbord."},
+ {q:"Wat kan je aansluiten op een PCI Express-uitbreidingsslot?",a:"Een grafische kaart of extra netwerk-/USB-/SATA-kaart",o:["Enkel RAM-modules","Enkel de CPU","De 230V-netstroom"],e:"PCIe-slots zijn de algemene uitbreidingsslots voor insteekkaarten."},
+ {q:"Waaruit bestaat een moderne processor voornamelijk?",a:"Miljarden transistoren van enkele nanometers",o:["Duizenden relais","Magnetische schijven","Optische vezels"],e:"Transistoren zijn kleine schakelingen die de basisbewerkingen (rekenen, logica, besturing, I/O) uitvoeren."},
+ {q:"Waar wordt de energie die een CPU verbruikt bijna volledig in omgezet?",a:"Warmte",o:["Licht","Magnetisme","Geluid"],e:"Daarom heeft de CPU een heatspreader en heeft de computer koeling nodig — elke CPU heeft een maximum operating temperature."},
+ {q:"Task Manager toont: 1 socket, 14 cores, 20 logical processors. Hoe kunnen er méér logische processoren zijn dan cores?",a:"Door SMT (simultaneous multithreading / hyper-threading)",o:["Door overclocking","Door een geïntegreerde GPU","Door dual channel RAM"],e:"SMT laat het OS meer processorkernen zien dan er fysiek zijn. 'Sockets: 1' betekent dat er 1 CPU op het moederbord zit."},
+ {q:"Wat betekent het dat RAM 'vluchtig' geheugen is?",a:"De gegevens gaan verloren als de computer uitschakelt",o:["Het geheugen veroudert snel","Het is traag toegankelijk","Het kan maar één keer beschreven worden"],e:"RAM is tijdelijk werkgeheugen voor wat de CPU snel nodig heeft; permanente opslag gebeurt op HDD/SSD."},
+ {q:"Waar slaat 'random access' in Random Access Memory op?",a:"Alle data in het werkgeheugen kan even snel aangesproken worden",o:["De data wordt willekeurig geplaatst","De inhoud verandert willekeurig","Je hebt willekeurige toegang tot elke computer"],e:"In tegenstelling tot bv. een draaiende schijf maakt de locatie in RAM geen snelheidsverschil."},
+ {q:"Wat is het verschil in technologie tussen een HDD en een SSD?",a:"HDD gebruikt magnetische schijven, SSD flashgeheugen",o:["HDD gebruikt flashgeheugen, SSD magnetische schijven","Beide gebruiken flashgeheugen","SSD's zijn optisch"],e:"Daardoor is een SSD sneller en minder kwetsbaar; een HDD is goedkoper per TB voor grote capaciteiten."},
+ {q:"Wanneer kies je typisch nog voor een HDD in plaats van een SSD?",a:"Voor grote opslagcapaciteiten van meerdere terabytes (goedkoper)",o:["Voor het besturingssysteem","Voor een stillere computer","Voor betere schokbestendigheid"],e:"HDD's zijn goedkoper per TB; voor kleinere capaciteiten kiest men SSD's (sneller, minder kwetsbaar)."},
+ {q:"Wat is het verschil tussen een geïntegreerde en een dedicated GPU?",a:"Geïntegreerd zit in de CPU en deelt het systeemgeheugen; dedicated heeft eigen geheugen",o:["Geïntegreerd is altijd sneller","Dedicated zit in de CPU","Er is geen verschil"],e:"Geïntegreerd volstaat voor surfen en kantoorwerk; dedicated is nodig voor gamen, videobewerking en 3D."},
+ {q:"Wat doet de voedingsunit (PSU)?",a:"Zet AC om in DC en geeft elk onderdeel de juiste spanning",o:["Zet DC om in AC","Koelt de processor","Slaat energie op voor stroomuitval"],e:"Dezelfde taak als een laptopadapter — koppel dit aan het elektriciteitshoofdstuk (transformator + gelijkrichting)."},
+ {q:"Waarvoor dient het driehoekje op de hoek van een processor?",a:"Het geeft aan hoe de CPU georiënteerd moet worden in de socket",o:["Het is het merkteken van Intel","Het duidt de snelste core aan","Het toont de maximumtemperatuur"],e:"Verkeerd plaatsen kan de contactpunten beschadigen — belangrijk bij installeren/vervangen."},
+ {q:"Waarom zijn laptops doorgaans slechter te herstellen (repairability) dan desktops?",a:"Veel componenten zijn vast gesoldeerd op het moederbord",o:["Laptops hebben geen moederbord","Laptopcomponenten zijn illegaal te vervangen","Desktops hebben geen koeling nodig"],e:"Bij een desktop zijn componenten apart en vervangbaar — een afweging van kosten en baten (DLR 5)."},
+ {q:"Welke functie vervult de heatspreader bovenop de CPU?",a:"Warmte afvoeren om de processor koel te houden",o:["De kloksnelheid verhogen","Elektrische isolatie","Stof tegenhouden"],e:"Boven de maximum operating temperature werkt een CPU niet meer naar behoren of raakt hij beschadigd."},
+];
+let hwCur=null,hwPrev=-1;
+function hwNew(){
+  clearFb($('hwFb'));
+  let idx;do{idx=ri(0,HW_POOL.length-1);}while(idx===hwPrev&&HW_POOL.length>1);
+  hwPrev=idx;hwCur=HW_POOL[idx];
+  $('hwQ').innerHTML=hwCur.q;
+  const opts=[hwCur.a,...hwCur.o].sort(()=>Math.random()-0.5);
+  $('hwMc').innerHTML='';
+  let answered=false;
+  opts.forEach(o=>{
+    const btn=document.createElement('button');btn.textContent=o;
+    btn.addEventListener('click',()=>{
+      if(answered)return;answered=true;
+      if(o===hwCur.a){btn.classList.add('right');scoreHit();fb($('hwFb'),true,'✔ Juist! '+hwCur.e);}
+      else{btn.classList.add('wrong');scoreMiss();
+        [...$('hwMc').children].find(b=>b.textContent===hwCur.a).classList.add('right');
+        fb($('hwFb'),false,'✘ Nog niet. Het juiste antwoord: <code>'+hwCur.a+'</code>. '+hwCur.e);}
+    });
+    $('hwMc').appendChild(btn);
+  });
+}
+
+/* ════════════════ 1. TALSTELSELS ════════════════ */
+const TAL_MODES=[['mix','Willekeurig'],['d2b','dec → bin'],['b2d','bin → dec'],['d2h','dec → hex'],['h2d','hex → dec'],['b2h','bin → hex'],['h2b','hex → bin'],['d2o','dec → oct'],['o2d','oct → dec'],['arb','arbitrair talstelsel']];
+let talMode='mix',tal={};
+TAL_MODES.forEach(([m,l],i)=>{$('talOpts').insertAdjacentHTML('beforeend',`<button data-m="${m}" class="${i===0?'sel':''}">${l}</button>`)});
+$('talOpts').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+  $('talOpts').querySelectorAll('button').forEach(x=>x.classList.remove('sel'));
+  b.classList.add('sel');talMode=b.dataset.m;talNew();
+}));
+function toBase(n,b){return n.toString(b).toUpperCase();}
+function talNew(){
+  clearFb($('talFb'));$('talIn').value='';
+  let m=talMode==='mix'?pick(['d2b','b2d','d2h','h2d','b2h','h2b','d2o','o2d','arb']):talMode;
+  const n=ri(9,510);
+  const names={2:'binair',8:'octaal',10:'decimaal',16:'hexadecimaal'};
+  let q,ans,expl;
+  if(m==='arb'){
+    const base=pick([3,4,5,6,7]);
+    if(Math.random()<0.5){
+      const v=ri(5,120);
+      q=`Zet het decimale getal <span class="hl">${v}</span> om naar het <span class="hl">${base}-tallig</span> talstelsel.`;
+      ans=toBase(v,base);
+      expl=`Deel herhaaldelijk door ${base} en lees de resten van onder naar boven → <code>${ans}</code>. Controle: reken terug met machten van ${base}.`;
+    }else{
+      const v=ri(5,120);const rep=toBase(v,base);
+      q=`Zet <span class="hl">${rep}</span> uit het <span class="hl">${base}-tallig</span> talstelsel om naar decimaal.`;
+      ans=''+v;
+      expl=`Elk cijfer × de bijhorende macht van ${base}, optellen → <code>${v}</code>.`;
+    }
+  }else{
+    const map={d2b:[10,2],b2d:[2,10],d2h:[10,16],h2d:[16,10],b2h:[2,16],h2b:[16,2],d2o:[10,8],o2d:[8,10]};
+    const [from,to]=map[m];
+    const rep=toBase(n,from);
+    q=`Zet <span class="hl">${rep}</span> (${names[from]}) om naar <span class="hl">${names[to]}</span>.`;
+    ans=toBase(n,to);
+    if((from===2&&to===16)||(from===16&&to===2)) expl=`Werk via groepjes van 4 bits: <code>${toBase(n,2).padStart(Math.ceil(toBase(n,2).length/4)*4,'0').match(/.{4}/g).join(' ')}</code> ↔ <code>${toBase(n,16)}</code>.`;
+    else if(to===10) expl=`Cijfers × machten van ${from}, opgeteld → <code>${ans}</code>.`;
+    else expl=`Herhaald delen door ${to}, resten van onder naar boven → <code>${ans}</code>. (Decimaal was dit ${n}.)`;
+  }
+  tal={ans,expl};
+  $('talQ').innerHTML=q;
+  $('talIn').focus();
+}
+function talNorm(s){return (''+s).trim().toUpperCase().replace(/^0X/,'').replace(/\s/g,'').replace(/^0+(?=.)/,'');}
+function talCheck(){
+  if(talNorm($('talIn').value)===talNorm(tal.ans)){scoreHit();fb($('talFb'),true,'✔ Juist! '+tal.expl);}
+  else{scoreMiss();fb($('talFb'),false,'✘ Nog niet. Denk aan de methode (machten / herhaald delen) en probeer opnieuw.');}
+}
+function talShow(){scoreMiss();fb($('talFb'),false,`Oplossing: <code>${tal.ans}</code>. ${tal.expl}`);}
+onEnter(['talIn'],talCheck);
+
+/* ════════════════ 2. LITTLE ENDIAN ════════════════ */
+let le={};
+function leNew(){
+  clearFb($('leFb'));$('leHex').value='';$('leDec').value='';
+  const v=ri(300,120000);
+  let hex=v.toString(16).toUpperCase().padStart(8,'0');
+  const bytesBE=hex.match(/.{2}/g);
+  const bytesLE=[...bytesBE].reverse();
+  le={dec:v,hex:hex.replace(/^0+(?=..)/,'').replace(/^0+(?=.)/,'')||'0',hexFull:hex,le:bytesLE.join(' ')};
+  $('leBytes').textContent=bytesLE.join('  ');
+  $('leHex').focus();
+}
+function leCheck(){
+  const hOk=talNorm($('leHex').value)===talNorm(le.hexFull);
+  const dOk=normNum($('leDec').value)===le.dec;
+  if(hOk&&dOk){scoreHit();fb($('leFb'),true,`✔ Perfect. <code>${le.le}</code> omgekeerd is <code>0x${le.hexFull}</code> = <code>${le.dec}</code>.`);}
+  else{scoreMiss();fb($('leFb'),false,`✘ ${hOk?'Hex juist, decimaal niet.':dOk?'Decimaal juist, hex niet.':'Beide nog niet juist.'} Keer eerst de bytevolgorde om, dan pas omrekenen.`);}
+}
+function leShow(){scoreMiss();fb($('leFb'),false,`Oplossing: bytes omkeren → <code>0x${le.hexFull}</code> → decimaal <code>${le.dec}</code>.`);}
+onEnter(['leHex','leDec'],leCheck);
+
+/* ════════════════ 3. CHMOD ════════════════ */
+let ch={};
+function permStr(o){const map=['---','--x','-w-','-wx','r--','r-x','rw-','rwx'];return map[o];}
+function chNew(){
+  clearFb($('chFb'));$('chIn').value='';
+  const trip=[ri(0,7),ri(0,7),ri(0,7)];
+  const oct=trip.join('');
+  const str=trip.map(permStr).join('');
+  if(Math.random()<0.5){
+    ch={ans:oct,expl:`${trip.map(permStr).join(' | ')} → r=4, w=2, x=1 per drietal → <code>${oct}</code>`};
+    $('chQ').innerHTML=`Een bestand heeft de rechten <span class="hl">-${str}</span>.<br>Wat is de <span class="hl">octale</span> notatie? <span class="dim">(3 cijfers, bv. 754)</span>`;
+  }else{
+    ch={ans:str,expl:`${oct} → cijfer per groep: ${trip.map((t,i)=>['owner','group','others'][i]+'='+t+' ('+permStr(t)+')').join(', ')}`};
+    $('chQ').innerHTML=`Je voert uit: <span class="hl">chmod ${oct} file</span>.<br>Wat toont <span class="hl">ls -l</span> daarna als rechten? <span class="dim">(9 tekens, bv. rwxr-xr--, zonder het eerste streepje)</span>`;
+  }
+  $('chIn').focus();
+}
+function chCheck(){
+  const u=(''+$('chIn').value).trim().toLowerCase().replace(/^-/,'');
+  if(u===ch.ans.toLowerCase()){scoreHit();fb($('chFb'),true,'✔ Juist! '+ch.expl);}
+  else{scoreMiss();fb($('chFb'),false,'✘ Nog niet. Werk per drietal (owner / group / others), r=4 w=2 x=1.');}
+}
+function chShow(){scoreMiss();fb($('chFb'),false,`Oplossing: <code>${ch.ans}</code>. ${ch.expl}`);}
+onEnter(['chIn'],chCheck);
+
+/* ════════════════ 4. ELEKTRICITEIT ════════════════ */
+let el={};
+function elNew(){
+  clearFb($('elFb'));$('elIn').value='';
+  const type=pick(['ohmU','ohmI','ohmR','pwr','adapU','kwh','fuse','led']);
+  let q,ans,unit,expl;
+  if(type==='ohmU'){const i=pick([0.2,0.5,1,1.5,2]),r=pick([10,22,28,47,100]);ans=i*r;unit='V';
+    q=`Door een lamp met weerstand <span class="hl">${r} Ω</span> meet je een stroomsterkte van <span class="hl">${i} A</span>. Wat is de spanning over de lamp (in V)?`;
+    expl=`U = I × R = ${i} × ${r} = <code>${ans} V</code>`;}
+  else if(type==='ohmI'){const u=pick([5,9,12,24,230]),r=pick([10,24,46,60,115]);ans=u/r;unit='A';
+    q=`Over een weerstand van <span class="hl">${r} Ω</span> staat <span class="hl">${u} V</span>. Welke stroomsterkte vloeit er (in A)?`;
+    expl=`I = U / R = ${u} / ${r} = <code>${+ans.toFixed(3)} A</code>`;}
+  else if(type==='ohmR'){const u=pick([3,5,9,12]),i=pick([0.02,0.05,0.1,0.25,0.5]);ans=u/i;unit='Ω';
+    q=`Je wil bij <span class="hl">${u} V</span> een stroomsterkte van <span class="hl">${i*1000} mA</span> bereiken. Welke weerstand heb je nodig (in Ω)?`;
+    expl=`R = U / I = ${u} / ${i} = <code>${+ans.toFixed(1)} Ω</code>`;}
+  else if(type==='led'){const ub=pick([3,4.5,5]),ul=2,ima=pick([10,15,20,25]);ans=(ub-ul)/(ima/1000);unit='Ω';
+    q=`Een LED hangt aan een <span class="hl">${ub} V</span>-batterij en neemt zelf <span class="hl">${ul} V</span>. Er mag maximaal <span class="hl">${ima} mA</span> door de LED. Hoe groot moet de current limiting resistor zijn (in Ω)?`;
+    expl=`De rest-spanning valt over de weerstand: ${ub}−${ul} = ${ub-ul} V. R = U/I = ${(ub-ul)} / ${ima/1000} = <code>${+ans.toFixed(0)} Ω</code>`;}
+  else if(type==='pwr'){const u=pick([12,18.5,19.5,20]),i=pick([2,3,3.5,4.5,6]);ans=u*i;unit='W';
+    q=`Een adapter levert <span class="hl">${u} V</span> bij maximaal <span class="hl">${i} A</span>. Wat is het maximale vermogen (in W)?`;
+    expl=`P = U × I = ${u} × ${i} = <code>${+ans.toFixed(1)} W</code>`;}
+  else if(type==='adapU'){const p=pick([45,65,90,150,230]),i=pick([2.31,3.33,4.62,7.7]);ans=p/i;unit='V';
+    q=`Op een adapter staat een maximaal vermogen van <span class="hl">${p} W</span> en een maximale stroomsterkte van <span class="hl">${i} A</span>. Welke spanning levert de adapter (in V)?`;
+    expl=`U = P / I = ${p} / ${i} = <code>${+ans.toFixed(1)} V</code>`;}
+  else if(type==='kwh'){const p=pick([6,60,150,400,800]),h=pick([2,5,10,24,100]);ans=p*h/1000;unit='kWh';
+    q=`Een toestel van <span class="hl">${p} W</span> staat <span class="hl">${h} uur</span> aan. Wat is het verbruik (in kWh)?`;
+    expl=`Verbruik = P × t = ${p} W × ${h} u = ${p*h} Wh = <code>${ans} kWh</code>`;}
+  else{const n=ri(2,6),w=pick([600,800,1000,1200]);const itot=n*w/230;ans=Math.ceil(itot/20);unit='kringen';
+    q=`Een bedrijf plaatst <span class="hl">${n} servers</span> van elk <span class="hl">${w} W</span> op het net van <span class="hl">230 V</span>. Hoeveel zekeringskringen voor standaard stopcontacten (zekering <span class="hl">20 A</span>) zijn er minimaal nodig?`;
+    expl=`Totaal ${n}×${w} = ${n*w} W → I = ${n*w}/230 ≈ ${itot.toFixed(2)} A → per kring max 20 A → <code>${ans} kring${ans>1?'en':''}</code> (afronden naar boven).`;}
+  el={ans,expl,exact:type==='fuse'};
+  $('elLbl').textContent=`antwoord (${unit}):`;
+  $('elQ').innerHTML=q;
+  $('elIn').focus();
+}
+function elCheck(){
+  const ok=el.exact?normNum($('elIn').value)===el.ans:approx($('elIn').value,el.ans);
+  if(ok){scoreHit();fb($('elFb'),true,'✔ Juist! '+el.expl);}
+  else{scoreMiss();fb($('elFb'),false,'✘ Nog niet. Welke formule verbindt de gegeven grootheden? (U=I×R, P=U×I, verbruik=P×t)');}
+}
+function elShow(){scoreMiss();fb($('elFb'),false,'Oplossing: '+el.expl);}
+onEnter(['elIn'],elCheck);
+
+/* ════════════════ 5. SCHEDULING ════════════════ */
+const SCHED_MODES=[['mix','Willekeurig'],['FCFS','FCFS'],['SJF','SJF'],['RR','Round Robin']];
+let schedMode='mix',sched={};
+SCHED_MODES.forEach(([m,l],i)=>{$('schedOpts').insertAdjacentHTML('beforeend',`<button data-m="${m}" class="${i===0?'sel':''}">${l}</button>`)});
+$('schedOpts').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+  $('schedOpts').querySelectorAll('button').forEach(x=>x.classList.remove('sel'));
+  b.classList.add('sel');schedMode=b.dataset.m;schedNew();
+}));
+function simFCFS(procs){
+  let t=0;const res={},order=[...procs].sort((a,b)=>a.arr-b.arr||a.name.localeCompare(b.name));const tl=[];
+  order.forEach(p=>{if(t<p.arr)t=p.arr;res[p.name]={start:t};tl.push(`${p.name}: ${t}→${t+p.dur}`);t+=p.dur;res[p.name].end=t;});
+  return {res,tl};
+}
+function simSJF(procs){
+  let t=0;const done=new Set(),res={},tl=[];
+  while(done.size<procs.length){
+    const avail=procs.filter(p=>!done.has(p.name)&&p.arr<=t);
+    if(!avail.length){t=Math.min(...procs.filter(p=>!done.has(p.name)).map(p=>p.arr));continue;}
+    avail.sort((a,b)=>a.dur-b.dur||a.arr-b.arr||a.name.localeCompare(b.name));
+    const p=avail[0];res[p.name]={start:t};tl.push(`${p.name}: ${t}→${t+p.dur}`);t+=p.dur;res[p.name].end=t;done.add(p.name);
+  }
+  return {res,tl};
+}
+function simRR(procs,q){
+  const sorted=[...procs].sort((a,b)=>a.arr-b.arr||a.name.localeCompare(b.name));
+  const rem={},res={};sorted.forEach(p=>rem[p.name]=p.dur);
+  let t=0,i=0;const queue=[],tl=[];
+  const enq=upto=>{while(i<sorted.length&&sorted[i].arr<=upto){queue.push(sorted[i]);i++;}};
+  enq(t);
+  while(Object.values(rem).some(r=>r>0)){
+    if(!queue.length){t=sorted[i].arr;enq(t);continue;}
+    const p=queue.shift();
+    if(res[p.name]===undefined||res[p.name].start===undefined)res[p.name]={start:t};
+    const run=Math.min(q,rem[p.name]);
+    tl.push(`${p.name}: ${t}→${t+run}`);
+    t+=run;rem[p.name]-=run;
+    enq(t); // nieuwkomers eerst, dan het onderbroken proces
+    if(rem[p.name]>0)queue.push(p);else res[p.name].end=t;
+  }
+  return {res,tl};
+}
+function schedNew(){
+  clearFb($('schedFb'));
+  const algo=schedMode==='mix'?pick(['FCFS','SJF','RR']):schedMode;
+  const q=pick([2,3]);
+  const names=['A','B','C','D'];
+  let procs;
+  // genereer tot de opgave interessant is (processen overlappen)
+  do{
+    let arr=0;
+    procs=names.map(n=>{const p={name:n,arr:arr,dur:ri(1,8)};arr+=ri(0,2);return p;});
+  }while(procs.reduce((s,p)=>s+p.dur,0)<10);
+  const sim=algo==='FCFS'?simFCFS(procs):algo==='SJF'?simSJF(procs):simRR(procs,q);
+  sched={algo,q,procs,sim};
+  $('schedTitle').textContent=`scheduler — ${algo}${algo==='RR'?' (Q='+q+')':''}`;
+  $('schedQ').innerHTML=`Algoritme: <span class="hl">${algo==='FCFS'?'First Come, First Serve':algo==='SJF'?'Shortest Job First (niet-preëmptief)':'Round Robin met tijdsquantum '+q}</span>.<br>Vul per proces de starttijd en de omlooptijd in.`;
+  let html='<tr><th>Proces</th><th>Aankomst</th><th>Uitvoertijd</th><th>Start</th><th>Omlooptijd</th></tr>';
+  procs.forEach(p=>{
+    html+=`<tr><td><b>${p.name}</b></td><td>${p.arr}</td><td>${p.dur}</td>
+    <td><input type="text" id="st_${p.name}" autocomplete="off"></td>
+    <td><input type="text" id="om_${p.name}" autocomplete="off"></td></tr>`;
+  });
+  $('schedTable').innerHTML=html;
+}
+function schedCheck(){
+  let allOk=true,rows=[];
+  sched.procs.forEach(p=>{
+    const r=sched.sim.res[p.name];
+    const stOk=normNum($('st_'+p.name).value)===r.start;
+    const omOk=normNum($('om_'+p.name).value)===(r.end-p.arr);
+    if(!stOk||!omOk)allOk=false;
+    rows.push(`${p.name}: start ${stOk?'✔':'✘'} · omlooptijd ${omOk?'✔':'✘'}`);
+  });
+  if(allOk){scoreHit();fb($('schedFb'),true,'✔ Helemaal juist! Tijdslijn: '+sched.sim.tl.join(' · '));}
+  else{scoreMiss();fb($('schedFb'),false,'✘ Nog niet volledig:<br>'+rows.join('<br>')+'<br><span style="color:#9DBBAB">Teken de tijdslijn op papier en probeer opnieuw.</span>');}
+}
+function schedShow(){
+  scoreMiss();
+  let s='Tijdslijn: '+sched.sim.tl.join(' · ')+'<br>';
+  sched.procs.forEach(p=>{const r=sched.sim.res[p.name];s+=`${p.name}: start=${r.start}, einde=${r.end}, omlooptijd=${r.end}−${p.arr}=<code>${r.end-p.arr}</code><br>`;});
+  fb($('schedFb'),false,s);
+}
+
+/* ════════════════ 6. RAID & XOR ════════════════ */
+const RAID={
+  0:{min:2,cap:(n,s)=>n*s,fail:0,capF:'N × grootte',uitleg:'striping: geen redundantie'},
+  1:{min:2,cap:(n,s)=>s,fail:'N−1',capF:'1 × grootte',uitleg:'mirroring: alles gespiegeld'},
+  5:{min:3,cap:(n,s)=>(n-1)*s,fail:1,capF:'(N−1) × grootte',uitleg:'striping met 1 verdeelde pariteitsdisk-equivalent'},
+  6:{min:4,cap:(n,s)=>(n-2)*s,fail:2,capF:'(N−2) × grootte',uitleg:'striping met dubbele pariteit'},
+  10:{min:4,cap:(n,s)=>n/2*s,fail:'minstens 1 (1 per mirror-paar)',capF:'N/2 × grootte',uitleg:'stripe van mirrors'}
+};
+const RAID_MODES=[['mix','Willekeurig'],['props','RAID-eigenschappen'],['cap','Capaciteit berekenen'],['xor','XOR-pariteit']];
+let raidMode='mix',raid={};
+RAID_MODES.forEach(([m,l],i)=>{$('raidOpts').insertAdjacentHTML('beforeend',`<button data-m="${m}" class="${i===0?'sel':''}">${l}</button>`)});
+$('raidOpts').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+  $('raidOpts').querySelectorAll('button').forEach(x=>x.classList.remove('sel'));
+  b.classList.add('sel');raidMode=b.dataset.m;raidNew();
+}));
+function raidNew(){
+  clearFb($('raidFb'));$('raidMc').innerHTML='';$('raidIn').value='';
+  $('raidAnsRow').style.display='none';$('raidCheckBtn').style.display='none';
+  const type=raidMode==='mix'?pick(['props','cap','xor']):raidMode;
+  if(type==='props'){
+    const lvl=pick([0,1,5,6,10]);const info=RAID[lvl];
+    const kind=pick(['min','fail']);
+    let ans,opts;
+    if(kind==='min'){ans=''+info.min;opts=['2','3','4','5'];
+      $('raidQ').innerHTML=`Wat is het <span class="hl">minimum aantal disks</span> voor <span class="hl">RAID ${lvl}</span>?`;}
+    else{ans=''+info.fail;opts=[...new Set(['0','1','2','N−1','minstens 1 (1 per mirror-paar)'])];
+      $('raidQ').innerHTML=`Hoeveel disks mogen er <span class="hl">maximaal uitvallen</span> bij <span class="hl">RAID ${lvl}</span> zonder dataverlies?`;}
+    raid={ans,expl:`RAID ${lvl}: ${info.uitleg}. Min. ${info.min} disks, capaciteit ${info.capF}, tolerantie: ${info.fail} disk(s).`,mc:true};
+    opts.sort(()=>Math.random()-0.5).forEach(o=>{
+      const btn=document.createElement('button');btn.textContent=o;
+      btn.addEventListener('click',()=>{
+        if(o===ans){btn.classList.add('right');scoreHit();fb($('raidFb'),true,'✔ Juist! '+raid.expl);}
+        else{btn.classList.add('wrong');scoreMiss();fb($('raidFb'),false,'✘ Nog niet. '+`Denk aan het mechanisme: ${RAID[lvl].uitleg}.`);}
+      });
+      $('raidMc').appendChild(btn);
+    });
+  }else if(type==='cap'){
+    const lvl=pick([0,1,5,6,10]);const info=RAID[lvl];
+    const n=lvl===10?pick([4,6,8]):pick([info.min,info.min+1,info.min+2]);
+    const s=pick([1,2,4]);
+    const ans=info.cap(n,s);
+    raid={ans,expl:`RAID ${lvl}: capaciteit = ${info.capF} = <code>${ans} TB</code> (${info.uitleg}).`,mc:false,exact:true};
+    $('raidQ').innerHTML=`Je bouwt een <span class="hl">RAID ${lvl}</span> met <span class="hl">${n} disks</span> van elk <span class="hl">${s} TB</span>. Wat is de netto (bruikbare) capaciteit in TB?`;
+    $('raidAnsRow').style.display='flex';$('raidCheckBtn').style.display='inline-block';
+    $('raidIn').focus();
+  }else{
+    const bits=Array.from({length:pick([4,8])},()=>ri(0,1));
+    const par=bits.reduce((a,b)=>a^b,0);
+    raid={ans:''+par,expl:`XOR is 1 bij een oneven aantal enen. Hier ${bits.filter(b=>b).length} enen → pariteitsbit <code>${par}</code>. (Zo reconstrueert RAID 5 een verloren disk.)`,mc:false,exact:true};
+    $('raidQ').innerHTML=`Bereken de <span class="hl">pariteitsbit (XOR)</span> over deze bits:<br><span class="hexrow">${bits.join('  ')}</span>`;
+    $('raidAnsRow').style.display='flex';$('raidCheckBtn').style.display='inline-block';
+    $('raidIn').focus();
+  }
+}
+function raidCheck(){
+  if(raid.mc)return;
+  if(normNum($('raidIn').value)===normNum(raid.ans)){scoreHit();fb($('raidFb'),true,'✔ Juist! '+raid.expl);}
+  else{scoreMiss();fb($('raidFb'),false,'✘ Nog niet — probeer opnieuw of toon de oplossing.');}
+}
+function raidShow(){scoreMiss();fb($('raidFb'),false,'Oplossing: <code>'+raid.ans+'</code>. '+raid.expl);}
+onEnter(['raidIn'],raidCheck);
+
+/* ════════════════ 7. FLASHCARDS MONDELING ════════════════ */
+const CARDS=[
+["Hardware","Overloop de kerncomponenten van een computer en geef van elk de functie in één zin.","<b>Moederbord:</b> verbindt alles (CPU-socket, RAM-slots, SATA, PCIe). <b>CPU:</b> voert instructies uit via miljarden transistoren. <b>RAM:</b> snel, vluchtig werkgeheugen. <b>HDD/SSD:</b> permanente opslag. <b>GPU:</b> verwerkt grafische data, ontlast de CPU. <b>PSU:</b> AC → DC met de juiste spanning per onderdeel. <b>Koeling:</b> voert de warmte af waarin de verbruikte energie wordt omgezet."],
+["Hardware","Wat is het verschil tussen HDD en SSD, en wanneer kies je welke?","<b>HDD:</b> magnetische schijven — goedkoper per TB, dus voor grote capaciteiten. <b>SSD:</b> flashgeheugen — sneller en minder kwetsbaar, tegenwoordig de standaard voor kleinere capaciteiten en het besturingssysteem."],
+["Hardware","Wat is het verschil tussen cores en logical processors?","<b>Cores</b> zijn fysieke processorkernen die tegelijk kunnen rekenen. Door <b>SMT</b> (simultaneous multithreading, bij Intel 'hyper-threading') ziet het OS méér <b>logische processoren</b> dan er cores zijn — bv. 14 cores maar 20 logical processors in Task Manager."],
+["Hardware","Wat doet de PSU, en wat is de link met het elektriciteitshoofdstuk?","De voeding zet <b>wisselstroom (AC) om in gelijkstroom (DC)</b> en levert elk onderdeel de juiste spanning — netspanning van 230V is veel te hoog voor elektronica. Zelfde principe als de laptopadapter: transformator verlaagt de spanning, elektronica richt de stroom gelijk."],
+["Hardware","Waarom heeft een computer koeling nodig?","Vrijwel alle verbruikte energie wordt <b>warmte</b>. Elke CPU heeft een maximum operating temperature; daarboven werkt hij niet meer naar behoren of raakt hij beschadigd. Daarom: heatspreader op de CPU + actieve koeling in de kast."],
+["Hardware","Geïntegreerde vs. dedicated GPU — verschil en wanneer volstaat de eerste?","<b>Geïntegreerd:</b> ingebouwd in de CPU, deelt het systeemgeheugen — genoeg voor surfen en kantoorwerk. <b>Dedicated:</b> eigen kaart met eigen geheugen — nodig voor gamen, videobewerking en 3D-modellering."],
+["Hardware","Waarom is een desktop beter herstelbaar dan een laptop?","Bij een desktop zijn componenten <b>apart en vervangbaar</b> (CPU, RAM, opslag, GPU, PSU); bij een laptop zijn ze vaak <b>vast gesoldeerd</b> op het moederbord. Repairability inschatten en kosten/baten afwegen is een expliciete leerdoelstelling (DLR 5)."],
+["Elektriciteit","Leg de wet van Ohm uit met de wateranalogie.","<b>U = I × R.</b> Spanning = niveauverschil tussen twee watervaten (drukverschil), stroomsterkte = hoeveel water door de buis vloeit, weerstand = hoe smal de buis is. Meer drukverschil → meer stroom; smallere buis (hogere R) → minder stroom."],
+["Elektriciteit","Wat is het verschil in functie tussen een zekering, een differentieel en de aarding?","<b>Zekering:</b> onderbreekt bij te hoge stroomsterkte → beschermt tegen overbelasting/kortsluiting/brand (16A verlichting, 20A stopcontacten, 32A kookplaat). <b>Differentieel:</b> vergelijkt in- en uitgaande stroom; bij lekstroom onderbreken → beschermt tegen elektrocutie (30mA vochtig, 300mA gewoon). <b>Aarding:</b> leidt lekstroom bij isolatiefout af naar de grond zodat de differentieel die detecteert — ze werken samen."],
+["Elektriciteit","Waarom heeft je laptop een adapter nodig?","Twee redenen: het net levert <b>230V wisselstroom (AC, 50Hz)</b>, maar elektronica werkt op <b>gelijkstroom (DC)</b>; én 230V is veel te hoog. De adapter transformeert de spanning omlaag én zet AC om in DC."],
+["Elektriciteit","Een server van 400W draait 24/7. Hoeveel kWh per dag?","Verbruik = P × t = 0,4 kW × 24 u = <b>9,6 kWh per dag</b> (± 288 kWh per maand). Methode: watt naar kilowatt, maal uren."],
+["Bits & Bytes","Waarom rekenen computers binair en niet decimaal?","In elektronica zijn <b>twee toestanden</b> (aan/uit, hoge/lage spanning) heel eenvoudig en betrouwbaar voor te stellen; tien verschillende niveaus zijn dat niet."],
+["Bits & Bytes","Waarom bestaat hexadecimaal? Waar kom je octaal tegen?","Binaire getallen worden snel lang en onleesbaar (255 = 11111111). Hex vat <b>4 bits samen in 1 teken</b> (0–F) — compact en 1-op-1 om te zetten. Octaal groepeert per 3 bits en kom je tegen bij <b>Linux-bestandsrechten</b> (chmod 755)."],
+["Bits & Bytes","Wat is het verschil tussen een gigabyte en een gibibyte?","<b>Gigabyte</b> = 10⁹ bytes (machten van 1000), <b>gibibyte (GiB)</b> = 2³⁰ bytes (machten van 1024). In de praktijk zeggen IT'ers vaak 'gigabyte' terwijl ze gibibyte bedoelen. 1024 is het 'ronde' getal in het binair."],
+["Bits & Bytes","Waarom is ASCII niet genoeg en hoe lost UTF-8 dat op?","ASCII heeft maar <b>7 bits</b> → geen accenten, andere alfabetten of emoji. <b>Unicode</b> kent elk karakter een uniek nummer toe; <b>UTF-8</b> codeert dat variabel: simpele Latijnse tekens in 1 byte, complexe tot 4 bytes — dus compact én compatibel met ASCII."],
+["Virtualisatie","Wat is een hypervisor en wat betekent 'een VM is gewoon een bestand'?","De <b>hypervisor</b> is software (bv. VMware) die virtuele hardware aanmaakt (virtuele schijf, CPU, RAM, netwerkkaart) waarop je een gast-OS installeert. Voor de host is die hele VM gewoon <b>een bestand op schijf</b> — daarom kan je ze makkelijk kopiëren, back-uppen en delen."],
+["Virtualisatie","Geef drie redenen waarom we virtualisatie gebruiken.","1) <b>Flexibele sandbox:</b> veilig testen/experimenteren, kapot = nieuwe VM of snapshot terugzetten. 2) <b>Omgevingen delen:</b> een VM is een bestand dat je doorgeeft en overal met dezelfde hypervisor opstart. 3) <b>Productieomgevingen:</b> bij een failure van een fysieke server migreren de VM's automatisch naar een andere server."],
+["Virtualisatie","Wat is het verschil tussen een snapshot, een linked clone en een full clone?","<b>Snapshot:</b> herstelpunt van dezelfde VM. <b>Linked clone:</b> nieuwe VM die de basisschijf deelt met het origineel — klein, maar afhankelijk van het origineel. <b>Full clone:</b> volledige onafhankelijke kopie — groter, maar zelfstandig. Let op: met snapshots kan VMware de virtuele schijf niet vergroten."],
+["Virtualisatie","Wat doet GRUB en wanneer zie je het?","GRUB is een <b>boot loader</b>: het programma dat bij het opstarten het besturingssysteem inlaadt. Bij een dual boot toont GRUB een <b>keuzemenu</b> (bv. Fedora of Ubuntu) en laadt het gekozen OS."],
+["Linux","Wat betekent -rwxr-x--x en wat is dat octaal?","Eerste teken: bestandstype. Dan 3 × 3: <b>owner rwx (7), group r-x (5), others --x (1)</b> → octaal <b>751</b>. Methode: r=4, w=2, x=1, optellen per drietal."],
+["Linux","Wat is het verschil tussen > en >>? Tussen ; en &&?","<b>&gt;</b> overschrijft het bestand, <b>&gt;&gt;</b> voegt toe aan het einde. <b>;</b> voert het volgende commando altijd uit, <b>&amp;&amp;</b> alleen als het vorige geslaagd is."],
+["Linux","Hoe zoek je uit wat een onbekend commando doet, zonder internet?","<b>man</b> voor de handleiding (met secties: man 2 write voor system calls), <b>apropos</b> om te zoeken op trefwoord als je het commando niet kent, <b>--help</b> voor een kort overzicht, <b>help</b> voor shell built-ins."],
+["Linux","Leg uit wat er gebeurt bij: ls -l /etc | grep conf | wc -l","<b>Pipes:</b> de output van elk commando wordt de input van het volgende. ls -l lijst /etc, grep filtert de lijnen met 'conf', wc -l telt die lijnen. Resultaat: het aantal items in /etc met 'conf' in de naam."],
+["Processen","Wat is het verschil tussen een programma en een proces?","Een <b>proces is een programma in uitvoering</b>. Het OS houdt er info over bij: program counter, open bestanden, gebruikt geheugen, status. Op Linux zichtbaar via het /proc-filesystem."],
+["Processen","Vergelijk FCFS, SJF en RR.","<b>FCFS:</b> wachtrij, niet-preëmptief; goed voor lange batch-bursts, maar korte processen wachten lang. <b>SJF:</b> kortste eerst, lage gemiddelde omlooptijd, maar starvation van lange processen (oplossing: aging). <b>RR:</b> preëmptief met tijdsquantum; begrensde wachttijd en geen starvation, maar context-switch-overhead en interactieve processen kunnen laggy aanvoelen."],
+["Processen","Wat is starvation en hoe lost aging dat op?","<b>Starvation:</b> een proces komt nooit aan de beurt omdat er steeds 'betere' kandidaten zijn (bv. kortere jobs bij SJF). <b>Aging:</b> de scheduler houdt rekening met hoe lang een proces al wacht en verhoogt geleidelijk zijn prioriteit."],
+["Processen","Wat is een system call en waarom mag een proces niet rechtstreeks de hardware aanspreken?","Een <b>system call</b> is een verzoek van een proces aan het OS (bv. write): het proces pauzeert, het OS neemt over. Redenen: <b>abstractie</b> (programma hoeft niets van de hardware te weten) en <b>controle</b> (het OS dwingt bv. bestandsrechten af). Met strace zie je alle system calls van een programma."],
+["Processen","Wat gebeurt er stap voor stap bij een interrupt?","Hardware (bv. netwerkkaart) stuurt een interrupt request. Dan: 1) processor stopt het lopende proces, 2) toestand (registers, instruction pointer) wordt opgeslagen, 3) interrupt-code van het OS wordt geladen, 4) interrupt wordt afgehandeld, 5) oorspronkelijk proces hervat. Dit wisselen heet een <b>context switch</b>. Winst: de CPU hoeft niet te wachten (bv. tijdens een schijf-leesoperatie) maar kan intussen andere processen draaien."],
+["Processen","Waarom is een heel klein tijdsquantum bij RR een slecht idee?","Elke wissel is een <b>context switch</b>: procestoestand wegschrijven en nieuwe inladen kost tijd. Hoe kleiner het quantum, hoe groter het aandeel overhead t.o.v. nuttig werk."],
+["Opslag","Waar staat de GPT-header en hoe haal je die van de schijf?","In <b>LBA 1</b> (de tweede sector). Met <code>sudo dd if=/dev/sda of=header bs=512 skip=1 count=1</code> kopieer je die sector; met <b>hexyl</b> lees je de bytes. sudo is nodig omdat een gewone gebruiker niet rechtstreeks van de schijf mag lezen; je device vind je met lsblk."],
+["Opslag","Wat is little endian? Lees 3E 02 00 00.","Bytes staan van <b>minst naar meest significant</b>. Omkeren geeft 00 00 02 3E → hex 23E → decimaal <b>574</b>."],
+["Opslag","Wat is het verschil tussen een partitie en een filesystem?","Een <b>partitie</b> is een afgebakend deel van de schijf (beschreven in de partitietabel, bv. GPT). Een <b>filesystem</b> (FAT32, ext4, btrfs) is de structuur ín die partitie die bepaalt hoe bestanden en mappen worden opgeslagen. Eén schijf → meerdere partities → elk hun eigen filesystem."],
+["Opslag","Vergelijk RAID 1 en RAID 5 qua capaciteit en fouttolerantie.","<b>RAID 1</b> (mirror, min 2 disks): capaciteit van 1 disk, N−1 disks mogen uitvallen. <b>RAID 5</b> (striping + pariteit, min 3 disks): capaciteit (N−1) × grootte, precies 1 disk mag uitvallen — de data wordt via XOR-pariteit gereconstrueerd."],
+["Opslag","Waarom kan een bestand van 1 byte toch een heel blok innemen?","Filesystems delen de schijf op in <b>blokken</b> van vaste grootte (bv. 4 KiB) en wijzen die volledig toe. Een bestand van 1 byte bezet dus minstens 1 blok. Aantal blokken = bestandsgrootte / blokgrootte, <b>naar boven afgerond</b>."],
+];
+const FC_CATS=['Alle','Hardware','Elektriciteit','Bits & Bytes','Virtualisatie','Linux','Processen','Opslag'];
+let fcCat='Alle',fcDeck=[],fcIdx=0;
+FC_CATS.forEach((c,i)=>{$('fcOpts').insertAdjacentHTML('beforeend',`<button data-c="${c}" class="${i===0?'sel':''}">${c}</button>`)});
+$('fcOpts').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+  $('fcOpts').querySelectorAll('button').forEach(x=>x.classList.remove('sel'));
+  b.classList.add('sel');fcCat=b.dataset.c;fcRestart();
+}));
+function fcRestart(){
+  fcDeck=CARDS.map((c,i)=>i).filter(i=>fcCat==='Alle'||CARDS[i][0]===fcCat);
+  fcDeck.sort(()=>Math.random()-0.5);
+  $('fcDone').style.display='none';$('fcCard').style.display='block';
+  fcShowCard();
+}
+function fcShowCard(){
+  if(!fcDeck.length){$('fcCard').style.display='none';$('fcDone').style.display='block';$('fcCount').textContent='0 kaarten te gaan';return;}
+  const c=CARDS[fcDeck[0]];
+  $('fcCat').textContent=c[0];
+  $('fcQ').textContent=c[1];
+  $('fcA').innerHTML=c[2];
+  $('fcA').classList.remove('show');
+  $('fcFlip').style.display='inline-block';
+  $('fcGood').style.display='none';$('fcAgain').style.display='none';
+  $('fcCount').textContent=fcDeck.length+' kaart'+(fcDeck.length>1?'en':'')+' te gaan';
+}
+function fcFlip(){
+  $('fcA').classList.add('show');
+  $('fcFlip').style.display='none';
+  $('fcGood').style.display='inline-block';
+  $('fcAgain').style.display='inline-block';
+}
+function fcRate(known){
+  const cur=fcDeck.shift();
+  if(!known)fcDeck.push(cur);
+  fcShowCard();
+}
+
+/* ════════════════ init ════════════════ */
+drawStreak();hwNew();talNew();leNew();chNew();elNew();schedNew();raidNew();fcRestart();
+</script>
+</body>
+</html>
