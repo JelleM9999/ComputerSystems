@@ -189,6 +189,62 @@ footer{margin-top:48px;text-align:center;font-family:var(--mono);font-size:12px;
   .register{padding:8px 12px}
   header::before{display:none}
 }
+
+/* ── reading sections (Examenfocus & Studiegids) ─────── */
+.subnav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.subnav-btn{font-family:var(--mono);font-size:12.5px;font-weight:500;padding:7px 13px;border:1px solid var(--border);border-radius:999px;background:var(--card);color:var(--ink-soft);cursor:pointer;transition:all .15s;box-shadow:0 1px 3px rgba(21,36,32,.05)}
+.subnav-btn:hover{border-color:var(--green);color:var(--green-deep);transform:translateY(-1px)}
+.reading .chapter{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:30px 34px 34px;box-shadow:var(--shadow);margin-bottom:24px;scroll-margin-top:70px}
+.reading .chapter-tag{display:inline-block;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#fff;background:linear-gradient(135deg,var(--green-deep),var(--green));padding:5px 14px;border-radius:999px;margin-bottom:14px}
+.reading h2.title{font-size:25px;font-weight:800;letter-spacing:-.5px;color:var(--ink);margin-bottom:6px}
+.reading .lead{color:var(--ink-soft);font-size:15px;margin-bottom:8px;max-width:70ch}
+.reading h3{font-family:var(--mono);font-size:14px;text-transform:uppercase;letter-spacing:1.2px;color:var(--green);margin:28px 0 12px;padding-top:20px;border-top:1px solid var(--border);display:flex;align-items:center;gap:9px}
+.reading h3::before{content:"§";color:var(--green-bright);font-size:16px}
+.reading h3:first-of-type{border-top:none;padding-top:6px}
+.reading h4{font-size:16px;font-weight:700;color:var(--green-deep);margin:20px 0 8px}
+.reading p{margin:0 0 13px;max-width:72ch;font-size:15px}
+.reading ul,.reading ol{margin:0 0 14px 22px;font-size:15px}
+.reading li{margin-bottom:6px;max-width:70ch}
+.reading code{font-family:var(--mono);font-size:13.5px;background:var(--paper);border:1px solid var(--border);border-radius:6px;padding:2px 7px;color:var(--green-deep);white-space:nowrap}
+.reading pre{background:var(--term-bg);border:1px solid var(--term-line-solid);border-radius:12px;padding:16px 18px;overflow-x:auto;margin:6px 0 16px;box-shadow:var(--shadow-sm);position:relative}
+.reading pre::before{content:"bash";position:absolute;top:8px;right:12px;font-family:var(--mono);font-size:10px;letter-spacing:1px;color:var(--term-dim);text-transform:uppercase}
+.reading pre code{background:none;border:none;padding:0;color:var(--term-text);font-size:13.5px;line-height:1.7;white-space:pre;display:block}
+.reading pre code .cmt{color:var(--term-dim)}
+.reading pre code .op{color:#EBD98F}
+.tbl-wrap{overflow-x:auto;margin:12px 0 18px}
+.reading table{border-collapse:separate;border-spacing:0;width:100%;font-size:14px;border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:var(--shadow-sm);margin:0}
+.reading th,.reading td{border-bottom:1px solid var(--border);border-right:1px solid var(--border);padding:9px 13px;text-align:left;vertical-align:top}
+.reading th:last-child,.reading td:last-child{border-right:none}
+.reading tr:last-child td{border-bottom:none}
+.reading th{background:linear-gradient(180deg,var(--green-soft),#D3E3D6);font-family:var(--mono);font-size:12px;letter-spacing:.4px;color:var(--green-deep);white-space:nowrap}
+.reading tr:nth-child(even) td{background:#F8FAF6}
+.reading td.c,.reading th.c{text-align:center}
+.reading .callout .tag{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:1.5px;display:block;margin-bottom:5px;font-weight:700}
+.reading .callout.g .tag{color:var(--green-deep)}
+.reading .callout:not(.g) .tag{color:#96601F}
+.ex{border:1px solid var(--border);border-radius:12px;margin:10px 0;overflow:hidden;background:#FDFDFB}
+.ex summary{cursor:pointer;padding:14px 18px;font-size:15px;list-style:none;display:flex;gap:12px;align-items:flex-start;transition:background .15s}
+.ex summary::-webkit-details-marker{display:none}
+.ex summary:hover{background:var(--paper)}
+.ex .num{font-family:var(--mono);font-size:12px;font-weight:700;color:#fff;background:linear-gradient(135deg,var(--green-deep),var(--green));padding:3px 9px;border-radius:6px;flex-shrink:0;margin-top:1px}
+.ex .qtext{flex:1}
+.ex[open] summary{background:var(--green-soft);border-bottom:1px solid var(--border)}
+.ex .sol{padding:16px 18px 18px;font-size:14.5px;background:#FBFDF9}
+.ex .sol::before{content:"oplossing";font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);display:block;margin-bottom:8px}
+.ex .sol pre{margin-top:0}
+.hint{font-family:var(--mono);font-size:11px;color:var(--ink-soft);margin-left:auto;flex-shrink:0;align-self:center;opacity:.7}
+.phase{display:grid;grid-template-columns:auto 1fr;gap:0 18px;margin:14px 0}
+.phase .n{grid-row:span 2;font-family:var(--mono);font-size:24px;font-weight:700;color:#fff;background:linear-gradient(135deg,var(--green-deep),var(--green));width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center}
+.phase h4{margin:0 0 4px}
+.phase p{margin:0}
+.qbank li{margin-bottom:8px}
+.qcat{font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--green-deep);margin:16px 0 8px;font-weight:600}
+.progress{font-family:var(--mono);font-size:13px;color:var(--green-deep);margin-bottom:12px}
+@media(max-width:600px){
+  .reading .chapter{padding:22px 18px 26px}
+  .reading h2.title{font-size:21px}
+}
+
 </style>
 </head>
 <body>
@@ -424,35 +480,82 @@ footer{margin-top:48px;text-align:center;font-family:var(--mono);font-size:12px;
 
   <!-- ── 7. Opslag ── -->
   <div class="theory" id="th-opslag">
-    <h3>7 · Schijven en filesystems</h3>
-    <div class="lo">GPT inspecteren en dissecteren; partitietabel en partities uitleggen; schijfanatomie; XOR-pariteit; RAID-levels; FAT32 vs ext4; blokberekeningen.</div>
-    <div class="callout"><b>Let op</b><br>Van dit hoofdstuk had je enkel de GPT-oefening geüpload; RAID, schijfanatomie en FAT32/ext4 hieronder zijn algemene leerstof — controleer ze tegen de syllabus op Toledo.</div>
-    <h4>Partities &amp; GPT</h4>
-    <p>De <b>partitietabel</b> (GPT) beschrijft hoe de schijf is opgedeeld in <b>partities</b>; elke partitie bevat een eigen filesystem. De <b>GPT-header staat in LBA 1</b>; vanaf LBA 2 volgen de partition entries (standaard ruimte voor 128 entries van elk 128 bytes → 4 per sector van 512 bytes — dat betekent níét dat er 128 partities zijn).</p>
+    <h3>7 · Opslag: schijven, RAID en filesystems</h3>
+    <div class="lo">De technische werking van opslaghardware kennen; kunnen uitleggen hoe een filesystem werkt; GPT inspecteren; RAID en blokken berekenen.</div>
+    <h4>Harde schijf: de onderdelen</h4>
+    <table><tr><th>Onderdeel</th><th>Functie</th></tr>
+    <tr><td><b>Magneetschijven (platters)</b></td><td>aluminium/glas met aan <b>beide</b> kanten een magnetische laag — de magnetisatie is de data (0 of 1)</td></tr>
+    <tr><td><b>Lees-/schrijfkop</b></td><td>detecteert magnetisatie (lezen) of verandert ze (schrijven) — <b>één kop per laag</b>, dus 2 × aantal platters</td></tr>
+    <tr><td><b>Arm</b></td><td>plaatst de kop op het juiste spoor; reikt tot de volledige straal</td></tr>
+    <tr><td><b>Magneet</b></td><td>beweegt de arm — twee per schijf (naar binnen / naar buiten)</td></tr>
+    <tr><td><b>Draaimotor</b></td><td>laat de platters draaien: 5400 of 7200 RPM</td></tr>
+    <tr><td><b>Filter</b></td><td>vangt stofdeeltjes op — fataal bij zo'n hoge datadichtheid</td></tr></table>
+    <h4>Logische indeling</h4>
     <ul>
-      <li>Sector kopiëren: <code>sudo dd if=/dev/sda of=header bs=512 skip=1 count=1</code> (skip=2 voor LBA 2). <code>sudo</code> nodig: een gewone gebruiker mag de schijf niet rechtstreeks lezen. Je device vind je met <code>lsblk</code> (soms <code>/dev/nvme0n1</code>).</li>
-      <li>Bytes lezen: <code>hexyl header</code> — linkerkolom = offset (hex), dan de bytes, dan de ASCII-weergave (je herkent <code>EFI PART</code>, de signature).</li>
-      <li>Partitietabel tonen: <code>fdisk -l /dev/sda</code>.</li>
+      <li><b>Spoor (track):</b> concentrische cirkel met bits, met constante <b>lineaire dichtheid</b>.</li>
+      <li><b>Sector:</b> begrensd door twee stralen, <b>vaste grootte</b> (512 bytes, sinds 2010 vaak 4096). Opbouw: <code>gap</code> (scheiding) · <code>sync</code> (uitlijning) · <code>address mark</code> (sectornummer) · <b>data</b> · <code>ECC</code> (recuperatie bij corruptie).</li>
+      <li><b>Cilinder:</b> alle sporen onder elkaar op de verschillende platters.</li>
+      <li><b>Netto-capaciteit</b> = bruikbaar voor data. <b>Bruto</b> = netto + hoofdingen, controlebits en gaps.</li>
+      <li><b>Adressering:</b> vroeger CHS (Cylinder, Head, Sector), nu <b>LBA</b> — elke sector een uniek nummer <b>vanaf 0</b>. 22-bits adressen gaven 2 GiB; 48-bits × 512 bytes geeft <b>128 PiB</b>.</li>
+      <li><b>Zone bit recording:</b> buitenste sporen zijn langer en krijgen dus méér sectoren → uniformere bitdichtheid en meer capaciteit. Kan dankzij LBA.</li>
     </ul>
-    <div class="callout g"><b>Little endian</b><br>Waarden staan met de bytes van minst naar meest significant. <code>3E 02 00 00</code> → omkeren → 0x0000023E → 574. <code>80 00 00 00</code> → 0x80 → 128.</div>
-    <h4>Schijfanatomie (HDD)</h4>
-    <p>Begrippen: <b>platter</b> met <b>tracks</b>; tracks boven elkaar vormen een <b>cylinder</b>; per platterkant een lees-/schrijf-<b>head</b>; een track is verdeeld in <b>sectoren</b> (klassiek 512 bytes). <b>Seek</b> = de arm naar de juiste track bewegen; <b>search/rotational delay</b> = wachten tot de sector onder de kop draait. <b>LBA</b> (Logical Block Addressing) nummert alle sectoren lineair (0, 1, 2 …) zodat je niet met cylinder/head/sector hoeft te rekenen. Bruto capaciteit = alles; netto = wat na formattering bruikbaar is.</p>
+    <h4>Schijfbesturingseenheid (SBE / controller)</h4>
+    <ul>
+      <li><b>Seek</b> = arm naar het juiste spoor. <b>Search</b> = hoofdingen lezen tot de juiste sector passeert.</li>
+      <li><b>Schrijven:</b> data van de CPU in een buffer → elektrisch (0V/5V) wordt magnetisch (noord/zuid). <b>Lezen</b> = omgekeerd.</li>
+      <li><b>Pariteitsbits</b> berekenen bij schrijven, controleren bij lezen (en desnoods hertlezen).</li>
+      <li><b>Native Command Queuing (NCQ):</b> leest niet in volgorde van aanvraag maar in de volgorde die seek- en searchtijd minimaliseert.</li>
+      <li><b>Standaarden:</b> ATA/IDE (oud) · SCSI → SAS (servers) · <b>SATA</b> (desktop/laptop) · <b>M.2 met NVMe</b> voor SSD's.</li>
+      <li><b>Cache:</b> snel geheugen in de schijf voor veelgelezen/recent geschreven data. Werkt op het <b>principe van localiteit</b> — lees je één sector, dan volgt de volgende waarschijnlijk ook.</li>
+    </ul>
+    <h4>SSD's</h4>
+    <table><tr><th>Voordelen</th><th>Nadelen</th></tr>
+    <tr><td>hoge IOPS (bv. 560 vs. 150 MB/s)</td><td>trager na verloop van tijd (paging)</td></tr>
+    <tr><td>duurzaam: geen schokschade of slijtage</td><td>eindige levensduur → <b>TBW</b> (laptop-SSD 60–150)</td></tr>
+    <tr><td>laag verbruik (2 W vs. 3,3 W)</td><td>duurder per TB bij grote capaciteiten</td></tr>
+    <tr><td>lage latency: geen seek, geen search</td><td></td></tr></table>
     <h4>RAID</h4>
-    <table><tr><th class="c">Level</th><th>Mechanisme</th><th class="c">Min. disks</th><th class="c">Netto capaciteit</th><th class="c">Mag uitvallen</th></tr>
-    <tr><td class="c"><b>0</b></td><td>striping</td><td class="c">2</td><td class="c">N × grootte</td><td class="c">0</td></tr>
+    <p>De <b>RAID-controller</b> is een speciale SBE die meerdere schijven aanstuurt; de CPU ziet enkel die controller.</p>
+    <table><tr><th class="c">Level</th><th>Mechanisme</th><th class="c">Min.</th><th class="c">Capaciteit</th><th class="c">Max. defect</th></tr>
+    <tr><td class="c"><b>0</b></td><td>striping (nonredundant)</td><td class="c">2</td><td class="c">N × grootte</td><td class="c">0</td></tr>
     <tr><td class="c"><b>1</b></td><td>mirroring</td><td class="c">2</td><td class="c">1 × grootte</td><td class="c">N−1</td></tr>
-    <tr><td class="c"><b>5</b></td><td>striping + verdeelde pariteit</td><td class="c">3</td><td class="c">(N−1) × grootte</td><td class="c">1</td></tr>
-    <tr><td class="c"><b>6</b></td><td>striping + dubbele pariteit</td><td class="c">4</td><td class="c">(N−2) × grootte</td><td class="c">2</td></tr>
-    <tr><td class="c"><b>10</b></td><td>stripe van mirrors</td><td class="c">4</td><td class="c">N/2 × grootte</td><td class="c">min. 1 (1 per mirror-paar)</td></tr></table>
-    <p><b>XOR-pariteit:</b> XOR is 1 bij een oneven aantal enen. RAID 5 slaat per stripe een pariteitsblok op; valt één disk uit, dan reconstrueert XOR over de rest de verloren data.</p>
-    <h4>Filesystems</h4>
+    <tr><td class="c">2</td><td>redundant (parallel access)</td><td class="c">3</td><td class="c">—</td><td class="c">1</td></tr>
+    <tr><td class="c">3</td><td>bit-interleaved parity</td><td class="c">3</td><td class="c">—</td><td class="c">1</td></tr>
+    <tr><td class="c">4</td><td>block-interleaved parity</td><td class="c">3</td><td class="c">—</td><td class="c">1</td></tr>
+    <tr><td class="c"><b>5</b></td><td>block-interleaved <b>distributed</b> parity</td><td class="c">3</td><td class="c">(N−1) × grootte</td><td class="c">1</td></tr>
+    <tr><td class="c"><b>6</b></td><td>block-interleaved <b>dual</b> distributed parity</td><td class="c">4</td><td class="c">(N−2) × grootte</td><td class="c">2</td></tr></table>
+    <p><b>Snelheid:</b> RAID 0 leest én schrijft sneller. RAID 1 leest sneller maar schrijft <b>niet</b> sneller (alles naar alle schijven → zo traag als de traagste). RAID 5 leest en schrijft sneller. RAID 2, 3 en 4 zijn voorlopers van 5 en worden niet meer gebruikt.</p>
+    <p><b>XOR-pariteit:</b> XOR = 1 bij een <b>oneven aantal enen</b>. RAID 5 voorziet per N−1 blokken één pariteitsblok = de XOR van de andere. XOR je eender welke drie van vier bytes, dan krijg je de vierde terug — zo wordt een uitgevallen schijf gereconstrueerd.</p>
+    <div class="callout g"><b>Genestelde RAID</b><br>Bij RAID <i>XY</i> staat <b>X onderaan</b>, Y bovenaan. <b>Min. schijven</b> = de minima per niveau vermenigvuldigd. <b>Capaciteit</b> = de benuttingsfactoren vermenigvuldigd × schijfgrootte (0 → alles, 1 → 1 van N, 5 → N−1, 6 → N−2).<br>
+    RAID 156 → 2 × 3 × 4 = <b>24 schijven</b>. RAID 550 → 3 × 3 × 2 = <b>18 schijven</b>, capaciteit 2 × 2 × 2 × 4 TB = <b>32 TB</b>. RAID 51 met minimum (6 schijven): één volledige array van 3 mag weg + 1 in de overblijvende = <b>4 schijven</b> mogen uitvallen.</div>
+    <h4>Partities &amp; GPT</h4>
+    <p>Partitioneren laat je twee besturingssystemen op één schijf zetten, of meerdere logische schijven maken. <b>GPT</b> kent elke partitie een <b>GUID/UUID</b> toe: een uniek label van <b>128 bit</b>, los van de fysieke eigenschappen — verhang je de schijf van poort, dan vindt het OS de partitie nog.</p>
+    <table><tr><th>Locatie</th><th>Inhoud</th></tr>
+    <tr><td><b>LBA 1</b></td><td><b>GPT header</b>: signature (<code>EFI PART</code>), current LBA, backup LBA, aantal entries, grootte van één entry</td></tr>
+    <tr><td><b>LBA 2 – 33</b></td><td>128 partitie-entries (4 per sector van 512 bytes)</td></tr>
+    <tr><td>einde van de schijf</td><td><b>backup</b> van header en entries als failsafe</td></tr></table>
+    <p>Een <b>entry</b> bevat: partition type GUID, de GUID van de partitie, <b>start- en laatste LBA</b>, attributes en een zelfgekozen naam. 128 entries betekent <b>niet</b> 128 partities — enkel gereserveerde ruimte.</p>
+    <div class="callout"><b>Little endian</b><br>Bytes staan van minst naar meest significant → omkeren vóór je omrekent. <code>80 00 00 00</code> → 0x80 = 128 · <code>3E 02 00 00</code> → 0x23E = 574.</div>
+    <h4>Bestandssystemen</h4>
+    <p>De <b>sector</b> is de kleinste fysiek adresseerbare eenheid; het filesystem groepeert sectoren in <b>blokken</b> — voor het OS de kleinste adresseerbare eenheid. <b>Elk bestand gebruikt minstens één blok.</b> Metadata per bestand: naam, blokken en verwijzingen, timestamps, grootte, rechten.</p>
+    <p><b>FAT (File Allocation Table):</b> de schijf heeft een <b>FAT Region</b> en een <b>Data Region</b>. De FAT bevat één entry per blok (32 bits bij FAT32) die zegt of het blok in gebruik is en <b>waar het volgende blok van het bestand ligt</b> — een ketting. De <b>Directory Table</b> houdt naam, extensie en het <b>eerste blok</b> bij.</p>
+    <p><b>ext4</b> gebruikt vier soorten blokken: <b>bootblok</b> (laadt het OS), <b>superblok</b> (globale instellingen + lijsten met vrije blokken), <b>inode-blokken</b> en <b>datablokken</b>. Eén inode per bestand met metadata en verwijzingen. Het aantal inodes ligt vast bij het aanmaken en bepaalt hoeveel bestanden er maximaal op kunnen (<code>df -i</code>).</p>
+    <div class="callout"><b>Valstrik</b><br>De <b>bestandsnaam staat niet in de inode</b>, maar in de <b>directory entry</b> — een directory is gewoon een bestand met een lijst van (naam → inode).</div>
+    <p><b>15 adressen in een inode:</b> 12 <b>directe</b> · 1 <b>indirect</b> (blok vol adressen) · 1 <b>dubbel indirect</b> · 1 <b>drievoudig indirect</b>. Zo haalt ext4 met blokken van 4096 bytes een maximum bestandsgrootte van 16 TiB.</p>
+    <p><b>Empty list:</b> het superblok houdt een lijst bij van 100 lege inode-blokken en een lijst van lege datablokken. Verwijderen voegt adressen toe, aanmaken haalt ze eruit; zijn de lijsten leeg, dan scant de kernel het filesystem.</p>
+    <h4>Rekenen — twee stappenplannen</h4>
+    <div class="callout g"><b>Blokken &amp; sectoren</b><br>1. Sectoren per blok = blokgrootte ÷ sectorgrootte.<br>2. Blokken = bestandsgrootte ÷ blokgrootte, <b>naar boven afgerond</b> (minimum 1).<br>3. Sectoren = blokken × sectoren per blok.<br><i>Voorbeeld:</i> sector 4096 B, blok 16 KiB, bestand 3345 B → 4 sectoren/blok, 1 blok → <b>4 sectoren</b>.</div>
+    <div class="callout g"><b>Datablokken bij ext4</b><br>1. Blokken voor de inhoud = grootte ÷ blokgrootte, naar boven afgerond.<br>2. ≤ 12? Klaar (directe adressen). &gt; 12? <b>+1 blok</b> voor de indirecte adressering.<br>3. Let op de vraagstelling: bij "hoeveel <b>datablokken</b>" telt het inodeblok <b>niet</b> mee.<br><i>Examenvoorbeeld:</i> 54 KB bij blokken van 4 KiB → 13,5 → 14 datablokken → +1 indirect blok = <b>15</b>.</div>
+    <h4>Praktijk in de VM</h4>
     <ul>
-      <li><b>FAT32:</b> ouder en eenvoudig; een File Allocation Table houdt per cluster bij welk het volgende cluster van een bestand is (een ketting). Universeel gelezen → gebruikt voor de EFI System-partitie.</li>
-      <li><b>ext4:</b> standaard Linux-filesystem; werkt met <b>inodes</b> (metadata + verwijzingen naar datablokken per bestand) en journaling. Inodes bekijken: <code>df -i</code>.</li>
-      <li><b>btrfs:</b> nieuwer, gebruikt door Fedora; ondersteunt <b>subvolumes</b> (daarom zie je bij het mounten mappen home en root).</li>
-      <li><b>Blokberekening:</b> aantal blokken = bestandsgrootte / blokgrootte, <b>naar boven afgerond</b> — een bestand van 1 byte bezet toch een heel blok.</li>
+      <li><code>lsblk</code> (met <code>--fs</code>) · <code>df -h</code> · <code>df -i</code> · <code>sudo fdisk -l /dev/sda</code></li>
+      <li><code>sudo dd if=/dev/sda of=header bs=512 skip=1 count=1</code> → LBA 1. <code>skip=2</code> voor de eerste entries. <code>sudo</code> nodig: een gewone gebruiker mag de schijf niet rechtstreeks lezen.</li>
+      <li><code>hexyl header</code> — links de offset in hex, dan de bytes, rechts de ASCII (daar zie je <code>EFI PART</code>).</li>
+      <li>Offsets in de header: signature 0 · current LBA 24 · backup LBA 32 · aantal entries 80 · entry-grootte 84.</li>
+      <li><code>sudo mount /dev/sda2 /mnt</code> en <code>sudo umount /mnt</code>. Fedora's btrfs-partitie toont <b>subvolumes</b> (home, root).</li>
     </ul>
-    <button class="oefenlink" onclick="goTab('sec-le')">→ oefen little endian &amp; RAID</button>
+    <button class="oefenlink" onclick="goTab('sec-raid')">→ oefen RAID, blokken &amp; XOR</button>
+    <button class="oefenlink" onclick="goTab('sec-le')" style="margin-left:8px">→ oefen little endian</button>
   </div>
 </section>
 
@@ -532,6 +635,25 @@ footer{margin-top:48px;text-align:center;font-family:var(--mono);font-size:12px;
   </div>
 </section>
 
+<!-- ═══════════ ONELINERS ═══════════ -->
+<section id="sec-cli">
+  <p class="intro">Commando's aan elkaar rijgen met pipes, redirection en <code style="font-family:var(--mono)">&&</code>. Schrijf je oneliner eerst zelf uit (liefst in je VM!), en vergelijk daarna met de modeloplossing. Meerdere antwoorden kunnen juist zijn — als de output klopt, is het goed.</p>
+  <div class="opts" id="cliOpts"></div>
+  <div class="exercise">
+    <div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span style="margin-left:6px">student@csy:~$</span></div>
+    <div class="body">
+      <div class="q" id="cliQ"></div>
+      <div class="answers"><label for="cliIn">jouw oneliner:</label><input type="text" id="cliIn" autocomplete="off" spellcheck="false" placeholder="typ hier of schrijf op papier…" style="width:100%;max-width:520px"></div>
+      <div class="btnrow">
+        <button class="btn-show" onclick="cliShow()">Toon modeloplossing</button>
+        <button class="btn-new" onclick="cliNew()">Volgende opgave ↻</button>
+      </div>
+      <div class="feedback" id="cliFb"></div>
+    </div>
+  </div>
+  <div class="callout g" style="max-width:660px"><b>Denkmodel</b><br>Elke pipe-ketting is een lopende band: <b>produceren</b> (ls, cat, find, df, echo) → <b>filteren</b> (grep) → <b>omvormen</b> (cut, tr, sort, head) → <b>tellen of wegschrijven</b> (wc, &gt;, &gt;&gt;).</div>
+</section>
+
 <!-- ═══════════ ELEKTRICITEIT ═══════════ -->
 <section id="sec-elek">
   <p class="intro">Vraagstukken zoals in EXE.02: wet van Ohm, vermogen, verbruik in kWh en zekeringskringen. Antwoorden mogen tot ±1% afwijken; gebruik punt of komma.</p>
@@ -571,7 +693,7 @@ footer{margin-top:48px;text-align:center;font-family:var(--mono);font-size:12px;
 
 <!-- ═══════════ RAID & XOR ═══════════ -->
 <section id="sec-raid">
-  <p class="intro">RAID-eigenschappen (min. aantal disks, netto capaciteit, fouttolerantie) en pariteitsbits berekenen met XOR.</p>
+  <p class="intro">Het rekenwerk rond opslag: RAID-eigenschappen, capaciteit (ook <b>genestelde</b> RAID zoals 550 en 156), blokken en sectoren, ext4-datablokken met indirectie, en XOR-pariteit.</p>
   <div class="opts" id="raidOpts"></div>
   <div class="exercise">
     <div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span style="margin-left:6px">oefening — opslag</span></div>
@@ -607,6 +729,562 @@ footer{margin-top:48px;text-align:center;font-family:var(--mono);font-size:12px;
   <div class="fc-done" id="fcDone">Alle kaarten in deze categorie gekend. Klaar voor de verdediging — of kies een andere categorie.</div>
 </section>
 
+<!-- ═══════════ EXAMENFOCUS ═══════════ -->
+<section id="sec-focus">
+  <p class="intro">De volledige leerstof rond de drie examenassen — Linux, opslag &amp; GPT — met inklapbare oefeningen. Klik een opgave open om de oplossing te zien; probeer ze eerst zelf.</p>
+  <div class="subnav"><button class="subnav-btn" onclick="scrollToId('d1')">Linux: commando's aan elkaar rijgen</button><button class="subnav-btn" onclick="scrollToId('d2')">Opslag: theorie</button><button class="subnav-btn" onclick="scrollToId('d3')">Opslag: rekenen</button><button class="subnav-btn" onclick="scrollToId('d4')">Praktijk: partities, GPT &amp; de VM</button><button class="subnav-btn" onclick="scrollToId('d5')">Mondelinge vragen</button></div>
+  <div class="reading">
+  
+
+  <!-- DEEL 1 -->
+  <article class="chapter" id="d1">
+    <span class="chapter-tag">Deel 1</span>
+    <h2 class="title">Linux: commando's aan elkaar rijgen</h2>
+    <p class="lead">De kern van waar je docent op hamert: eenvoudige basiscommando's die je met pipes en co. tot krachtige oneliners combineert.</p>
+
+    <h3 id="d1-combineren">De vier manieren om te combineren</h3>
+    <p>Verwar ze niet met elkaar — dat is een klassieke examenval.</p>
+    <div class="tbl-wrap"><table>
+    <tr><th>Operator</th><th>Naam</th><th>Wat het doet</th></tr>
+    <tr><td class="c"><code>|</code></td><td><b>pipe</b></td><td>stuurt de <b>output</b> van links naar de <b>input</b> van rechts</td></tr>
+    <tr><td class="c"><code>&gt;</code> / <code>&gt;&gt;</code></td><td><b>redirection</b></td><td>schrijft output naar een <b>bestand</b> (<code>&gt;</code> overschrijft, <code>&gt;&gt;</code> voegt toe)</td></tr>
+    <tr><td class="c"><code>;</code></td><td>sequentie</td><td>voert het volgende commando <b>altijd</b> uit</td></tr>
+    <tr><td class="c"><code>&amp;&amp;</code></td><td>conditioneel</td><td>voert het volgende <b>alleen uit als het vorige slaagde</b></td></tr>
+    <tr><td class="c"><code>$(...)</code></td><td>command substitution</td><td>vervangt zichzelf door de <b>output</b> van het commando erin</td></tr>
+    </table></div>
+    <pre><code><span class="cmt"># pipe-ketting: lijst → filter → tel</span>
+ls -l /etc <span class="op">|</span> grep conf <span class="op">|</span> wc -l
+<span class="cmt"># output naar bestand (overschrijft) / toevoegen</span>
+ls -l <span class="op">&gt;</span> lijst.txt
+echo "THE END" <span class="op">&gt;&gt;</span> lijst.txt
+<span class="cmt"># tweede commando enkel bij succes</span>
+mkdir -p /opt/backup <span class="op">&amp;&amp;</span> cp -r /etc /opt/backup/etc_backup
+<span class="cmt"># command substitution → 2026.08.07.nota.txt</span>
+touch "<span class="op">$(</span>date +%Y.%m.%d<span class="op">)</span>.nota.txt"</code></pre>
+    <div class="callout g"><span class="tag">Denkmodel</span>Elke pipe-ketting is een lopende band. Vraag je per opgave af: welk commando <b>produceert</b> de ruwe data (ls, cat, find, df, echo)? Welk <b>filtert</b> (grep)? Welk <b>vormt om</b> (cut, tr, sort, head)? Welk <b>telt of schrijft weg</b> (wc, &gt;, &gt;&gt;)?</div>
+
+    <h3 id="d1-bouwstenen">Bouwstenen die je moet kennen</h3>
+    <h4>Produceren</h4>
+    <div class="tbl-wrap"><table>
+    <tr><th>Commando</th><th>Nuttige opties</th></tr>
+    <tr><td><code>ls</code></td><td><code>-l</code> lang · <code>-a</code> verborgen · <code>-h</code> leesbaar · <code>-S</code> op grootte · <code>-r</code> omgekeerd · <code>-R</code> recursief · <code>-d</code> map zelf</td></tr>
+    <tr><td><code>cat</code></td><td>inhoud tonen; <code>cat a b &gt; c</code> voegt samen</td></tr>
+    <tr><td><code>echo</code></td><td><code>-e</code> interpreteert <code>\n</code> · <code>-n</code> geen newline</td></tr>
+    <tr><td><code>find</code></td><td><code>find /etc -name "*.conf"</code> · <code>-type f</code>/<code>-type d</code></td></tr>
+    <tr><td><code>df</code> / <code>du</code></td><td>vrije ruimte / mapgebruik · <code>-h</code> leesbaar · <code>df -i</code> inodes · <code>du -s</code> totaal</td></tr>
+    <tr><td><code>date</code> / <code>seq</code></td><td><code>date +%Y.%m.%d</code> · <code>seq 1 9</code></td></tr>
+    </table></div>
+    <h4>Filteren &amp; omvormen</h4>
+    <div class="tbl-wrap"><table>
+    <tr><th>Commando</th><th>Waarvoor</th></tr>
+    <tr><td><code>grep patroon</code></td><td>lijnen met patroon · <code>-v</code> omkeren · <code>-i</code> hoofdletterongevoelig · <code>-c</code> tellen · <code>-r</code> recursief</td></tr>
+    <tr><td><code>cut</code></td><td>kolommen: <code>-d' '</code> scheidingsteken, <code>-f1,9</code> velden · <code>-c1-10</code> karakters</td></tr>
+    <tr><td><code>tr</code></td><td>tekens vervangen/samenpersen: <code>tr -s ' '</code> meerdere spaties → één</td></tr>
+    <tr><td><code>sort</code></td><td><code>-r</code> omgekeerd · <code>-n</code> numeriek · <code>-k2</code> op kolom 2</td></tr>
+    <tr><td><code>wc</code></td><td><code>-l</code> lijnen · <code>-w</code> woorden · <code>-c</code> bytes</td></tr>
+    <tr><td><code>head</code>/<code>tail</code></td><td>eerste/laatste n lijnen: <code>head -5</code></td></tr>
+    </table></div>
+    <h4>Regex-basis voor grep</h4>
+    <div class="tbl-wrap"><table>
+    <tr><th>Patroon</th><th>Betekenis</th><th>Patroon</th><th>Betekenis</th></tr>
+    <tr><td class="c"><code>^</code></td><td>begin van de lijn</td><td class="c"><code>[abc]</code></td><td>één van deze tekens</td></tr>
+    <tr><td class="c"><code>$</code></td><td>einde van de lijn</td><td class="c"><code>*</code></td><td>nul of meer keer het vorige</td></tr>
+    <tr><td class="c"><code>.</code></td><td>één willekeurig teken</td><td></td><td></td></tr>
+    </table></div>
+
+    <h3 id="d1-oef">Oefeningen</h3>
+    <p>Schrijf eerst zelf, klap dan pas open. Meerdere oplossingen kunnen juist zijn — als de output klopt, is het goed.</p>
+
+    <details class="ex"><summary><span class="num">L1</span><span class="qtext">Kopieer <code>/etc</code> naar <code>/opt/backup/etc_backup</code> in één regel.</span><span class="hint">cp · mkdir</span></summary>
+    <div class="sol"><pre><code>sudo mkdir -p /opt/backup <span class="op">&amp;&amp;</span> sudo cp -r /etc /opt/backup/etc_backup</code></pre><p><code>&amp;&amp;</code> in plaats van <code>|</code>: hier gaat er geen output door, maar volgt het tweede commando op het eerste. <code>-p</code> maakt ontbrekende bovenliggende mappen aan.</p></div></details>
+
+    <details class="ex"><summary><span class="num">L2</span><span class="qtext">Tel hoeveel bestanden er in <code>/var/log</code> staan.</span><span class="hint">ls · wc</span></summary>
+    <div class="sol"><pre><code>ls /var/log <span class="op">|</span> wc -l</code></pre></div></details>
+
+    <details class="ex"><summary><span class="num">L3</span><span class="qtext">Maak <code>tmp/map1/map2/map3</code> met één commando.</span><span class="hint">mkdir</span></summary>
+    <div class="sol"><pre><code>mkdir -p tmp/map1/map2/map3</code></pre></div></details>
+
+    <details class="ex"><summary><span class="num">L4</span><span class="qtext">Toon alle gewone bestanden in de huidige map, gesorteerd van klein naar groot.</span><span class="hint">ls · grep</span></summary>
+    <div class="sol"><pre><code>ls -lSr <span class="op">|</span> grep "^-"</code></pre><p><code>^-</code> selecteert lijnen die met <code>-</code> beginnen: het eerste teken in <code>ls -l</code> is het bestandstype (<code>-</code> = bestand, <code>d</code> = map). <code>-S</code> sorteert op grootte, <code>-r</code> keert om.</p></div></details>
+
+    <details class="ex"><summary><span class="num">L5</span><span class="qtext">Hoeveel bestanden eindigend op <code>.conf</code> staan er in <code>/etc</code> en onderliggende mappen?</span><span class="hint">find · wc</span></summary>
+    <div class="sol"><pre><code>find /etc -name "*.conf" <span class="op">|</span> wc -l
+<span class="cmt"># of met ls en grep:</span>
+ls -R /etc <span class="op">|</span> grep "\.conf$" <span class="op">|</span> wc -l</code></pre></div></details>
+
+    <details class="ex"><summary><span class="num">L6</span><span class="qtext">Maak <code>me.txt</code> met je naam, kopieer naar <code>we.txt</code> en voeg extra namen toe.</span><span class="hint">echo · &gt;&gt;</span></summary>
+    <div class="sol"><pre><code>echo "Jouw Naam" <span class="op">&gt;</span> me.txt
+cp me.txt we.txt
+echo -e "Roel\nTiebe\nRobin\nMark" <span class="op">&gt;&gt;</span> we.txt</code></pre><p>Let op het verschil: <code>&gt;</code> zou je naam overschrijven, <code>&gt;&gt;</code> voegt toe.</p></div></details>
+
+    <details class="ex"><summary><span class="num">L7</span><span class="qtext">Toon alle gewone bestanden die de owner mag lezen, schrijven én uitvoeren.</span><span class="hint">ls · grep</span></summary>
+    <div class="sol"><pre><code>ls -l <span class="op">|</span> grep "^-rwx"</code></pre></div></details>
+
+    <details class="ex"><summary><span class="num">L8</span><span class="qtext">Maak alle <code>.sh</code>-bestanden uitvoerbaar voor iedereen.</span><span class="hint">chmod</span></summary>
+    <div class="sol"><pre><code>chmod +x *.sh        <span class="cmt"># of: chmod a+x *.sh</span></code></pre></div></details>
+
+    <details class="ex"><summary><span class="num">L9</span><span class="qtext">Toon enkel de kolommen <i>permissions</i> en <i>filename</i> van je home directory, omgekeerd alfabetisch.</span><span class="hint">tr · cut · sort</span></summary>
+    <div class="sol"><pre><code>ls -l ~ <span class="op">|</span> tr -s ' ' <span class="op">|</span> cut -d' ' -f1,9 <span class="op">|</span> sort -r</code></pre><p><code>tr -s ' '</code> perst de meerdere spaties van <code>ls -l</code> samen tot één, zodat <code>cut -d' '</code> betrouwbaar op velden splitst. Veld 1 = rechten, veld 9 = naam.</p></div></details>
+
+    <details class="ex"><summary><span class="num">L10</span><span class="qtext">Geef naam en rechten van de eerste 5 mappen in <code>/etc</code>.</span><span class="hint">grep · head · cut</span></summary>
+    <div class="sol"><pre><code>ls -l /etc <span class="op">|</span> grep "^d" <span class="op">|</span> head -5 <span class="op">|</span> tr -s ' ' <span class="op">|</span> cut -d' ' -f1,9</code></pre><p>Vier schakels: lijst → enkel mappen → eerste vijf → kolommen.</p></div></details>
+
+    <details class="ex"><summary><span class="num">L11</span><span class="qtext">Maak drie bestanden: "Hello", "World" en beide inhouden samengevoegd.</span><span class="hint">echo · cat</span></summary>
+    <div class="sol"><pre><code>echo "Hello" <span class="op">&gt;</span> a.txt
+echo "World" <span class="op">&gt;</span> b.txt
+cat a.txt b.txt <span class="op">&gt;</span> c.txt</code></pre></div></details>
+
+    <details class="ex"><summary><span class="num">L12</span><span class="qtext">Lees <code>unsorted.txt</code>, sorteer numeriek, schrijf weg naar <code>sorted.txt</code>.</span><span class="hint">sort</span></summary>
+    <div class="sol"><pre><code>sort -n unsorted.txt <span class="op">&gt;</span> sorted.txt</code></pre></div></details>
+
+    <details class="ex"><summary><span class="num">L13</span><span class="qtext">Geef alle lijnen uit <code>/etc/passwd</code> met "root" erin.</span><span class="hint">grep</span></summary>
+    <div class="sol"><pre><code>grep root /etc/passwd</code></pre></div></details>
+
+    <details class="ex"><summary><span class="num">L14</span><span class="qtext">Verwijder alle bestanden in een map behalve <code>filekeep me</code>.</span><span class="hint">find</span></summary>
+    <div class="sol"><pre><code>find . -maxdepth 1 -type f ! -name "filekeep me" -delete
+<span class="cmt"># of met bash extglob (shopt -s extglob):</span>
+rm !(filekeep\ me)</code></pre></div></details>
+
+    <details class="ex"><summary><span class="num">L15</span><span class="qtext">Schrijf de weekdag waarop je in 2050 jarig bent weg, voeg dan "THE END" toe.</span><span class="hint">ncal · &gt;&gt;</span></summary>
+    <div class="sol"><pre><code>ncal 6 2050 <span class="op">&gt;</span> verjaardag.txt
+echo "THE END" <span class="op">&gt;&gt;</span> verjaardag.txt</code></pre></div></details>
+
+    <details class="ex"><summary><span class="num">L16</span><span class="qtext">Hoeveel ruimte gebruikt <code>/var</code> op de schijf?</span><span class="hint">du</span></summary>
+    <div class="sol"><pre><code>sudo du -sh /var</code></pre><p><code>-s</code> = enkel het totaal, <code>-h</code> = leesbaar. Gevonden via <code>apropos "disk usage"</code>.</p></div></details>
+
+    <details class="ex"><summary><span class="num">L17</span><span class="qtext">Uitdaging: tel de mappen in <code>/etc</code> waarvan de naam met <code>a</code> begint.</span><span class="hint">grep ×2</span></summary>
+    <div class="sol"><pre><code>ls -l /etc <span class="op">|</span> grep "^d" <span class="op">|</span> tr -s ' ' <span class="op">|</span> cut -d' ' -f9 <span class="op">|</span> grep "^a" <span class="op">|</span> wc -l</code></pre></div></details>
+
+    <h3 id="d1-rechten">Rechten in één oogopslag</h3>
+    <p><code>ls -l</code> toont: type + owner + group + others. Octaal: <b>r=4, w=2, x=1</b>, per drietal optellen.</p>
+    <div class="tbl-wrap"><table>
+    <tr><th>Symbolisch</th><th class="c">Octaal</th><th>Symbolisch</th><th class="c">Octaal</th></tr>
+    <tr><td><code>rwxrwxrwx</code></td><td class="c">777</td><td><code>rw-r--r--</code></td><td class="c">644</td></tr>
+    <tr><td><code>rwxr-xr-x</code></td><td class="c">755</td><td><code>rw-------</code></td><td class="c">600</td></tr>
+    <tr><td><code>rw-rw-rw-</code></td><td class="c">666</td><td><code>r--------</code></td><td class="c">400</td></tr>
+    <tr><td><code>r-xr--r--</code></td><td class="c">544</td><td><code>rw-rwxr-x</code></td><td class="c">675</td></tr>
+    </table></div>
+    <div class="callout"><span class="tag">Onthoud</span>Op een <b>map</b> betekent <code>x</code> "erin kunnen navigeren" — een map met <code>r--</code> kan je wel listen maar niet betreden. Vandaar dat <code>~/public</code> met alleen leesrecht voor anderen toch 755 nodig heeft en niet 744.</div>
+  </article>
+
+  <!-- DEEL 2 -->
+  <article class="chapter" id="d2">
+    <span class="chapter-tag">Deel 2</span>
+    <h2 class="title">Opslag: theorie</h2>
+    <p class="lead">Hoe data fysiek wordt opgeslagen en welke logische structuur we daarbovenop bouwen.</p>
+
+    <h3 id="d2-hdd">De harde schijf</h3>
+    <div class="tbl-wrap"><table>
+    <tr><th>Onderdeel</th><th>Functie</th></tr>
+    <tr><td><b>Magneetschijven (platters)</b></td><td>aluminium/glas met aan <b>beide</b> kanten een magnetische laag — de magnetisatie is de data (0 of 1)</td></tr>
+    <tr><td><b>Lees-/schrijfkop</b></td><td>detecteert of verandert magnetisatie — <b>één kop per laag</b>, dus 2 × aantal platters</td></tr>
+    <tr><td><b>Arm</b></td><td>plaatst de kop op het juiste spoor; reikt tot de volledige straal</td></tr>
+    <tr><td><b>Magneet</b></td><td>beweegt de arm — twee per schijf (binnen/buiten)</td></tr>
+    <tr><td><b>Draaimotor</b></td><td>laat de platters draaien: 5400 of 7200 RPM</td></tr>
+    <tr><td><b>Filter</b></td><td>vangt stofdeeltjes op — fataal bij zo'n hoge datadichtheid</td></tr>
+    </table></div>
+    <h4>Logische indeling</h4>
+    <ul>
+      <li><b>Spoor (track):</b> concentrische cirkel met bits, constante <b>lineaire dichtheid</b>.</li>
+      <li><b>Sector:</b> begrensd door twee stralen, <b>vaste grootte</b> (512 of sinds 2010 4096 bytes). Opbouw: <code>gap</code> · <code>sync</code> · <code>address mark</code> · <b>data</b> · <code>ECC</code>.</li>
+      <li><b>Cilinder:</b> alle sporen onder elkaar op de verschillende platters.</li>
+      <li><b>Netto</b> = bruikbaar voor data. <b>Bruto</b> = netto + hoofdingen, controlebits en gaps.</li>
+      <li><b>LBA</b>: elke sector een uniek nummer vanaf 0. 22-bits → 2 GiB; 48-bits × 512 B → <b>128 PiB</b>.</li>
+      <li><b>Zone bit recording:</b> buitenste sporen zijn langer → méér sectoren → uniformere dichtheid en meer capaciteit. Kan dankzij LBA.</li>
+    </ul>
+    <h4>Schijfbesturingseenheid (SBE / controller)</h4>
+    <ul>
+      <li><b>Seek</b> = arm naar het juiste spoor. <b>Search</b> = wachten tot de juiste sector passeert.</li>
+      <li><b>Schrijven:</b> elektrisch (0V/5V) → magnetisch (noord/zuid). <b>Lezen</b> = omgekeerd.</li>
+      <li>Berekent en controleert <b>pariteitsbits</b>.</li>
+      <li><b>NCQ:</b> herschikt leesopdrachten om seek+search te minimaliseren.</li>
+      <li><b>Standaarden:</b> ATA/IDE (oud) · SCSI→SAS (servers) · <b>SATA</b> (desktop) · <b>M.2/NVMe</b> (SSD).</li>
+      <li><b>Cache:</b> snel geheugen in de schijf; werkt op het <b>principe van localiteit</b>.</li>
+    </ul>
+    <h4>SSD's</h4>
+    <div class="tbl-wrap"><table>
+    <tr><th>Voordelen</th><th>Nadelen</th></tr>
+    <tr><td>hoge IOPS (560 vs. 150 MB/s)</td><td>trager na verloop van tijd (paging)</td></tr>
+    <tr><td>duurzaam: geen schok/slijtage</td><td>eindige levensduur → <b>TBW</b> (60–150)</td></tr>
+    <tr><td>laag verbruik (2 vs. 3,3 W)</td><td>duurder per TB bij grote capaciteit</td></tr>
+    <tr><td>lage latency: geen seek/search</td><td></td></tr>
+    </table></div>
+
+    <h3 id="d2-raid">RAID &amp; XOR</h3>
+    <p>De <b>RAID-controller</b> is een speciale SBE die meerdere schijven aanstuurt; de CPU ziet enkel die controller.</p>
+    <div class="tbl-wrap"><table>
+    <tr><th class="c">Level</th><th>Mechanisme</th><th class="c">Min.</th><th class="c">Capaciteit</th><th class="c">Max. defect</th></tr>
+    <tr><td class="c"><b>0</b></td><td>striping (nonredundant)</td><td class="c">2</td><td class="c">N × grootte</td><td class="c">0</td></tr>
+    <tr><td class="c"><b>1</b></td><td>mirroring</td><td class="c">2</td><td class="c">1 × grootte</td><td class="c">N−1</td></tr>
+    <tr><td class="c">2–4</td><td>voorlopers van 5 (niet meer gebruikt)</td><td class="c">3</td><td class="c">—</td><td class="c">1</td></tr>
+    <tr><td class="c"><b>5</b></td><td>block-interleaved <b>distributed</b> parity</td><td class="c">3</td><td class="c">(N−1) × grootte</td><td class="c">1</td></tr>
+    <tr><td class="c"><b>6</b></td><td>block-interleaved <b>dual</b> parity</td><td class="c">4</td><td class="c">(N−2) × grootte</td><td class="c">2</td></tr>
+    </table></div>
+    <p><b>Snelheid:</b> RAID 0 leest én schrijft sneller. RAID 1 leest sneller maar schrijft <b>niet</b> sneller (zo traag als de traagste). RAID 5 leest en schrijft sneller.</p>
+    <p><b>XOR-pariteit:</b> XOR = 1 bij een <b>oneven aantal enen</b>. XOR je eender welke drie van vier bytes, dan krijg je de vierde terug — zo herstelt RAID 5 een uitgevallen schijf.</p>
+    <div class="callout g"><span class="tag">Genestelde RAID (examenstof)</span>Bij RAID <i>XY</i> staat <b>X onderaan</b>, Y bovenaan. <b>Min. schijven</b> = de minima per niveau vermenigvuldigd. <b>Capaciteit</b> = de benuttingsfactoren vermenigvuldigd × schijfgrootte (0 → alles, 1 → 1 van N, 5 → N−1, 6 → N−2).<br>RAID 156 → 2 × 3 × 4 = <b>24 schijven</b>. RAID 550 → 3 × 3 × 2 = <b>18 schijven</b>, capaciteit 2 × 2 × 2 × 4 TB = <b>32 TB</b>.</div>
+
+    <h3 id="d2-gpt">Partities &amp; GPT</h3>
+    <p>Partitioneren laat je twee OS'en op één schijf zetten of meerdere logische schijven maken. <b>GPT</b> kent elke partitie een <b>GUID/UUID</b> toe: een uniek label van <b>128 bit</b>, los van de fysieke eigenschappen.</p>
+    <div class="tbl-wrap"><table>
+    <tr><th>Locatie</th><th>Inhoud</th></tr>
+    <tr><td><b>LBA 1</b></td><td><b>GPT header</b>: signature (<code>EFI PART</code>), current LBA, backup LBA, aantal entries, entry-grootte</td></tr>
+    <tr><td><b>LBA 2 – 33</b></td><td>128 partitie-entries (4 per sector van 512 bytes)</td></tr>
+    <tr><td>einde schijf</td><td><b>backup</b> van header en entries (failsafe)</td></tr>
+    </table></div>
+    <p>Een <b>entry</b> bevat: partition type GUID, de GUID van de partitie, <b>start- en laatste LBA</b>, attributes en een zelfgekozen naam. 128 entries betekent <b>niet</b> 128 partities — enkel gereserveerde ruimte.</p>
+    <div class="callout"><span class="tag">Little endian</span>Bytes staan van minst naar meest significant → omkeren vóór je omrekent. <code>80 00 00 00</code> → 0x80 = 128 · <code>3E 02 00 00</code> → 0x23E = 574.</div>
+
+    <h3 id="d2-fs">Bestandssystemen</h3>
+    <p>De <b>sector</b> is de kleinste fysiek adresseerbare eenheid; het filesystem groepeert sectoren in <b>blokken</b>. <b>Elk bestand gebruikt minstens één blok.</b></p>
+    <p><b>FAT:</b> een <b>FAT Region</b> en een <b>Data Region</b>. De FAT bevat per blok een entry (32 bits bij FAT32) die zegt of het blok in gebruik is en <b>waar het volgende blok ligt</b> — een ketting. De <b>Directory Table</b> houdt naam, extensie en het <b>eerste blok</b> bij.</p>
+    <p><b>ext4</b> gebruikt vier soorten blokken: <b>bootblok</b> (laadt het OS), <b>superblok</b> (instellingen + vrije-blok-lijsten), <b>inode-blokken</b> en <b>datablokken</b>.</p>
+    <div class="callout"><span class="tag">Valstrik</span>De <b>bestandsnaam staat niet in de inode</b>, maar in de <b>directory entry</b> — een directory is gewoon een bestand met een lijst van (naam → inode).</div>
+    <p><b>15 adressen in een inode:</b> 12 <b>directe</b> · 1 <b>indirect</b> · 1 <b>dubbel indirect</b> · 1 <b>drievoudig indirect</b>. Zo haalt ext4 met blokken van 4096 bytes 16 TiB maximale bestandsgrootte. Het aantal inodes ligt vast bij het aanmaken (<code>df -i</code>).</p>
+  </article>
+
+  <!-- DEEL 3 -->
+  <article class="chapter" id="d3">
+    <span class="chapter-tag">Deel 3</span>
+    <h2 class="title">Opslag: rekenen</h2>
+    <p class="lead">Drie stappenplannen met uitgewerkt voorbeeld, gevolgd door oefeningen.</p>
+
+    <h3>Stappenplannen</h3>
+    <div class="callout g"><span class="tag">Blokken &amp; sectoren</span>
+    1. Sectoren per blok = blokgrootte ÷ sectorgrootte.<br>
+    2. Blokken = bestandsgrootte ÷ blokgrootte, <b>naar boven afgerond</b> (minimum 1).<br>
+    3. Sectoren = blokken × sectoren per blok.<br>
+    <i>Voorbeeld:</i> sector 4096 B, blok 16 KiB, bestand 3345 B → 4 sectoren/blok, 1 blok → <b>4 sectoren</b>.</div>
+    <div class="callout g"><span class="tag">Datablokken bij ext4</span>
+    1. Blokken voor de inhoud = grootte ÷ blokgrootte, naar boven afgerond.<br>
+    2. ≤ 12? Klaar (directe adressen). &gt; 12? <b>+1 blok</b> voor de indirecte adressering.<br>
+    3. Bij "hoeveel <b>datablokken</b>" telt het inodeblok <b>niet</b> mee.<br>
+    <i>Examenvoorbeeld:</i> 54 KB bij blokken van 4 KiB → 13,5 → 14 datablokken → +1 indirect = <b>15</b>.</div>
+    <div class="callout g"><span class="tag">Genestelde RAID</span>
+    Lees van onder naar boven. <b>Min. schijven</b> = minima vermenigvuldigd. <b>Capaciteit</b> = benuttingsfactoren vermenigvuldigd × schijfgrootte.<br>
+    <i>RAID 550, 4 TB-schijven:</i> 3 × 3 × 2 = 18 schijven; 2 × 2 × 2 × 4 = <b>32 TB</b>.</div>
+
+    <h3 id="d3-oef">Oefeningen</h3>
+    <details class="ex"><summary><span class="num">O1</span><span class="qtext">Een schijf heeft 4 platters. Hoeveel lees-/schrijfkoppen?</span></summary>
+    <div class="sol"><p>2 × 4 = <b>8</b> — één kop per magnetische laag, en elke platter heeft er twee.</p></div></details>
+    <details class="ex"><summary><span class="num">O2</span><span class="qtext">Sector 512 B, blok 4 KiB. Sectoren per blok? En voor een bestand van 10 000 bytes?</span></summary>
+    <div class="sol"><p>4096 ÷ 512 = <b>8</b>. 10 000 ÷ 4096 = 2,44 → <b>3 blokken</b> → 3 × 8 = <b>24 sectoren</b>.</p></div></details>
+    <details class="ex"><summary><span class="num">O3</span><span class="qtext">Sector 4096 B, blok 8 KiB. Hoeveel sectoren voor een leeg bestand (0 bytes)?</span></summary>
+    <div class="sol"><p>Minstens 1 blok → 8192 ÷ 4096 = <b>2 sectoren</b>.</p></div></details>
+    <details class="ex"><summary><span class="num">O4</span><span class="qtext">ext4, blok 4 KiB. Hoeveel datablokken voor een bestand van 40 KiB?</span></summary>
+    <div class="sol"><p>40 ÷ 4 = 10. 10 ≤ 12 → alles direct → <b>10 datablokken</b>.</p></div></details>
+    <details class="ex"><summary><span class="num">O5</span><span class="qtext">Zelfde filesystem, bestand van 100 KiB.</span></summary>
+    <div class="sol"><p>100 ÷ 4 = 25 blokken. Meer dan 12 → +1 indirect blok → <b>26 datablokken</b>.</p></div></details>
+    <details class="ex"><summary><span class="num">O6</span><span class="qtext">Waarom staat de bestandsnaam niet in de inode, en waar dan wel?</span></summary>
+    <div class="sol"><p>In de <b>directory entry</b> — een lijst van namen met een verwijzing naar de inode. Zo kunnen meerdere namen (hard links) naar dezelfde inode wijzen.</p></div></details>
+    <details class="ex"><summary><span class="num">O7</span><span class="qtext">Bereken de pariteitsbyte: <code>11010010</code>, <code>01101100</code>, <code>10110001</code>.</span></summary>
+    <div class="sol"><p>Bit per bit, XOR = 1 bij oneven aantal enen → <b><code>00001111</code></b>. Controle: XOR de pariteitsbyte met twee bytes → je krijgt de derde terug.</p></div></details>
+    <details class="ex"><summary><span class="num">O8</span><span class="qtext">RAID 5 met 5 schijven van 2 TB. Capaciteit? Hoeveel mogen uitvallen?</span></summary>
+    <div class="sol"><p>(5 − 1) × 2 = <b>8 TB</b>; <b>1</b> schijf.</p></div></details>
+    <details class="ex"><summary><span class="num">O9</span><span class="qtext">RAID 6 met 6 schijven van 4 TB. Capaciteit? Hoeveel mogen uitvallen?</span></summary>
+    <div class="sol"><p>(6 − 2) × 4 = <b>16 TB</b>; <b>2</b> schijven.</p></div></details>
+    <details class="ex"><summary><span class="num">O10</span><span class="qtext">4 schijven van 1 TB: vergelijk RAID 0, 1, 5 en 6.</span></summary>
+    <div class="sol"><p>RAID 0: 4 TB, 0 defect · RAID 1: 1 TB, 3 defect · RAID 5: 3 TB, 1 defect · RAID 6: 2 TB, 2 defect.</p></div></details>
+    <details class="ex"><summary><span class="num">O11</span><span class="qtext">Min. schijven voor RAID 10? Capaciteit bij schijven van 2 TB?</span></summary>
+    <div class="sol"><p>2 × 2 = <b>4 schijven</b>. Capaciteit: 1 × 2 × 2 TB = <b>4 TB</b>.</p></div></details>
+    <details class="ex"><summary><span class="num">O12</span><span class="qtext">Min. schijven voor RAID 60? En voor RAID 016?</span></summary>
+    <div class="sol"><p>RAID 60: 4 × 2 = <b>8</b>. RAID 016: 2 × 2 × 4 = <b>16</b>.</p></div></details>
+    <details class="ex"><summary><span class="num">O13</span><span class="qtext">RAID 610, schijven van 3 TB, minimum aantal: hoeveel schijven en capaciteit?</span></summary>
+    <div class="sol"><p>Schijven: 4 × 2 × 2 = <b>16</b>. Capaciteit: 2 × 1 × 2 × 3 TB = <b>12 TB</b>.</p></div></details>
+    <details class="ex"><summary><span class="num">O14</span><span class="qtext">Max. defecte schijven in een RAID 61 met het minimum aantal schijven?</span></summary>
+    <div class="sol"><p>Min. 4 × 2 = 8: twee gespiegelde RAID 6-arrays van 4. Eén volledige array (<b>4</b>) + 2 in de overblijvende → totaal <b>6 schijven</b>.</p></div></details>
+    <details class="ex"><summary><span class="num">O15</span><span class="qtext">48-bits LBA, sectoren van 512 B: maximale capaciteit?</span></summary>
+    <div class="sol"><p>2⁴⁸ × 512 B = <b>128 PiB</b>. (Oude 22-bits: 2²² × 512 = 2 GiB.)</p></div></details>
+    <details class="ex"><summary><span class="num">O16</span><span class="qtext">Verschil bruto/netto — welke sectoronderdelen verklaren dat?</span></summary>
+    <div class="sol"><p>Netto = bruikbaar voor data; bruto = netto + de <b>gaps</b>, het <b>sync</b>-deel, de <b>address mark</b> en de <b>ECC</b>-bytes.</p></div></details>
+  </article>
+
+  <!-- DEEL 4 -->
+  <article class="chapter" id="d4">
+    <span class="chapter-tag">Deel 4</span>
+    <h2 class="title">Praktijk: partities, GPT &amp; de VM</h2>
+    <p class="lead">Doe elke stap minstens één keer zelf in je Ubuntu-VM.</p>
+
+    <h3>Verkennen</h3>
+    <pre><code>lsblk                 <span class="cmt"># alle block devices: schijven en partities</span>
+lsblk --fs            <span class="cmt"># idem, met filesystem per partitie</span>
+df -h                 <span class="cmt"># vrije/gebruikte ruimte per filesystem</span>
+df -i /dev/sda2       <span class="cmt"># gebruikte en vrije INODES</span>
+sudo fdisk -l /dev/sda   <span class="cmt"># de volledige partitietabel</span></code></pre>
+    <p><code>/dev/sda</code> is je hele schijf, <code>/dev/sda1</code> de eerste partitie. Bij NVMe: <code>/dev/nvme0n1</code> en <code>/dev/nvme0n1p1</code>.</p>
+
+    <h3>De GPT-header uitlezen</h3>
+    <pre><code>sudo dd if=/dev/sda of=header bs=512 skip=1 count=1
+sudo apt install hexyl
+hexyl header</code></pre>
+    <ul>
+      <li><code>if=</code> invoer, <code>of=</code> uitvoer, <code>bs=512</code> blokgrootte, <code>skip=1</code> sla LBA 0 over, <code>count=1</code> één sector.</li>
+      <li><b><code>sudo</code> nodig</b>: een gewone gebruiker mag de schijf niet rechtstreeks lezen.</li>
+      <li><b>LBA 1 = de GPT header.</b> Eerste entries? <code>skip=2</code> en <code>of=lba2</code>.</li>
+    </ul>
+    <div class="tbl-wrap"><table>
+    <tr><th>Gegeven</th><th class="c">Offset</th></tr>
+    <tr><td>Signature (<code>EFI PART</code>)</td><td class="c">0</td></tr>
+    <tr><td>Current LBA</td><td class="c">24</td></tr>
+    <tr><td>Backup LBA</td><td class="c">32</td></tr>
+    <tr><td>Aantal partitie-entries</td><td class="c">80</td></tr>
+    <tr><td>Grootte van één entry</td><td class="c">84</td></tr>
+    </table></div>
+    <div class="callout"><span class="tag">Little endian</span><code>80 00 00 00</code> → 128 · <code>3E 02 00 00</code> → 574 · <code>EF A0 00 00</code> → 41199. Controleer je bevindingen tegen <code>sudo fdisk -l /dev/sda</code>.</div>
+
+    <h3>Mounten &amp; dual boot</h3>
+    <pre><code>sudo mount /dev/sda2 /mnt        <span class="cmt"># partitie koppelen aan een map</span>
+ls /mnt/home
+sudo umount /mnt                 <span class="cmt"># weer loskoppelen</span></code></pre>
+    <ul>
+      <li>De kleine eerste partitie is <b>EFI System (FAT)</b> bij UEFI of <b>BIOS Boot</b> bij BIOS — gedeeld door beide OS'en.</li>
+      <li><b>GRUB</b> is de boot loader die het keuzemenu toont.</li>
+      <li>De <b>btrfs</b>-partitie van Fedora toont <b>subvolumes</b> (home, root).</li>
+      <li>VMware kan een virtuele schijf <b>niet</b> vergroten zolang er snapshots bestaan.</li>
+    </ul>
+  </article>
+
+  <!-- DEEL 5 -->
+  <article class="chapter" id="d5">
+    <span class="chapter-tag">Deel 5</span>
+    <h2 class="title">Mondelinge vragen</h2>
+    <p class="lead">Beantwoord hardop, 1–2 minuten per vraag, zonder materiaal.</p>
+    <h3>Linux</h3>
+    <ol>
+      <li>Verschil tussen een pipe, <code>&gt;</code> en <code>&gt;&gt;</code>? Geef van elk een voorbeeld.</li>
+      <li>Wanneer <code>&amp;&amp;</code> en wanneer <code>;</code>?</li>
+      <li>Leg stap voor stap uit wat <code>ls -l /etc | grep "^d" | head -5 | cut -d' ' -f1,9</code> doet.</li>
+      <li>Waarom heb je bij <code>ls -l | cut -d' '</code> vaak eerst <code>tr -s ' '</code> nodig?</li>
+      <li>Hoe zoek je een commando dat je niet kent?</li>
+    </ol>
+    <h3>Opslag</h3>
+    <ol start="6">
+      <li>Overloop de onderdelen van een harde schijf en hun functie.</li>
+      <li>Verschil tussen seek en search? Waarom is een SSD daarin sneller?</li>
+      <li>Wat doet de schijfbesturingseenheid? Wat is NCQ?</li>
+      <li>Wat is zone bit recording en waarom kan dat dankzij LBA?</li>
+      <li>Verschil tussen bruto- en nettocapaciteit?</li>
+      <li>Waarom heeft een SSD een eindige levensduur? Wat is TBW?</li>
+      <li>Leg RAID 5 uit: hoe wordt data hersteld als een schijf uitvalt?</li>
+      <li>Waarom is RAID 1 niet sneller in schrijven, maar wel in lezen?</li>
+      <li>Verschil tussen RAID 01 en RAID 10?</li>
+    </ol>
+    <h3>Filesystems &amp; partities</h3>
+    <ol start="15">
+      <li>Waarom partitioneren we een schijf? Wat doet een GUID daarbij?</li>
+      <li>Waar staat de GPT-header, wat staat erin, en waarom staat alles nog eens aan het einde?</li>
+      <li>Hoe houdt FAT bij welke blokken bij een bestand horen? En ext4?</li>
+      <li>Wat staat er in een inode — en wat juist niet?</li>
+      <li>Waarom kan een bestand van 1 byte toch een heel blok innemen?</li>
+      <li>Wat gebeurt er in het superblok als je een bestand verwijdert?</li>
+    </ol>
+  </article>
+
+  
+  </div>
+</section>
+
+<!-- ═══════════ STUDIEGIDS ═══════════ -->
+<section id="sec-gids">
+  <p class="intro">Het totaaloverzicht: alle hoofdstukken samengevat, het driefasenplan, de mondeling-vragenbank en een afvinkbare checklist.</p>
+  <div class="subnav"><button class="subnav-btn" onclick="scrollToId('examen')">Ken je examen</button><button class="subnav-btn" onclick="scrollToId('hardware')">Hardware</button><button class="subnav-btn" onclick="scrollToId('elek')">Elektriciteit</button><button class="subnav-btn" onclick="scrollToId('sg-bits')">Bits &amp; Bytes</button><button class="subnav-btn" onclick="scrollToId('virt')">Virtualisatie</button><button class="subnav-btn" onclick="scrollToId('linux')">Linux Command Line</button><button class="subnav-btn" onclick="scrollToId('proc')">Processen</button><button class="subnav-btn" onclick="scrollToId('opslag')">Opslag &amp; filesystems</button><button class="subnav-btn" onclick="scrollToId('plan')">Studieplan in drie fasen</button><button class="subnav-btn" onclick="scrollToId('mondeling')">Mondeling-vragenbank</button><button class="subnav-btn" onclick="scrollToId('sg-checklist-art')">Checklist</button></div>
+  <div class="reading">
+  
+
+  <article class="chapter" id="examen">
+    <span class="chapter-tag">Start hier</span>
+    <h2 class="title">Ken je examen</h2>
+    <p class="lead">De examenvorm bepaalt hoe je studeert — lees dit eerst.</p>
+    <div class="tbl-wrap"><table>
+    <tr><th>Onderdeel</th><th>Punten</th><th>Vorm</th></tr>
+    <tr><td>Schriftelijk + mondeling</td><td class="c">18</td><td>open boek, op je eigen computer, open én gesloten vragen. Geen voorbereidingstijd bij het mondeling.</td></tr>
+    <tr><td>Ontwerp/product (labo-video)</td><td class="c">2</td><td>Dual Boot-video, uploaden <b>uiterlijk de dag vóór het schriftelijk examen</b>.</td></tr>
+    </table></div>
+    <div class="callout"><span class="tag">Let op</span>Geen GenAI tijdens de evaluatiemomenten. Er worden geen deelresultaten overgedragen naar de tweede examenkans.</div>
+    <div class="callout g"><span class="tag">Wat "open boek" betekent</span>Je hoeft geen tabellen of formules te memoriseren — je moet ze <b>snel vinden en correct toepassen</b>. De docent test begrip en vaardigheid, niet of je kan opzoeken. Daarom: (1) maak één persoonlijke samenvatting van 5–10 pagina's (het máken is je studeren), (2) drill elke berekening tot ze vanzelf gaat, (3) oefen hardop uitleggen voor het mondeling.</div>
+  </article>
+
+  <article class="chapter" id="hardware">
+    <span class="chapter-tag">Hoofdstuk 1</span>
+    <h2 class="title">Hardware</h2>
+    <p class="lead">Componenten benoemen, installeren en vervangen; hun werking kennen; repairability en verbruik inschatten.</p>
+    <div class="tbl-wrap"><table>
+    <tr><th>Component</th><th>Functie</th></tr>
+    <tr><td><b>Moederbord</b></td><td>verbindt alles: CPU-socket, RAM-slots, SATA-poorten (opslag), PCIe-uitbreidingsslots (GPU, netwerk-/USB-kaarten)</td></tr>
+    <tr><td><b>CPU</b></td><td>voert instructies uit via miljarden transistoren; verbruik wordt warmte → heatspreader. Cores rekenen tegelijk; <b>SMT</b> geeft méér logische processoren dan cores</td></tr>
+    <tr><td><b>RAM</b></td><td>snel, <b>vluchtig</b> werkgeheugen; leeg bij uitschakelen</td></tr>
+    <tr><td><b>HDD / SSD</b></td><td>permanente opslag. HDD = magnetisch, goedkoop per TB; SSD = flash, sneller en robuuster</td></tr>
+    <tr><td><b>GPU</b></td><td>grafische verwerking. Geïntegreerd (deelt systeemgeheugen) vs. dedicated (eigen geheugen)</td></tr>
+    <tr><td><b>PSU (voeding)</b></td><td>zet AC om in DC met de juiste spanning per onderdeel</td></tr>
+    <tr><td><b>Koeling</b></td><td>voert warmte af; boven de max. temperatuur beschadigt de CPU</td></tr>
+    </table></div>
+    <div class="callout"><span class="tag">Mondeling</span>"Wat gebeurt er in de hardware als je een programma opstart?" — verbind opslag → RAM → CPU in één verhaal, en leg uit waarom RAM daar tussen zit (vluchtig maar snel). Laptops zijn slechter herstelbaar omdat componenten vast gesoldeerd zijn.</div>
+  </article>
+
+  <article class="chapter" id="elek">
+    <span class="chapter-tag">Hoofdstuk 2</span>
+    <h2 class="title">Elektriciteit</h2>
+    <p class="lead">Basisberekeningen; zekering, differentieel en aarding uitleggen; verbruik inschatten.</p>
+    <h3>Grootheden &amp; formules</h3>
+    <div class="tbl-wrap"><table>
+    <tr><th>Grootheid</th><th class="c">Symbool</th><th class="c">Eenheid</th><th>Wateranalogie</th></tr>
+    <tr><td>Spanning</td><td class="c">U</td><td class="c">volt (V)</td><td>niveauverschil tussen twee vaten (druk)</td></tr>
+    <tr><td>Stroomsterkte</td><td class="c">I</td><td class="c">ampère (A)</td><td>hoeveel water door de buis stroomt</td></tr>
+    <tr><td>Weerstand</td><td class="c">R</td><td class="c">ohm (Ω)</td><td>hoe smal de buis is</td></tr>
+    </table></div>
+    <ul>
+      <li><b>Wet van Ohm:</b> <code>U = I × R</code> → <code>I = U/R</code> → <code>R = U/I</code></li>
+      <li><b>Vermogen:</b> <code>P = U × I</code> (watt)</li>
+      <li><b>Verbruik:</b> <code>energie = P × t</code> in kWh (kW × uren)</li>
+    </ul>
+    <div class="callout g"><span class="tag">Klassieker</span>Current limiting resistor: batterij 3 V, LED neemt 2 V → rest (1 V) over de weerstand. Max 20 mA → R = 1 V / 0,02 A = <b>50 Ω</b>.</div>
+    <h3>Veiligheid (AREI)</h3>
+    <div class="tbl-wrap"><table>
+    <tr><th>Beveiliging</th><th>Beschermt tegen</th><th>Werking</th><th>Waarden</th></tr>
+    <tr><td><b>Zekering</b></td><td>overbelasting, kortsluiting, brand</td><td>onderbreekt bij te hoge stroomsterkte</td><td>16 A licht · 20 A stopcontact · 32 A kookplaat</td></tr>
+    <tr><td><b>Differentieel</b></td><td>elektrocutie</td><td>onderbreekt bij verschil tussen in- en uitgaande stroom</td><td>30 mA vochtig · 300 mA gewoon</td></tr>
+    <tr><td><b>Aarding</b></td><td>elektrocutie (met differentieel)</td><td>leidt lekstroom naar de grond</td><td>weerstand &lt; 30 Ω</td></tr>
+    </table></div>
+    <p><b>AC/DC:</b> het net levert 230 V wisselstroom (50 Hz); elektronica werkt op gelijkstroom → de adapter transformeert de spanning omlaag én richt de stroom gelijk.</p>
+  </article>
+
+  <article class="chapter" id="sg-bits">
+    <span class="chapter-tag">Hoofdstuk 3</span>
+    <h2 class="title">Bits &amp; Bytes</h2>
+    <p class="lead">Binair rekenen en conversies; voorstelling van getallen, karakters en strings.</p>
+    <h3>Conversiemethodes</h3>
+    <ul>
+      <li><b>N-tallig → decimaal:</b> elk cijfer × macht van N, optellen. 1101₂ = 8+4+0+1 = 13.</li>
+      <li><b>Decimaal → N-tallig:</b> herhaald delen door N, resten van onder naar boven. <b>Ga door tot 0</b> — stoppen bij 1 is dé fout.</li>
+      <li><b>Binair ↔ hex:</b> groepjes van <b>4 bits</b>. <b>Binair ↔ octaal:</b> groepjes van <b>3 bits</b> (Linux-rechten).</li>
+      <li><b>Arbitrair talstelsel:</b> zelfde methodes met machten van/delen door N. <i>Typische examenvraag.</i></li>
+    </ul>
+    <h3>Overige</h3>
+    <ul>
+      <li>Byte = 8 bits (256 waarden), nibble = 4 bits.</li>
+      <li>KiB/MiB/GiB = machten van <b>1024</b> (2¹⁰), vs. kilo/mega = 1000.</li>
+      <li><b>ASCII:</b> 7 bits per karakter (past in 1 byte). <b>UTF-8:</b> variabel, 1–4 bytes.</li>
+    </ul>
+    <div class="callout g"><span class="tag">Zelftest</span>Zet 2026 om naar binair, hex en octaal. Zet A7₁₆ om naar decimaal. Zet 201₃ om naar decimaal.</div>
+  </article>
+
+  <article class="chapter" id="virt">
+    <span class="chapter-tag">Hoofdstuk 4</span>
+    <h2 class="title">Virtualisatie</h2>
+    <p class="lead">Concepten kennen; virtuele machines beheren en importeren.</p>
+    <p>Een <b>hypervisor</b> bovenop het host-OS maakt virtuele hardware waarop je een gast-OS installeert. Voor de host is een VM gewoon <b>een bestand</b>.</p>
+    <h3>Drie waarom's</h3>
+    <ul>
+      <li><b>Flexibele sandbox:</b> veilig testen; kapot = nieuwe VM of snapshot terugzetten.</li>
+      <li><b>Omgevingen delen:</b> een VM is een bestand dat je doorgeeft.</li>
+      <li><b>Productieomgevingen:</b> bij een failure migreren de VM's naar een andere server.</li>
+    </ul>
+    <h3>Beheer &amp; dual boot</h3>
+    <div class="tbl-wrap"><table>
+    <tr><th>Techniek</th><th>Wat</th><th>Let op</th></tr>
+    <tr><td><b>Snapshot</b></td><td>herstelpunt</td><td>met snapshots kan de schijf niet vergroten</td></tr>
+    <tr><td><b>Linked clone</b></td><td>deelt de basisschijf</td><td>klein, maar afhankelijk van origineel</td></tr>
+    <tr><td><b>Full clone</b></td><td>onafhankelijke kopie</td><td>groter, maar zelfstandig</td></tr>
+    </table></div>
+    <p><b>GRUB</b> is de boot loader die het OS-keuzemenu toont. Fedora gebruikt <code>dnf</code> i.p.v. <code>apt</code>.</p>
+  </article>
+
+  <article class="chapter" id="linux">
+    <span class="chapter-tag">Hoofdstuk 5</span>
+    <h2 class="title">Linux Command Line</h2>
+    <p class="lead">Alle commando's uit de oefeningen; rechten inspecteren en aanpassen; pipes, redirection, for-lussen en command substitution.</p>
+    <h3>Combineren</h3>
+    <ul>
+      <li><b>Pipe</b> <code>|</code>: output → input.</li>
+      <li><b>Redirection:</b> <code>&gt;</code> overschrijft, <code>&gt;&gt;</code> voegt toe.</li>
+      <li><b>Ketens:</b> <code>;</code> altijd, <code>&amp;&amp;</code> enkel bij succes.</li>
+      <li><b>Command substitution:</b> <code>$(...)</code> wordt vervangen door de output.</li>
+    </ul>
+    <h3>Rechten</h3>
+    <p><code>ls -l</code>: type + owner/group/others (rwx). Octaal r=4, w=2, x=1 → <code>rwxr-xr-x</code> = 755. Aanpassen met <code>chmod 755 file</code> of <code>chmod +x</code>. Execute op een map = erin kunnen navigeren.</p>
+    <div class="callout g"><span class="tag">Meer oefening</span>Het volledige Linux-deel met 17 oneliner-oefeningen staat in de aparte <b>Examenfocus</b>-website en in de trainer.</div>
+  </article>
+
+  <article class="chapter" id="proc">
+    <span class="chapter-tag">Hoofdstuk 6</span>
+    <h2 class="title">Processen</h2>
+    <p class="lead">Scheduling vergelijken en uitvoeren; system calls en interrupts uitleggen; processen inspecteren; systemd.</p>
+    <h3>Scheduling</h3>
+    <p>Per proces: <b>omlooptijd</b> = eindtijd − aankomsttijd; <b>wachttijd</b> = omlooptijd − uitvoertijd; <b>relatieve omlooptijd</b> = omlooptijd / uitvoertijd.</p>
+    <div class="tbl-wrap"><table>
+    <tr><th></th><th>FCFS</th><th>SJF</th><th>Round Robin</th></tr>
+    <tr><td><b>Werking</b></td><td>eerst aangekomen, eerst uit</td><td>kortste eerst</td><td>quantum Q, dan achteraan</td></tr>
+    <tr><td><b>Preëmptief?</b></td><td class="c">nee</td><td class="c">nee</td><td class="c">ja</td></tr>
+    <tr><td><b>Nadeel</b></td><td>korte processen wachten lang</td><td>starvation → aging</td><td>context-switch-overhead</td></tr>
+    </table></div>
+    <h3>System calls &amp; interrupts</h3>
+    <ul>
+      <li><b>System call:</b> proces vraagt iets aan het OS (bv. <code>write</code>). Reden: abstractie + controle.</li>
+      <li><b>Interrupt:</b> hardware meldt iets. Stappen: stoppen → toestand opslaan → afhandelen → hervatten = <b>context switch</b>. Winst: CPU wacht niet nutteloos.</li>
+      <li>Praktisch: <code>ps</code>, <code>top</code>, <code>kill</code>, <code>/proc</code>, <code>strace</code>. <b>systemd service</b> maken/corrigeren op basis van een voorbeeld.</li>
+    </ul>
+  </article>
+
+  <article class="chapter" id="opslag">
+    <span class="chapter-tag">Hoofdstuk 7</span>
+    <h2 class="title">Opslag &amp; filesystems</h2>
+    <p class="lead">Schijfhardware, RAID, GPT en filesystems. Zie de aparte Examenfocus voor de volledige uitwerking met oefeningen.</p>
+    <h3>Kernpunten</h3>
+    <ul>
+      <li><b>Schijf:</b> platters, koppen (2 × platters), arm, sporen/sectoren/cilinders, LBA, seek vs. search.</li>
+      <li><b>RAID:</b> min. disks en capaciteit — 0 (N), 1 (1), 5 (N−1, 1 defect), 6 (N−2, 2 defect). Genesteld: minima en benutting vermenigvuldigen.</li>
+      <li><b>XOR-pariteit:</b> 1 bij oneven aantal enen; reconstrueert een uitgevallen schijf.</li>
+      <li><b>GPT:</b> header in LBA 1 (<code>EFI PART</code>), 128 entries in LBA 2–33, backup aan het einde.</li>
+      <li><b>FAT vs ext4:</b> ketting via FAT vs. inodes (12 direct + indirect). Bestandsnaam zit in de directory, niet in de inode.</li>
+      <li><b>Blokberekening:</b> bestandsgrootte ÷ blokgrootte, naar boven afgerond; minstens 1 blok.</li>
+    </ul>
+    <div class="callout"><span class="tag">Praktijk</span><code>lsblk --fs</code> · <code>df -i</code> · <code>sudo dd if=/dev/sda of=header bs=512 skip=1 count=1</code> · <code>hexyl header</code> · <code>fdisk -l</code> · mounten via de terminal.</div>
+  </article>
+
+  <article class="chapter" id="plan">
+    <span class="chapter-tag">Aanpak</span>
+    <h2 class="title">Studieplan in drie fasen</h2>
+    <p class="lead">±3 weken bij 1,5–2u per dag. Schrap geen fase-1-tijd — doe-vaardigheden zijn het meeste punten waard en het traagst op te bouwen.</p>
+    <div class="phase"><div class="n">1</div><h4>Doen — ±40%</h4><p>VM op orde; labo 1 + video-opnames <b>vóór</b> labo 2 (dat vereist snapshots verwijderen!); alle Linux-oefeningen; GPT-oefening; <code>/proc</code> en <code>strace</code>; een proces killen.</p></div>
+    <div class="phase"><div class="n">2</div><h4>Rekenen — ±35%</h4><p>Dagelijks 15–20 min drillen: 4 conversies, 1 scheduling-opgave, 1 elektriciteitsvraagstuk, 2 chmod-conversies, 1 little-endian- en 1 RAID/blokberekening. Afwisselen werkt beter dan blokken.</p></div>
+    <div class="phase"><div class="n">3</div><h4>Uitleggen — ±25%</h4><p>Vragenbank hardop, 1–2 min per vraag, neem jezelf op. Verbind topics: octaal ↔ chmod, binair ↔ GPT ↔ little endian, interrupts ↔ context switch ↔ RR, partities ↔ dual boot ↔ GRUB.</p></div>
+  </article>
+
+  <article class="chapter" id="mondeling">
+    <span class="chapter-tag">Verdediging</span>
+    <h2 class="title">Mondeling-vragenbank</h2>
+    <p class="lead">Beantwoord hardop, zonder materiaal. Neem jezelf op en luister terug — waar je hapert, zit je gat.</p>
+    <div class="qbank">
+      <div class="qcat">Hardware</div>
+      <ol><li>Overloop de kerncomponenten en geef elk hun functie in één zin.</li><li>Verschil HDD/SSD, en wanneer kies je welke?</li><li>Cores vs. logical processors? Wat is SMT?</li><li>Wat doet de PSU, en de link met elektriciteit?</li><li>Waarom is een desktop beter herstelbaar dan een laptop?</li></ol>
+      <div class="qcat">Elektriciteit</div>
+      <ol start="6"><li>Wet van Ohm met de wateranalogie.</li><li>Functie van zekering, differentieel en aarding — hoe werken de laatste twee samen?</li><li>Waarom heeft je laptop een adapter nodig (2 redenen)?</li><li>Een server van 400 W draait 24/7. Hoeveel kWh per dag?</li></ol>
+      <div class="qcat">Bits &amp; Bytes</div>
+      <ol start="10"><li>Waarom rekenen computers binair?</li><li>Waarom bestaat hex? Waar kom je octaal tegen?</li><li>Verschil gigabyte / gibibyte?</li><li>Waarom is ASCII niet genoeg, en hoe lost UTF-8 dat op?</li></ol>
+      <div class="qcat">Virtualisatie</div>
+      <ol start="14"><li>Wat is een hypervisor, en wat betekent "een VM is een bestand"?</li><li>Drie redenen voor virtualisatie.</li><li>Verschil snapshot / linked clone / full clone?</li><li>Wat doet GRUB en wanneer zie je het?</li></ol>
+      <div class="qcat">Linux</div>
+      <ol start="18"><li>Verschil <code>&gt;</code> / <code>&gt;&gt;</code> en <code>;</code> / <code>&amp;&amp;</code>?</li><li>Wat betekent <code>-rwxr-x--x</code> octaal?</li><li>Hoe zoek je uit wat een onbekend commando doet, zonder internet?</li><li>Leg <code>ls -l /etc | grep conf | wc -l</code> uit.</li></ol>
+      <div class="qcat">Processen</div>
+      <ol start="22"><li>Verschil programma / proces?</li><li>Vergelijk FCFS, SJF en RR.</li><li>Wat is starvation en hoe lost aging dat op?</li><li>Wat is een system call, en waarom mag een proces de hardware niet rechtstreeks aanspreken?</li><li>Wat gebeurt er stap voor stap bij een interrupt?</li></ol>
+      <div class="qcat">Opslag</div>
+      <ol start="27"><li>Waar staat de GPT-header en hoe haal je die eruit?</li><li>Wat is little endian? Lees <code>3E 02 00 00</code>.</li><li>Verschil partitie / filesystem?</li><li>Vergelijk RAID 1 en RAID 5 qua capaciteit en fouttolerantie.</li><li>Waarom kan een bestand van 1 byte een heel blok innemen?</li></ol>
+    </div>
+  </article>
+
+  <article class="chapter" id="sg-checklist-art">
+    <span class="chapter-tag">Voor het examen</span>
+    <h2 class="title">Checklist</h2>
+    <p class="lead">Vink af wat klaar is — je voortgang blijft staan zolang je deze pagina open houdt.</p>
+    <div class="progress" id="sg-progress"></div>
+    <div id="sg-checklist"></div>
+    <div class="callout"><span class="tag">Nog te verzamelen van Toledo</span>Materiaal over <b>systemd services</b> en <b>encryptie</b> zit niet in de geüploade syllabi. Haal dat binnen en oefen minstens één eigen <code>.service</code>-bestand.</div>
+  </article>
+
+  
+  </div>
+</section>
+
 </main>
 <footer>gebaseerd op de leerdoelstellingen van MBI07 · je voortgang wordt niet opgeslagen — dit is een oefensessie, net als het echte werk</footer>
 
@@ -635,8 +1313,9 @@ function onEnter(inputIds,fn){inputIds.forEach(id=>{$(id).addEventListener('keyd
 
 /* ════════════════ tabs ════════════════ */
 const TABS=[
- ['sec-theorie','📖 Theorie'],['sec-hw','Hardware'],['sec-tal','Talstelsels'],['sec-le','Little endian'],['sec-chmod','chmod'],
- ['sec-elek','Elektriciteit'],['sec-sched','Scheduling'],['sec-raid','RAID & XOR'],['sec-fc','Mondeling']
+ ['sec-theorie','📖 Theorie'],['sec-focus','📘 Examenfocus'],['sec-gids','📗 Studiegids'],
+ ['sec-hw','Hardware'],['sec-tal','Talstelsels'],['sec-le','Little endian'],['sec-chmod','chmod'],['sec-cli','Oneliners'],
+ ['sec-elek','Elektriciteit'],['sec-sched','Scheduling'],['sec-raid','Opslag rekenen'],['sec-fc','Mondeling']
 ];
 TABS.forEach(([id,label],i)=>{
   $('tabs').insertAdjacentHTML('beforeend',`<button class="tab ${i===0?'active':''}" data-sec="${id}">${label}</button>`);
@@ -814,6 +1493,54 @@ function chCheck(){
 function chShow(){scoreMiss();fb($('chFb'),false,`Oplossing: <code>${ch.ans}</code>. ${ch.expl}`);}
 onEnter(['chIn'],chCheck);
 
+/* ════════════════ 3b. ONELINERS ════════════════ */
+const CLI_POOL=[
+ ['F',"Kopieer de map <span class=\"hl\">/etc</span> naar <span class=\"hl\">/opt/backup/etc_backup</span> in één regel.",'sudo mkdir -p /opt/backup &amp;&amp; sudo cp -r /etc /opt/backup/etc_backup',"Geen pipe: er stroomt geen output door. <code>&amp;&amp;</code> voert het tweede commando enkel uit als het eerste slaagde; <code>-p</code> maakt ontbrekende bovenliggende mappen aan."],
+ ['F',"Tel hoeveel bestanden er in <span class=\"hl\">/var/log</span> staan.",'ls /var/log | wc -l',"Produceren → tellen. <code>wc -l</code> telt de lijnen die door de pipe komen."],
+ ['F',"Maak de mapstructuur <span class=\"hl\">tmp/map1/map2/map3</span> met één commando (enkel mkdir).",'mkdir -p tmp/map1/map2/map3',"<code>-p</code> maakt de hele keten in één keer aan en klaagt niet als een map al bestaat."],
+ ['F',"Toon alle <b>gewone bestanden</b> in de huidige map, gesorteerd van klein naar groot. Enkel ls en grep.",'ls -lSr | grep &quot;^-&quot;',"<code>^-</code> = lijnen die met een streepje beginnen; het eerste teken van <code>ls -l</code> is het bestandstype (<code>-</code> bestand, <code>d</code> map). <code>-S</code> sorteert op grootte, <code>-r</code> keert om."],
+ ['F',"Hoeveel bestanden eindigend op <span class=\"hl\">.conf</span> staan er in /etc en alle onderliggende mappen?",'find /etc -name &quot;*.conf&quot; | wc -l',"Alternatief met ls: <code>ls -R /etc | grep &quot;\\.conf$&quot; | wc -l</code>. Het <code>$</code> verankert op het einde van de lijn."],
+ ['F',"Maak <span class=\"hl\">me.txt</span> met je naam erin, zonder teksteditor.",'echo &quot;Jouw Naam&quot; &gt; me.txt',"<code>&gt;</code> stuurt de output naar een bestand in plaats van naar het scherm."],
+ ['F',"Kopieer me.txt naar <span class=\"hl\">we.txt</span> en voeg de namen Roel, Tiebe, Robin en Mark toe.",'cp me.txt we.txt &amp;&amp; echo -e &quot;Roel\\nTiebe\\nRobin\\nMark&quot; &gt;&gt; we.txt',"Cruciaal: <code>&gt;&gt;</code> voegt toe, <code>&gt;</code> zou je naam overschrijven. <code>-e</code> laat echo <code>\\n</code> als nieuwe regel interpreteren."],
+ ['P',"Toon alle gewone bestanden die door de <b>owner</b> gelezen, geschreven én uitgevoerd mogen worden.",'ls -l | grep &quot;^-rwx&quot;',"De eerste vier tekens: type + de drie rechten van de owner."],
+ ['P',"Maak alle <span class=\"hl\">.sh</span>-bestanden in de huidige map uitvoerbaar voor alle gebruikers.",'chmod +x *.sh',"Of expliciet <code>chmod a+x *.sh</code>. De shell vervangt <code>*.sh</code> door alle passende bestandsnamen (globbing)."],
+ ['P',"Maak <span class=\"hl\">private</span>: zelf lezen+uitvoeren, groep enkel lezen, anderen niets. En <span class=\"hl\">public</span>: zelf lezen+schrijven, groep alles, anderen lezen+uitvoeren.",'touch private public &amp;&amp; chmod 540 private &amp;&amp; chmod 675 public',"private: r-x (5) r-- (4) --- (0). public: rw- (6) rwx (7) r-x (5)."],
+ ['P',"Maak <span class=\"hl\">writable.txt</span> waar iedereen naar kan schrijven.",'touch writable.txt &amp;&amp; chmod 666 writable.txt',"rw- voor alle drie de groepen = 666."],
+ ['P',"Maak een map <span class=\"hl\">public</span> in je home folder waar enkel jij kan schrijven en iedereen kan lezen.",'mkdir ~/public &amp;&amp; chmod 755 ~/public',"Op een <b>map</b> heb je <code>x</code> nodig om erin te kunnen navigeren — vandaar 755 en niet 744."],
+ ['S',"Geef alle lijnen uit <span class=\"hl\">/etc/passwd</span> waarin het woord <b>root</b> voorkomt.",'grep root /etc/passwd',"grep werkt zowel op een bestand als op input uit een pipe."],
+ ['C',"Toon enkel de kolommen <b>permissions</b> en <b>filename</b> van de bestanden in je home directory.",'ls -l ~ | tr -s &apos; &apos; | cut -d&apos; &apos; -f1,9',"<code>tr -s &apos; &apos;</code> perst meerdere spaties samen tot één, anders telt <code>cut</code> lege velden mee. Veld 1 = rechten, veld 9 = naam."],
+ ['C',"Sorteer diezelfde lijst in <b>omgekeerd alfabetische</b> volgorde.",'ls -l ~ | tr -s &apos; &apos; | cut -d&apos; &apos; -f1,9 | sort -r',"Gewoon nog een schakel aan de ketting hangen."],
+ ['C',"Maak een bestand met &quot;Hello&quot;, een tweede met &quot;World&quot;, en een derde met beide inhouden samengevoegd.",'echo Hello &gt; a.txt; echo World &gt; b.txt; cat a.txt b.txt &gt; c.txt',"<code>cat</code> met meerdere argumenten plakt de bestanden achter elkaar."],
+ ['C',"Geef naam, permissions en grootte van alle bestanden met <b>host</b> in hun naam in /etc.",'ls -lh /etc | grep host',"Produceren → filteren. <code>-h</code> maakt de groottes leesbaar."],
+ ['C',"Geef de naam en permissies van de <b>eerste 5 mappen</b> in /etc.",'ls -l /etc | grep &quot;^d&quot; | head -5 | tr -s &apos; &apos; | cut -d&apos; &apos; -f1,9',"Vier schakels: lijst → enkel mappen (<code>^d</code>) → eerste vijf → kolommen uitsnijden."],
+ ['C',"Verwijder alle bestanden in de huidige map <b>behalve</b> &quot;filekeep me&quot;.",'find . -maxdepth 1 -type f ! -name &quot;filekeep me&quot; -delete',"Met bash-extglob kan ook: <code>rm !(filekeep\\ me)</code> na <code>shopt -s extglob</code>. Let op de spatie in de bestandsnaam → quotes of escapen."],
+ ['C',"Schrijf de weekdag waarop je in 2050 jarig bent naar een nieuw bestand, en voeg daarna een regel <b>THE END</b> toe.",'ncal 6 2050 &gt; verjaardag.txt &amp;&amp; echo &quot;THE END&quot; &gt;&gt; verjaardag.txt',"Eerst <code>&gt;</code> (nieuw bestand), dan <code>&gt;&gt;</code> (toevoegen)."],
+ ['C',"Maak een bestand met de <b>huidige datum als prefix</b>, formaat JAAR.MAAND.DAG.naam.txt.",'touch &quot;$(date +%Y.%m.%d).blabla.txt&quot;',"Command substitution: <code>$(...)</code> wordt vervangen door de output van het commando erin."],
+ ['C',"Hoeveel ruimte gebruikt de map <span class=\"hl\">/var</span> op de schijf?",'sudo du -sh /var',"<code>-s</code> geeft enkel het totaal, <code>-h</code> maakt het leesbaar. Gevonden via <code>apropos &quot;disk usage&quot;</code>."],
+ ['C',"Lees <span class=\"hl\">unsorted.txt</span>, sorteer numeriek en schrijf weg naar <span class=\"hl\">sorted.txt</span>.",'sort -n unsorted.txt &gt; sorted.txt',"Zonder <code>-n</code> sorteert sort alfabetisch: dan komt 10 vóór 2."],
+ ['C',"<b>Uitdaging:</b> tel hoeveel mappen in /etc met de letter <b>a</b> beginnen.",'ls -l /etc | grep &quot;^d&quot; | tr -s &apos; &apos; | cut -d&apos; &apos; -f9 | grep &quot;^a&quot; | wc -l',"Vijf schakels — twee keer grep: eerst op type, dan op naam."],
+ ['C',"Toon de <b>filesystems</b> van al je partities, en daarna het aantal <b>vrije inodes</b> op /dev/sda2.",'lsblk --fs; df -i /dev/sda2',"Rechtstreeks uit labo 2. <code>;</code> voert beide commando&apos;s na elkaar uit."],
+];
+const CLI_CATS=[['alle','Alle'],['F','File management'],['P','Permissions'],['S','Search'],['C','Gecombineerd']];
+let cliCat='alle',cliDeck=[],cliIdx=0,cliCur=null;
+CLI_CATS.forEach(([c,l],i)=>{$('cliOpts').insertAdjacentHTML('beforeend',`<button data-c="${c}" class="${i===0?'sel':''}">${l}</button>`)});
+$('cliOpts').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+  $('cliOpts').querySelectorAll('button').forEach(x=>x.classList.remove('sel'));
+  b.classList.add('sel');cliCat=b.dataset.c;cliBuild();
+}));
+function cliBuild(){
+  cliDeck=CLI_POOL.map((c,i)=>i).filter(i=>cliCat==='alle'||CLI_POOL[i][0]===cliCat);
+  cliIdx=0;cliRender();
+}
+function cliRender(){
+  clearFb($('cliFb'));$('cliIn').value='';
+  cliCur=CLI_POOL[cliDeck[cliIdx]];
+  $('cliQ').innerHTML=`<span class="dim">opgave ${cliIdx+1} van ${cliDeck.length}</span><br>${cliCur[1]}`;
+}
+function cliNew(){cliIdx=(cliIdx+1)%cliDeck.length;cliRender();}
+function cliShow(){fb($('cliFb'),true,`<b>Modeloplossing:</b><br><code>${cliCur[2]}</code><br><br>${cliCur[3]}`);}
+cliBuild();
+
 /* ════════════════ 4. ELEKTRICITEIT ════════════════ */
 let el={};
 function elNew(){
@@ -948,7 +1675,7 @@ const RAID={
   6:{min:4,cap:(n,s)=>(n-2)*s,fail:2,capF:'(N−2) × grootte',uitleg:'striping met dubbele pariteit'},
   10:{min:4,cap:(n,s)=>n/2*s,fail:'minstens 1 (1 per mirror-paar)',capF:'N/2 × grootte',uitleg:'stripe van mirrors'}
 };
-const RAID_MODES=[['mix','Willekeurig'],['props','RAID-eigenschappen'],['cap','Capaciteit berekenen'],['xor','XOR-pariteit']];
+const RAID_MODES=[['mix','Willekeurig'],['props','RAID-eigenschappen'],['cap','Capaciteit berekenen'],['nested','Genestelde RAID'],['blocks','Blokken & inodes'],['xor','XOR-pariteit']];
 let raidMode='mix',raid={};
 RAID_MODES.forEach(([m,l],i)=>{$('raidOpts').insertAdjacentHTML('beforeend',`<button data-m="${m}" class="${i===0?'sel':''}">${l}</button>`)});
 $('raidOpts').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
@@ -958,7 +1685,7 @@ $('raidOpts').querySelectorAll('button').forEach(b=>b.addEventListener('click',(
 function raidNew(){
   clearFb($('raidFb'));$('raidMc').innerHTML='';$('raidIn').value='';
   $('raidAnsRow').style.display='none';$('raidCheckBtn').style.display='none';
-  const type=raidMode==='mix'?pick(['props','cap','xor']):raidMode;
+  const type=raidMode==='mix'?pick(['props','cap','nested','blocks','blocks','xor']):raidMode;
   if(type==='props'){
     const lvl=pick([0,1,5,6,10]);const info=RAID[lvl];
     const kind=pick(['min','fail']);
@@ -983,6 +1710,50 @@ function raidNew(){
     const ans=info.cap(n,s);
     raid={ans,expl:`RAID ${lvl}: capaciteit = ${info.capF} = <code>${ans} TB</code> (${info.uitleg}).`,mc:false,exact:true};
     $('raidQ').innerHTML=`Je bouwt een <span class="hl">RAID ${lvl}</span> met <span class="hl">${n} disks</span> van elk <span class="hl">${s} TB</span>. Wat is de netto (bruikbare) capaciteit in TB?`;
+    $('raidAnsRow').style.display='flex';$('raidCheckBtn').style.display='inline-block';
+    $('raidIn').focus();
+  }else if(type==='nested'){
+    const NEST={0:{min:2,f:n=>n,lbl:'alles'},1:{min:2,f:n=>1,lbl:'1 van N'},5:{min:3,f:n=>n-1,lbl:'N−1'},6:{min:4,f:n=>n-2,lbl:'N−2'}};
+    const lvls=Math.random()<0.45?[pick([1,5,6]),pick([0,1])]:[pick([5,6]),pick([1,5]),0];
+    const name=lvls.join('');
+    const minDisks=lvls.reduce((a,l)=>a*NEST[l].min,1);
+    const size=pick([1,2,3,4]);
+    const capFactor=lvls.reduce((a,l)=>a*NEST[l].f(NEST[l].min),1);
+    const askCap=Math.random()<0.5;
+    const steps=lvls.map(l=>NEST[l].min).join(' × ');
+    if(askCap){
+      raid={ans:capFactor*size,mc:false,exact:true,
+        expl:`RAID ${name}: min. schijven = ${steps} = ${minDisks}. Benutting per niveau (van onder naar boven): ${lvls.map(l=>NEST[l].f(NEST[l].min)+' van '+NEST[l].min).join(' → ')} → ${lvls.map(l=>NEST[l].f(NEST[l].min)).join(' × ')} × ${size} TB = <code>${capFactor*size} TB</code>.`};
+      $('raidQ').innerHTML=`Je bouwt een <span class="hl">RAID ${name}</span> met het <span class="hl">minimum aantal schijven</span> van elk <span class="hl">${size} TB</span>. Wat is de netto capaciteit in TB?`;
+    }else{
+      raid={ans:minDisks,mc:false,exact:true,
+        expl:`RAID ${name}: lees van onder naar boven en vermenigvuldig de minima → ${steps} = <code>${minDisks} schijven</code>.`};
+      $('raidQ').innerHTML=`Hoeveel schijven heb je <span class="hl">minimaal</span> nodig voor een <span class="hl">RAID ${name}</span>?`;
+    }
+    $('raidAnsRow').style.display='flex';$('raidCheckBtn').style.display='inline-block';
+    $('raidIn').focus();
+  }else if(type==='blocks'){
+    const kind=pick(['sectors','inode']);
+    if(kind==='sectors'){
+      const sec=pick([512,4096]);
+      const blk=pick([4,8,16])*1024;
+      if(blk<sec){raidNew();return;}
+      const spb=blk/sec;
+      const fsize=pick([120,3345,10000,25000,60000,140000]);
+      const blocks=Math.max(1,Math.ceil(fsize/blk));
+      const ans=blocks*spb;
+      raid={ans,mc:false,exact:true,
+        expl:`Sectoren per blok = ${blk} ÷ ${sec} = ${spb}. Blokken = ${fsize} ÷ ${blk} → naar boven afgerond = ${blocks} (elk bestand gebruikt minstens 1 blok). Sectoren = ${blocks} × ${spb} = <code>${ans}</code>.`};
+      $('raidQ').innerHTML=`Een schijf heeft een sectorgrootte van <span class="hl">${sec} bytes</span>; het filesystem groepeert sectoren in blokken van <span class="hl">${blk/1024} KiB</span>. Hoeveel <span class="hl">sectoren</span> verbruikt een bestand van <span class="hl">${fsize} bytes</span>?`;
+    }else{
+      const blk=pick([4,8]);
+      const kib=pick([16,32,40,54,80,100,150]);
+      const dataBlocks=Math.ceil(kib/blk);
+      const ans=dataBlocks>12?dataBlocks+1:dataBlocks;
+      raid={ans,mc:false,exact:true,
+        expl:`${kib} ÷ ${blk} = ${(kib/blk).toFixed(2)} → ${dataBlocks} datablokken voor de inhoud. ${dataBlocks>12?`Meer dan 12 → de eerste 12 zijn direct adresseerbaar, voor de rest is <b>1 indirect blok</b> nodig → ${dataBlocks} + 1 = <code>${ans}</code>.`:`Niet meer dan 12 → alles past in de directe adressen → <code>${ans}</code>.`} Het inodeblok telt niet mee: er is naar <i>datablokken</i> gevraagd.`};
+      $('raidQ').innerHTML=`Een <span class="hl">ext4</span>-filesystem gebruikt blokken van <span class="hl">${blk} KiB</span>. Hoeveel <span class="hl">datablokken</span> zijn er nodig voor een bestand van <span class="hl">${kib} KiB</span>?<br><span class="dim">Denk aan de 12 directe adressen in de inode.</span>`;
+    }
     $('raidAnsRow').style.display='flex';$('raidCheckBtn').style.display='inline-block';
     $('raidIn').focus();
   }else{
@@ -1076,6 +1847,35 @@ function fcRate(known){
 }
 
 /* ════════════════ init ════════════════ */
+/* ════════════════ READING SECTIONS ════════════════ */
+function scrollToId(id){
+  const el=document.getElementById(id);
+  if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+// Studiegids checklist (ported)
+(function(){
+  const CHECKS=[
+   "Labo-video geüpload (uiterlijk de dag vóór het schriftelijk examen!)",
+   "Ontbrekend Toledo-materiaal gehaald: systemd, encryptie",
+   "Eigen samenvatting af, doorzoekbaar op mijn examen-computer",
+   "Alle Linux-oefeningen (F, P, S, C) minstens 1× zelf gedaan",
+   "GPT-oefening met dd en hexyl zelf uitgevoerd",
+   "Elke berekening minstens 5× foutloos gedaan",
+   "Alle mondeling-vragen minstens 1× vlot hardop beantwoord",
+   "VM werkend, voor het geval ik iets moet demonstreren"
+  ];
+  const cl=document.getElementById('sg-checklist');
+  const prog=document.getElementById('sg-progress');
+  if(!cl)return;
+  function upd(){const d=cl.querySelectorAll('input:checked').length;if(prog)prog.textContent=d+' / '+CHECKS.length+' afgevinkt';}
+  CHECKS.forEach(c=>{
+    const l=document.createElement('label');l.className='check';
+    l.innerHTML='<input type="checkbox"><span>'+c+'</span>';
+    l.querySelector('input').addEventListener('change',function(){l.classList.toggle('done',this.checked);upd();});
+    cl.appendChild(l);
+  });
+  upd();
+})();
 drawStreak();hwNew();talNew();leNew();chNew();elNew();schedNew();raidNew();fcRestart();
 </script>
 </body>
